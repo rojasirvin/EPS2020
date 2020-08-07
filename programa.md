@@ -8,7 +8,7 @@
 
 ### Referencias 
 El curso se basa en los siguientes textos:
-* \* Angrist, J.D. y Pischke, J.S. (2013). Mostly Harmless Econometrics: An Empiricists Companion. Princeton University Press.
+  * \* Angrist, J.D. y Pischke, J.S. (2013). Mostly Harmless Econometrics: An Empiricists Companion. Princeton University Press.
 * \* Angrist, J.D. y Pischke, J.S. (2014). Mastering 'Metrics: The Path from Cause to Effect. Princeton University Press.
 * Cameron, A.C. y P.K. Trivedi (2005). Microeconometrics: Methods and applications. Oxford University Press.
 * DiNardo, J. y D.S. Lee (2011). Program Evaluation and Research Designs. En Handbook of Labor Economics, 4A: 463-536.
@@ -18,9 +18,9 @@ El curso se basa en los siguientes textos:
 
 Unidad 1. Introducción
 * Fundamentos de la evaluación de impacto
-- ¿Por qué evaluar?
-- Inferencia causal
-- Revisión de métodos de regresión
+  - ¿Por qué evaluar?
+  - Inferencia causal
+  - Revisión de métodos de regresión
 
 ## Evaluación del curso
 
@@ -44,6 +44,12 @@ R será el paquete standard usado en las sesiones prácticas. Más aún, el uso 
 
 ## Exposiciones
 Cada alumno realizará una presentación de uno los artículos aplicados marcados con “+” en la lista de lecturas. Cada presentación deberá ser de máximo 15 minutos y debe incluir el contenido que el presentador considere relevante. La presentación deberá abordar, mínimamente: 1) el problema a investigar, 2) la metodología empleada, 3) la relación entre la metodología y la teoría vista en el curso, 4) los datos empleados, 5) los principales resultados, y 6) una crítica sobre la validez y las conclusiones del estudio.
+
+## Entrada al blog
+Cada alumno contribuirá con una entrada al blog del curso (sitio por definir). El propósito de cada entrada será difundir la evidencia más reciente del impacto de intervenciones o fenómenos naturales, económicos y sociales, usando la metodología de evaluación de impacto, para un público amplio de interesados en evaluación (no necesariamente de economistas). El blog está inspirado en el blog Development Impact del Banco Mundial: https://blogs.worldbank.org/impactevaluations.
+
+En cada entrada, el autor incluirá: 1) la relevancia del tema a investigar, 2) al menos dos ejemplos de estudios alrededor del tema en los últimos cinco años, 3) la descripción de cómo se ha estudiado la relación causal en cuestión a través del tiempo, 4) las metodologías actuales empleadas en dichos estudios, explicadas de forma simple e intuitiva, 5) los principales resultados obtenidos y 6) las lecciones de política que se pueden aprender sobre lo que funciona y no funciona. La entrada debe leerse de forma amena y debe incluir ligas, cuadros y figuras apropiados para su publicación en línea. La extensión de cada entrada debe estar entre 3 y 4 cuartillas. Cada entrada será publicada en el blog con crédito al autor.
+
 
 ## Reglas de convivencia mínimas
 + No se tolerarán actos de discriminación. Se procura un ambiente de respeto entre todos los miembros de la clase.
