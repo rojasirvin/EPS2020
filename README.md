@@ -15,4 +15,4 @@ Horario de oficina: por definir.
 
 Lista de lecturas.
 
-Calendario.
+[Calendario](https://github.com/rojasirvin/EPS2020/blob/master/EPS_calendario_otono_2020.pdf).

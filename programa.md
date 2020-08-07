@@ -47,11 +47,11 @@ Unidad 2. Métodos de evaluación
   - Aplicaciones del PSM
 
 * Diseños de discontinuidad en regresión
-6.1.	Supuestos fundamentales
-6.2.	Regresión discontinua nítida y difusa
-6.3.	Discontinuidades geográficas
-6.4.	Regresión con pliegues
-6.5.	Aplicaciones de regresión discontinua
+  - Supuestos fundamentales
+  - Regresión discontinua nítida y difusa
+  - Discontinuidades geográficas
+  - Regresión con pliegues
+  - Aplicaciones de regresión discontinua
 
 * Método del control sintético
   - Supuestos fundamentales
