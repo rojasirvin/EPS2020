@@ -4,75 +4,75 @@ Las lecturas obligatorias (marcadas con “*”) permiten una discusión informa
 
 
 *Semana 1*
-+ ¿Por qué evaluar?
-GMPRV, Capítulo 1
-\* Freedman, D. A. (1991). Statistical models and shoe leather. Sociological methodology, 291-313.
-+ Inferencia causal
-\* MHE, Capítulo 2
-\* GMPRV, 3
-Heckman, J. J. (2001). Micro data, heterogeneity, and the evaluation of public policy: Nobel lecture. Journal of political Economy, 109(4), 673-748.
-Heckman, J. J., y Vytlacil, E. J. (2007). Econometric evaluation of social programs, part I: Causal models, structural models and econometric policy evaluation. Handbook of econometrics, 6, 4779-4874.
-\* Athey, S., y Imbens, G. W. (2017). The state of applied econometrics: Causality and policy evaluation. Journal of Economic Perspectives, 31(2), 3-32.
-+ Revisión de métodos de regresión
-\* MM, Capítulo 1, Apéndice
++ ¿Por qué evaluar?  
+GMPRV, Capítulo 1  
+\* Freedman, D. A. (1991). Statistical models and shoe leather. Sociological methodology, 291-313.  
++ Inferencia causal  
+\* MHE, Capítulo 2  
+\* GMPRV, 3  
+Heckman, J. J. (2001). Micro data, heterogeneity, and the evaluation of public policy: Nobel lecture. Journal of political Economy, 109(4), 673-748.  
+Heckman, J. J., y Vytlacil, E. J. (2007). Econometric evaluation of social programs, part I: Causal models, structural models and econometric policy evaluation. Handbook of econometrics, 6, 4779-4874.  
+\* Athey, S., y Imbens, G. W. (2017). The state of applied econometrics: Causality and policy evaluation. Journal of Economic Perspectives, 31(2), 3-32.  
++ Revisión de métodos de regresión  
+\* MM, Capítulo 1, Apéndice  
 
 *Semana 2*
 + Evaluación por métodos experimentales
-\* CT, Capítulo 25, Secciones 1, 2
-\* GMPRV, Capítulo 4
-CT, Capítulo 25, Sección 3
-MM, Capítulo 2
+\* CT, Capítulo 25, Secciones 1, 2  
+\* GMPRV, Capítulo 4  
+CT, Capítulo 25, Sección 3  
+MM, Capítulo 2  
 
 * LATE y variables instrumentales
-CT, Capítulo 25, Sección 7
-\* GMPRV, Capítulo 5
-MHE, Capítulo 4
-\* MM, Capítulo 3
+CT, Capítulo 25, Sección 7  
+\* GMPRV, Capítulo 5  
+MHE, Capítulo 4  
+\* MM, Capítulo 3  
 
 *Semana 3*
 * Aplicaciones de evaluaciones experimentales
-\+ Arceo-Gomez, E. O., & Campos-Vazquez, R. M. (2014). Race and marriage in the labor market: A discrimination correspondence study in a developing country. American Economic Review, 104(5), 376-80.
-\* Baird, S., McIntosh, C., & Özler, B. (2011). Cash or condition? Evidence from a cash transfer experiment. The Quarterly journal of economics, 126(4), 1709-1753.
-\* Banerjee, A., Duflo, E., Goldberg, N., Karlan, D., Osei, R., Parienté, W., Shapiro, J., Thuysbaert, B. & Udry, C. (2015). A multifaceted program causes lasting progress for the very poor: Evidence from six countries. Science, 348(6236), 1260799.
+\+ Arceo-Gomez, E. O., & Campos-Vazquez, R. M. (2014). Race and marriage in the labor market: A discrimination correspondence study in a developing country. American Economic Review, 104(5), 376-80.  
+\* Baird, S., McIntosh, C., & Özler, B. (2011). Cash or condition? Evidence from a cash transfer experiment. The Quarterly journal of economics, 126(4), 1709-1753.  
+\* Banerjee, A., Duflo, E., Goldberg, N., Karlan, D., Osei, R., Parienté, W., Shapiro, J., Thuysbaert, B. & Udry, C. (2015). A multifaceted program causes lasting progress for the very poor: Evidence from six countries. Science, 348(6236), 1260799.  
 \+ Bruhn, M., Karlan, D., & Schoar, A. (2018). The impact of consulting services on small and medium enterprises: Evidence from a randomized trial in Mexico. Journal of Political Economy, 126(2), 635-687.
-\+ De La O, A. L. (2013). Do conditional cash transfers affect electoral behavior? Evidence from a randomized experiment in Mexico. American Journal of Political Science, 57(1), 1-14.
-Duflo, E., Dupas, P., & Kremer, M. (2015). Education, HIV, and early fertility: Experimental evidence from Kenya. American Economic Review, 105(9), 2757-97.
-Dupas, P. (2011). Do teenagers respond to HIV risk information? Evidence from a field experiment in Kenya. American Economic Journal: Applied Economics, 3(1), 1-34.
-\* Gertler, P. (2004). Do conditional cash transfers improve child health? Evidence from PROGRESA's control randomized experiment. American economic review, 94(2), 336-341.
-Mousa, S. (2019). Creating Coexistence: Intergroup Contact and Soccer in Post-ISIS Iraq. Unpublished manuscript. Stanford University.
-\+ Seira, E., Elizondo, A., & Laguna-Müggenburg, E. (2017). Are information disclosures effective? evidence from the credit card market. American Economic Journal: Economic Policy, 9(1), 277-307.
+\+ De La O, A. L. (2013). Do conditional cash transfers affect electoral behavior? Evidence from a randomized experiment in Mexico. American Journal of Political Science, 57(1), 1-14.  
+Duflo, E., Dupas, P., & Kremer, M. (2015). Education, HIV, and early fertility: Experimental evidence from Kenya. American Economic Review, 105(9), 2757-97.  
+Dupas, P. (2011). Do teenagers respond to HIV risk information? Evidence from a field experiment in Kenya. American Economic Journal: Applied Economics, 3(1), 1-34.  
+\* Gertler, P. (2004). Do conditional cash transfers improve child health? Evidence from PROGRESA's control randomized experiment. American economic review, 94(2), 336-341.  
+Mousa, S. (2019). Creating Coexistence: Intergroup Contact and Soccer in Post-ISIS Iraq. Unpublished manuscript. Stanford University.  
+\+ Seira, E., Elizondo, A., & Laguna-Müggenburg, E. (2017). Are information disclosures effective? evidence from the credit card market. American Economic Journal: Economic Policy, 9(1), 277-307.  
 
 * Aplicaciones LATE
-Angrist, J. D. (1990). Lifetime earnings and the Vietnam era draft lottery: evidence from social security administrative records. The American Economic Review, 313-336.
-\* Angrist, J. D. (2006). Instrumental variables methods in experimental criminological research: what, why and how. Journal of Experimental Criminology, 2(1), 23-44.
-\* Angrist, J. D., Imbens, G., & Rubin, D. B. (1996). Identification of causal effects using instrumental variables. Journal of the American statistical Association, 91(434), 444-455.
-\* Crépon, B., Devoto, F., Duflo, E., & Parienté, W. (2015). Estimating the impact of microcredit on those who take it up: Evidence from a randomized experiment in Morocco. American Economic Journal: Applied Economics, 7(1), 123-50.
-Devoto, F., Duflo, E., Dupas, P., Parienté, W., & Pons, V. (2012). Happiness on tap: Piped water adoption in urban Morocco. American Economic Journal: Economic Policy, 4(4), 68-99.
-Heckman, J. J., & Vytlacil, E. J. (2007). Econometric evaluation of social programs, part II: Using the marginal treatment effect to organize alternative econometric estimators to evaluate social programs, and to forecast their effects in new environments. Handbook of econometrics, 6, 4875-5143.
-Imbens, G. W., & Angrist, J. D. (1994). Identification and estimation of local average treatment effects. Econometrica (1986-1998), 62(2), 467.
-Kling, J. R., Liebman, J. B., & Katz, L. F. (2007). Experimental analysis of neighborhood effects. Econometrica, 75(1), 83-119.
-\+ McIntosh, C., Alegría, T., Ordóñez, G., & Zenteno, R. (2018). The neighborhood impacts of local infrastructure investment: Evidence from urban Mexico. American Economic Journal: Applied Economics, 10(3), 263-86.
+Angrist, J. D. (1990). Lifetime earnings and the Vietnam era draft lottery: evidence from social security administrative records. The American Economic Review, 313-336.  
+\* Angrist, J. D. (2006). Instrumental variables methods in experimental criminological research: what, why and how. Journal of Experimental Criminology, 2(1), 23-44.  
+\* Angrist, J. D., Imbens, G., & Rubin, D. B. (1996). Identification of causal effects using instrumental variables. Journal of the American statistical Association, 91(434), 444-455.  
+\* Crépon, B., Devoto, F., Duflo, E., & Parienté, W. (2015). Estimating the impact of microcredit on those who take it up: Evidence from a randomized experiment in Morocco. American Economic Journal: Applied Economics, 7(1), 123-50.  
+Devoto, F., Duflo, E., Dupas, P., Parienté, W., & Pons, V. (2012). Happiness on tap: Piped water adoption in urban Morocco. American Economic Journal: Economic Policy, 4(4), 68-99.  
+Heckman, J. J., & Vytlacil, E. J. (2007). Econometric evaluation of social programs, part II: Using the marginal treatment effect to organize alternative econometric estimators to evaluate social programs, and to forecast their effects in new environments. Handbook of econometrics, 6, 4875-5143.  
+Imbens, G. W., & Angrist, J. D. (1994). Identification and estimation of local average treatment effects. Econometrica (1986-1998), 62(2), 467.  
+Kling, J. R., Liebman, J. B., & Katz, L. F. (2007). Experimental analysis of neighborhood effects. Econometrica, 75(1), 83-119.  
+\+ McIntosh, C., Alegría, T., Ordóñez, G., & Zenteno, R. (2018). The neighborhood impacts of local infrastructure investment: Evidence from urban Mexico. American Economic Journal: Applied Economics, 10(3), 263-86.  
 
 *Semana 4*
 * Más allá de los experimentos
-Barrett, C. B., & Carter, M. R. (2010). The power and pitfalls of experiments in development economics: Some non-random reflections. Applied economic perspectives and policy, 32(4), 515-548.
-\* Barrett, C. B., & Carter, M. R. (2020). Finding our balance? Revisiting the randomization revolution in development economics ten years further on. World Development, 127, 104789.
-Hjort, J., Moreira, D., Rao, G., & Santini, J. F. (2019). How research affects policy: Experimental evidence from 2,150 Brazilian municipalities. National Bureau of Economic Research, Working Paper 25941.
-\* Deaton, A., Case. (2019). Randomization in the tropics revisited: a theme and eleven variations. In Randomized controlled trials in the field of development: A critical perspective. Oxford University Press. Forthcoming.
+Barrett, C. B., & Carter, M. R. (2010). The power and pitfalls of experiments in development economics: Some non-random reflections. Applied economic perspectives and policy, 32(4), 515-548.  
+\* Barrett, C. B., & Carter, M. R. (2020). Finding our balance? Revisiting the randomization revolution in development economics ten years further on. World Development, 127, 104789.  
+Hjort, J., Moreira, D., Rao, G., & Santini, J. F. (2019). How research affects policy: Experimental evidence from 2,150 Brazilian municipalities. National Bureau of Economic Research, Working Paper 25941.  
+\* Deaton, A., Case. (2019). Randomization in the tropics revisited: a theme and eleven variations. In Randomized controlled trials in the field of development: A critical perspective. Oxford University Press. Forthcoming.  
 \* Ravallion, Martin. (2020). Should the randomistas (continue to) rule? National Bureau of Economic Research, Working Paper 27554.
 
 •	Inferencia de aleatorización
-Abadie, A., Athey, S., Imbens, G. W., & Wooldridge, J. M. (2020). Sampling‐Based versus Design‐Based Uncertainty in Regression Analysis. Econometrica, 88(1), 265-296. 
-Athey, S., & Imbens, G. W. (2017). The econometrics of randomized experiments. In Handbook of economic field experiments (Vol. 1, pp. 73-140). North-Holland.
-* Ho, D. E., & Imai, K. (2006). Randomization inference with natural experiments: An analysis of ballot effects in the 2003 California recall election. Journal of the American Statistical Association, 101(475), 888-900.
-Kerwin, J. T., & Thornton, R. L. (2020). Making the grade: The sensitivity of education program effectiveness to input choices and outcome measures. Review of Economics and Statistics, 1-45.
+Abadie, A., Athey, S., Imbens, G. W., & Wooldridge, J. M. (2020). Sampling‐Based versus Design‐Based Uncertainty in Regression Analysis. Econometrica, 88(1), 265-296.   
+Athey, S., & Imbens, G. W. (2017). The econometrics of randomized experiments. In Handbook of economic field experiments (Vol. 1, pp. 73-140). North-Holland.  
+* Ho, D. E., & Imai, K. (2006). Randomization inference with natural experiments: An analysis of ballot effects in the 2003 California recall election. Journal of the American Statistical Association, 101(475), 888-900.  
+Kerwin, J. T., & Thornton, R. L. (2020). Making the grade: The sensitivity of education program effectiveness to input choices and outcome measures. Review of Economics and Statistics, 1-45.  
 
 •	Corrección por prueba de múltiples hipótesis
-* Angelucci, M., Karlan, D., & Zinman, J. (2015). Microcredit impacts: Evidence from a randomized microcredit program placement experiment by Compartamos Banco. American Economic Journal: Applied Economics, 7(1), 151-82.
-* Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: a practical and powerful approach to multiple testing. Journal of the royal statistical society. Series B (Methodological), 289-300.
-Brodeur, A., Lé, M., Sangnier, M., & Zylberberg, Y. (2016). Star Wars: The empirics strike back. American Economic Journal: Applied Economics, 8(1), 1-32.
-Savin, N. E. (1984). Multiple hypothesis testing. Handbook of econometrics, 2, 827-879.
-* Shaffer, J. P. (1995). Multiple hypothesis testing. Annual review of psychology, 46(1), 561-584.
+* Angelucci, M., Karlan, D., & Zinman, J. (2015). Microcredit impacts: Evidence from a randomized microcredit program placement experiment by Compartamos Banco. American Economic Journal: Applied Economics, 7(1), 151-82.  
+* Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: a practical and powerful approach to multiple testing. Journal of the royal statistical society. Series B (Methodological), 289-300.  
+Brodeur, A., Lé, M., Sangnier, M., & Zylberberg, Y. (2016). Star Wars: The empirics strike back. American Economic Journal: Applied Economics, 8(1), 1-32.  
+Savin, N. E. (1984). Multiple hypothesis testing. Handbook of econometrics, 2, 827-879.  
+* Shaffer, J. P. (1995). Multiple hypothesis testing. Annual review of psychology, 46(1), 561-584.  
 
 Semana 5
 •	Errores estándar no estándar
