@@ -61,9 +61,9 @@ Unidad 2. Métodos de evaluación
 Unidad 3. Temas actuales de evaluación
 * Extensiones II
   - Replicabilidad, credibilidad, cientificidad y ética
-  - Evaluaciones con modelos estructurales
+  - Modelos estructurales en evaluación
   - Evaluaciones de impacto a nivel de economía local (LEWIE)
-  - Aprendizaje automatizado y __big data__ en la evaluación de impacto
+  - Aprendizaje automatizado y _big data_ en la evaluación de impacto
 
 
 ## Evaluación del curso
