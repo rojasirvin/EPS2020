@@ -4,17 +4,19 @@ Las lecturas obligatorias (marcadas con “*”) permiten una discusión informa
 
 
 *Semana 1*
-+ ¿Por qué evaluar?  
-GMPRV, Capítulo 1  
-  \* Freedman, D. A. (1991). Statistical models and shoe leather. Sociological methodology, 291-313.  
-  + Inferencia causal  
-  \* MHE, Capítulo 2  
-  \* GMPRV, 3  
-  Heckman, J. J. (2001). Micro data, heterogeneity, and the evaluation of public policy: Nobel lecture. Journal of political Economy, 109(4), 673-748.  
-  Heckman, J. J., y Vytlacil, E. J. (2007). Econometric evaluation of social programs, part I: Causal models, structural models and econometric policy evaluation. Handbook of econometrics, 6, 4779-4874.  
-  \* Athey, S., y Imbens, G. W. (2017). The state of applied econometrics: Causality and policy evaluation. Journal of Economic Perspectives, 31(2), 3-32.  
+* ¿Por qué evaluar?  
+  + GMPRV, Capítulo 1
+  + \* Freedman, D. A. (1991). Statistical models and shoe leather. Sociological methodology, 291-313.
+  
+* Inferencia causal  
+  + \* MHE, Capítulo 2
+  + \* GMPRV, 3  
+  + Heckman, J. J. (2001). Micro data, heterogeneity, and the evaluation of public policy: Nobel lecture. Journal of political Economy, 109(4), 673-748.  
+  + Heckman, J. J., y Vytlacil, E. J. (2007). Econometric evaluation of social programs, part I: Causal models, structural models and econometric policy evaluation. Handbook of econometrics, 6, 4779-4874.  
+  + \* Athey, S., y Imbens, G. W. (2017). The state of applied econometrics: Causality and policy evaluation. Journal of Economic Perspectives, 31(2), 3-32. 
+  
 * Revisión de métodos de regresión  
-  \* MM, Capítulo 1, Apéndice  
+  +\* MM, Capítulo 1, Apéndice  
 
 *Semana 2*
 + Evaluación por métodos experimentales  
