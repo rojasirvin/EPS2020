@@ -16,3 +16,5 @@ Horario de oficina: por definir.
 [Lista de lecturas](https://github.com/rojasirvin/EPS2020/blob/master/lecturas.md).
 
 [Calendario](https://github.com/rojasirvin/EPS2020/blob/master/EPS_calendario_otono_2020.pdf).
+
+[Blog](https://github.com/rojasirvin/EPS2020/blob/master/blog.md).
