@@ -2,9 +2,9 @@
   
   | **Entrada** | **Tema** | **Fecha de entrega** |
   | --- | --- | --- |
-  | 1 | Programas de transferencias condicionadas: ¿qué ha pasado 20 años después de PROGRESA con los programas de transferencias condicionadas alrededor del mundo? | Jueves 10 de agosto |
-  | 2 | Inclusión financiera y microfinanzas: ¿qué nuevas lecciones sabemos sobre sus efectos en la pobreza y otros indicadores de bienestar en países en desarrollo? | Jueves 17 de agosto |
-  | 3 | Política para el desarrollo del campo: ¿qué estrategias se siguen en el mundo y que tan efectivas son para el desarrollo de la agricultura? | Jueves 24 de agosto |
+  | 1 | Programas de transferencias condicionadas: ¿qué ha pasado 20 años después de PROGRESA con los programas de transferencias condicionadas alrededor del mundo? | Jueves 10 de septiembre |
+  | 2 | Inclusión financiera y microfinanzas: ¿qué nuevas lecciones sabemos sobre sus efectos en la pobreza y otros indicadores de bienestar en países en desarrollo? | Jueves 17 de septiembre |
+  | 3 | Política para el desarrollo del campo: ¿qué estrategias se siguen en el mundo y que tan efectivas son para el desarrollo de la agricultura? | Jueves 24 de septiembre |
   | 4 | Más allá de los impactos de corto plazo: ¿qué evidencia existe de los efectos de largo plazo de intervenciones para el desarrollo? | Jueves 8 de octubre |
   | 5 | Los efectos económicos de incrementos al salario mínimo: ¿cuál es el estado de esta discusión que parece interminable? | Jueves 15 de octubre |
   | 6 | Divorcios, aborto y matrimonios del mismo sexo: ¿cuáles son los efectos de la política y la legislación en materia de inclusión y derechos en el mundo? | Jueves 22 de octubre |
