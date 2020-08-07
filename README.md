@@ -11,7 +11,7 @@ Plataforma de enseñanza: Microsoft Teams.
 
 Horario de oficina: por definir.
 
-Programa del curso.
+[Programa del curso](https://github.com/rojasirvin/EPS2020/blob/master/programa.md).
 
 Lista de lecturas.
 

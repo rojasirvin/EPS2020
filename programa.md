@@ -22,6 +22,50 @@ Unidad 1. Introducción
   - Inferencia causal
   - Revisión de métodos de regresión
 
+Unidad 2. Métodos de evaluación
+* Evaluación experimental
+  - ATE y ATT
+  - LATE y variables instrumentales
+  - Aplicaciones de evaluación experimental
+  - Ventajas y desventajas de los experimentos en evaluación
+
+* Extensiones I
+  - Inferencia de aleatorización
+  - Errores estándar no estándar
+  - ANCOVA
+  - Corrección por prueba de múltiples hipótesis
+
+* Diferencia en diferencias
+  - Supuestos fundamentales
+  - Efectos fijos individuales
+  - Aplicaciones de DID
+
+* Métodos de pareamiento
+  - Supuestos fundamentales
+  - Pareamiento exacto
+  - Pareamiento por puntaje de propensión (PSM)
+  - Aplicaciones del PSM
+
+* Diseños de discontinuidad en regresión
+6.1.	Supuestos fundamentales
+6.2.	Regresión discontinua nítida y difusa
+6.3.	Discontinuidades geográficas
+6.4.	Regresión con pliegues
+6.5.	Aplicaciones de regresión discontinua
+
+* Método del control sintético
+  - Supuestos fundamentales
+  - Inferencia basada en placebos
+  - Aplicaciones de control sintético
+
+Unidad 3. Temas actuales de evaluación
+* Extensiones II
+  - Replicabilidad, credibilidad, cientificidad y ética
+  - Evaluaciones con modelos estructurales
+  - Evaluaciones de impacto a nivel de economía local (LEWIE)
+  - Aprendizaje automatizado y __big data__ en la evaluación de impacto
+
+
 ## Evaluación del curso
 
 + Examen parcial: 20%.
