@@ -6,15 +6,15 @@ Las lecturas obligatorias (marcadas con “*”) permiten una discusión informa
 *Semana 1*
 + ¿Por qué evaluar?  
 GMPRV, Capítulo 1  
-\* Freedman, D. A. (1991). Statistical models and shoe leather. Sociological methodology, 291-313.  
-+ Inferencia causal  
-\* MHE, Capítulo 2  
-\* GMPRV, 3  
-Heckman, J. J. (2001). Micro data, heterogeneity, and the evaluation of public policy: Nobel lecture. Journal of political Economy, 109(4), 673-748.  
-Heckman, J. J., y Vytlacil, E. J. (2007). Econometric evaluation of social programs, part I: Causal models, structural models and econometric policy evaluation. Handbook of econometrics, 6, 4779-4874.  
-\* Athey, S., y Imbens, G. W. (2017). The state of applied econometrics: Causality and policy evaluation. Journal of Economic Perspectives, 31(2), 3-32.  
-+ Revisión de métodos de regresión  
-\* MM, Capítulo 1, Apéndice  
+  \* Freedman, D. A. (1991). Statistical models and shoe leather. Sociological methodology, 291-313.  
+  + Inferencia causal  
+  \* MHE, Capítulo 2  
+  \* GMPRV, 3  
+  Heckman, J. J. (2001). Micro data, heterogeneity, and the evaluation of public policy: Nobel lecture. Journal of political Economy, 109(4), 673-748.  
+  Heckman, J. J., y Vytlacil, E. J. (2007). Econometric evaluation of social programs, part I: Causal models, structural models and econometric policy evaluation. Handbook of econometrics, 6, 4779-4874.  
+  \* Athey, S., y Imbens, G. W. (2017). The state of applied econometrics: Causality and policy evaluation. Journal of Economic Perspectives, 31(2), 3-32.  
+* Revisión de métodos de regresión  
+  \* MM, Capítulo 1, Apéndice  
 
 *Semana 2*
 + Evaluación por métodos experimentales  
@@ -104,7 +104,7 @@ Qian, N. (2008). Missing women and the price of tea in China: The effect of sex-
 Zhang, R., Li, Y., Zhang, A. L., Wang, Y., & Molina, M. J. (2020). Identifying airborne transmission as the dominant route for the spread of COVID-19. Proceedings of the National Academy of Sciences.  
 Wolfers, J. (2006). Did unilateral divorce laws raise divorce rates? A reconciliation and new results. American Economic Review, 96(5), 1802-1820.
 
-*Semana 8*
+*Semana 8*  
 * Métodos de pareamiento
 \* GMPRV, Capítulo 8
 
@@ -155,7 +155,7 @@ Sohn, H., & Lee, S. W. (2019). Causal Impact of Having a College Degree on Women
 Tuttle, C. (2019). Snapping Back: Food Stamp Bans and Criminal Recidivism. American Economic Journal: Economic Policy, 11(2), 301-27.  
 
 *Semana 11*
-* Control sintético
+* Control sintético  
 \* Abadie, A. (2019). Using synthetic controls: Feasibility, data requirements, and methodological aspects. Journal of Economic Literature.  
 \* Abadie, A., Diamond, A., & Hainmueller, J. (2015). Comparative politics and the synthetic control method. American Journal of Political Science, 59(2), 495-510.  
 \* Abadie, A., Diamond, A., & Hainmueller, J. (2010). Synthetic control methods for comparative case studies: Estimating the effect of California’s tobacco control program. Journal of the American statistical Association, 105(490), 493-505.  
@@ -170,13 +170,13 @@ Grier, K., & Maynard, N. (2016). The economic consequences of Hugo Chavez: A syn
 Peri, G., & Yasenov, V. (2019). The Labor Market Effects of a Refugee Wave Synthetic Control Method Meets the Mariel Boatlift. Journal of Human Resources, 54(2), 267-309.
 
 *Semana 12*
-* Combinación de metodologías no experimentales
+* Combinación de metodologías no experimentales  
 \+ Cattaneo, M. D., Frandsen, B. R., & Titiunik, R. (2015). Randomization inference in the regression discontinuity design: An application to party advantages in the US Senate. Journal of Causal Inference, 3(1), 1-24.  
 Donohue III, J. J., & Ho, D. E. (2007). The Impact of Damage Caps on Malpractice Claims: Randomization Inference with Difference‐in‐Differences. Journal of Empirical Legal Studies, 4(1), 69-102.  
 MacKinnon, J. G., & Webb, M. D. (2020). Randomization inference for difference-in-differences with few treated clusters. Journal of Econometrics.  
 \+ Parker, S. W., Saenz, J., & Wong, R. (2018). Health insurance and the aging: Evidence from the Seguro Popular program in Mexico. Demography, 55(1), 361-386.  
 
-* Impactos de largo plazo
+* Impactos de largo plazo  
 \+ Athey, S., Chetty, R., Imbens, G. W., & Kang, H. (2019). The surrogate index: Combining short-term proxies to estimate long-term treatment effects more rapidly and precisely, National Bureau of Economic Research, Working Paper 26463.  
 Dupas, P., Duflo, E. & Kremer, M. (2017). The Impact of Free Secondary Education: Experimental Evidence from Ghana. Stanford University Working Paper.  
 \+ Parker, S. W., & Vogl, T. (2018). Do conditional cash transfers improve economic outcomes in the next generation? Evidence from Mexico (No. w24303). National Bureau of Economic Research.  
