@@ -187,7 +187,7 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
 
 *Semana 13*
 + \* Replicabilidad, credibilidad, cientificidad y ética
-Amrhein, V., Greenland, S., & McShane, B. (2019). Scientists rise up against statistical significance. *Nature*. 567, 305-307.  
+  + Amrhein, V., Greenland, S., & McShane, B. (2019). Scientists rise up against statistical significance. *Nature*. 567, 305-307.  
   + \* Angrist, J. D., & Pischke, J. S. (2010). The credibility revolution in empirical economics: How better research design is taking the con out of econometrics. *Journal of economic perspectives*, 24(2), 3-30.  
   + \* Christensen, G., & Miguel, E. (2018). Transparency, reproducibility, and the credibility of economics research. *Journal of Economic Literature*, 56(3), 920-80.  
   + \* Sims, C. A. (2010). But economics is not an experimental science. *Journal of Economic Perspectives*, 24(2), 59-68.
