@@ -1,5 +1,5 @@
 ## Centro de Investigación y Docencia Económicas
-### Maestría en Economía
+### Licenciatura y Maestría en Economía
 ### Evaluación de Programas Sociales
 ### Semestre Otoño de 2020
 
