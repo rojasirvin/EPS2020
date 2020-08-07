@@ -186,7 +186,7 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
   + \+ Baird, S., Hicks, J. H., Kremer, M., Miguel, E., & Walker, M. (2020). The Twenty Year Economic Impacts of Deworming in Kenya. NBER Working Paper 27611.
 
 *Semana 13*
-  + * Replicabilidad, credibilidad, cientificidad y ética
++ \* Replicabilidad, credibilidad, cientificidad y ética
 Amrhein, V., Greenland, S., & McShane, B. (2019). Scientists rise up against statistical significance. Nature. 567, 305-307.  
   + \* Angrist, J. D., & Pischke, J. S. (2010). The credibility revolution in empirical economics: How better research design is taking the con out of econometrics. Journal of economic perspectives, 24(2), 3-30.  
   + * Christensen, G., & Miguel, E. (2018). Transparency, reproducibility, and the credibility of economics research. Journal of Economic Literature, 56(3), 920-80.  
@@ -218,11 +218,9 @@ S  + tock, J. H. (2010). The other transformation in econometric practice: Robus
   + Taylor, J. E., Filipski, M. J., Alloush, M., Gupta, A., Rojas Valdes, R.I., & Gonzalez-Estrada, E. (2016). Economic impact of refugees. Proceedings of the National Academy of Sciences, 201604566.
 
 *Semana 15*
-* Aprendizaje automático  
-  + \*Athey, S., & Imbens, G. W. (2019). Machine learning methods that economists should know about. Annual Review of Economics, 11.
-
-* Big data  
+* Aprendizaje automáticoy __big data__ 
   + \+ Arceo-Gomez, E. O., & Campos-Vazquez, R. M. (2019). Gender stereotypes: The case of MisProfesores. com in Mexico. Economics of Education Review, 72, 55-65.  
   + \* Athey, S. (2017). Beyond prediction: Using big data for policy problems. Science, 355(6324), 483-485.  
+  + \*Athey, S., & Imbens, G. W. (2019). Machine learning methods that economists should know about. Annual Review of Economics, 11.
   + \+ Oshri, B., et al. (2018). Infrastructure quality assessment in Africa using satellite imagery and deep learning. In Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining (pp.   616-625).  
   + Varian, H. R. (2014). Big data: New tricks for econometrics. Journal of Economic Perspectives, 28(2), 3-28
