@@ -3,7 +3,7 @@
 ### Evaluación de Programas Sociales
 ### Semestre Otoño de 2020
 
-Profesor: Irvin Rojas (irvin.rojas@cide.edu).
+Profesor: [Irvin Rojas](https://www.rojasirvin.com/) (irvin.rojas@cide.edu).
 
 Horario de clases: martes y jueves (8:00 a 9:30).
 

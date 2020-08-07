@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ## Programa del curso
 
 ### Objetivos
@@ -8,11 +13,11 @@
 
 ### Referencias 
 El curso se basa en los siguientes textos:
-  * \* Angrist, J.D. y Pischke, J.S. (2013). Mostly Harmless Econometrics: An Empiricists Companion. Princeton University Press.
-* \* Angrist, J.D. y Pischke, J.S. (2014). Mastering 'Metrics: The Path from Cause to Effect. Princeton University Press.
-* Cameron, A.C. y P.K. Trivedi (2005). Microeconometrics: Methods and applications. Oxford University Press.
-* DiNardo, J. y D.S. Lee (2011). Program Evaluation and Research Designs. En Handbook of Labor Economics, 4A: 463-536.
-* \* Gertler, P.J., S. Martinez, P. Premand, L.B., Rawlings, y C.M.J. Vermeersch. (2011). La evaluación de impacto en la práctica. Banco Interamericano de Desarrollo y Banco Mundial, segunda edición. Disponible en: 
+  * \* (MM) Angrist, J.D. y Pischke, J.S. (2013). *Mostly Harmless Econometrics: An Empiricists Companion*. Princeton University Press.
+* \* (MHE) Angrist, J.D. y Pischke, J.S. (2014). *Mastering 'Metrics: The Path from Cause to Effect*. Princeton University Press.
+* Cameron, A.C. y P.K. Trivedi (2005). *Microeconometrics: Methods and applications*. Oxford University Press.
+* DiNardo, J. y D.S. Lee (2011). Program Evaluation and Research Designs. En *Handbook of Labor Economics*, 4A: 463-536.
+* \* (GMPRV) Gertler, P.J., S. Martinez, P. Premand, L.B., Rawlings, y C.M.J. Vermeersch. (2011). *La evaluación de impacto en la práctica*. Banco Interamericano de Desarrollo y Banco Mundial, segunda edición. Disponible en: 
 
 ## Contenido temático
 
