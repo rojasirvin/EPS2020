@@ -1,6 +1,6 @@
 ## Blog
   
-  | **Entrada** | **Tema** | **Fecha de entrega** | **Autor |
+  | **Entrada** | **Tema** | **Fecha de entrega** | **Autor** |
   | --- | --- | --- | --- |
   | 1 | Programas de transferencias condicionadas: ¿qué ha pasado 20 años después de PROGRESA con los programas de transferencias condicionadas alrededor del mundo? | Jueves 10 de septiembre | |
   | 2 | Inclusión financiera y microfinanzas: ¿qué nuevas lecciones sabemos sobre sus efectos en la pobreza y otros indicadores de bienestar en países en desarrollo? | Jueves 17 de septiembre | |
