@@ -3,12 +3,17 @@ title: "Evaluación, diseño y econometría"
 author: "Irvin Rojas"
 institute: "CIDE"
 date: "18 de agosto de 2020"
+header-includes:
+  - \usepackage{tikz}
+  - \usetikzlibrary{shapes, shadows,arrows}
 output:
   xaringan::moon_reader:
+    css: [default, "libs/cide.css", metropolis-fonts, "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css", "https://use.fontawesome.com/releases/v5.7.2/css/all.css", "https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css"]
     seal: false
     chakra: "https://remarkjs.com/downloads/remark-latest.min.js"
     lib_dir: libs
     nature:
+      highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       titleSlideClass: ["middle", "center"]
@@ -16,7 +21,7 @@ output:
       beforeInit: ["https://platform.twitter.com/widgets.js", "libs/cols_macro.js"]
       navigation:
         scroll: false
-    css: [default, "libs/cide.css", metropolis-fonts, "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css", "https://use.fontawesome.com/releases/v5.7.2/css/all.css", "https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css"]
+
 
 ---
 class: title-slide
@@ -162,6 +167,29 @@ class: inverse, middle, center
 
 ---
 
+# Series de tiempo vs microeconometría
+
+- Teoría económica usaba modelos y deducía de ellos los efectos de cambios de polítca
+
+- O usaba series de tiempo agregadas que trataban de ser ligadas a modelos con consumidores o empresas representativas
+
+--
+
+- Cosas que han cambiado:
+
+  - Disponibilidad de microdatos
+  - Demanda por probar empíricamente modelos más ricos
+  - Capacidad de cómputo
+
+--
+  
+- De hecho, algunos macroeconomistas están volteando a ver los métodos de la microeconomía aplicada:
+
+  - Estudios de evento
+  - Controles sintéticos
+
+---
+
 # Tipos de problemas de evaluación
 
 1. *Efectos de tratamiento*
@@ -178,7 +206,7 @@ class: inverse, middle, center
 
 1. *Estimación estructural*
 
-  - ¿Cuál es el efecto potencial de un nuevo $T$ en una población? ¿O de un programa que ha sido aplicado previamente, pero en otro contexto?
+  - ¿Cuál es el efecto potencial de un nuevo $T$ en una población?
   
   - Problema parecido a determinar la demanda de un bien recién introducido al mercado
   
@@ -222,9 +250,33 @@ $$E(H|W,X,t)=\int\phi(W(1-t_j),X,U)dG(U|X,W)$$
 
 # Caso 2. Decir algo sobre una política en un nuevo contexto
 
-- Problema mucho más complicado, que incluye
+- Problema mucho más complicado
 
-- Debemos estimar $\phi(\cdot)$
+- Debemos estimar $\phi'(\cdot)$ y $G'(\cdot)$ en el nuevo ambiente, o tratar determinar la relación entre $\phi$ y $\phi¿$ y entre $G$ y $G'$
+
+--
+
+> "La existencia de un problema radica en que el futuro es distinto que el pasado, mientras que la posibilidad de una solución depende de que el futuro se parezca al pasado."
+>
+> --- Kinight (1921)
+
+--
+
+- Este es el tipo de problemas en donde la estimación estructural es de gran valor
+
+---
+
+# Caso 3. Mucho más complicado
+
+- ¿Qué pasa si nunca ha existido un impuesto similar en el país de interés?
+
+- ¿Podemos identificar el efecto del impuesto a partir de variaciones en el salario?
+
+- Solo si asumimos que el efecto del impuesto actúa vía el salario
+
+---
+
+# Ejemplo gráfico
 
 ---
 

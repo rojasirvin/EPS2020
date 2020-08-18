@@ -152,6 +152,29 @@ class: inverse, middle, center
 
 ---
 
+# Series de tiempo vs microeconometría
+
+- Teoría económica usaba modelos y deducía de ellos los efectos de cambios de polítca
+
+- O usaba series de tiempo agregadas que trataban de ser ligadas a modelos con consumidores o empresas representativas
+
+--
+
+- Cosas que han cambiado:
+
+  - Disponibilidad de microdatos
+  - Demanda por probar empíricamente modelos más ricos
+  - Capacidad de cómputo
+
+--
+  
+- De hecho, algunos macroeconomistas están volteando a ver los métodos de la microeconomía aplicada:
+
+  - Estudios de evento
+  - Controles sintéticos
+
+---
+
 # Tipos de problemas de evaluación
 
 1. *Efectos de tratamiento*
@@ -214,7 +237,31 @@ class: inverse, middle, center
 
 - Problema mucho más complicado, que incluye
 
-- Debemos estimar `\(\phi(\cdot)\)`
+- Debemos estimar `\(\phi'(\cdot)\)` y `\(G'(\cdot)\)` en el nuevo ambiente, o tratar determinar la relación entre `\(\phi\)` y `\(\phi¿\)` y entre `\(G\)` y `\(G'\)`
+
+--
+
+&gt; "La existencia de un problema radica en que el futuro es distinto que el pasado, mientras que la posibilidad de una solución depende de que el futuro se parezca al pasado."
+&gt;
+&gt; --- Kinight (1921)
+
+--
+
+- Este es el tipo de problemas en donde la estimación estructural es de gran valor
+
+---
+
+# Caso 3. Mucho más complicado
+
+- ¿Qué pasa si nunca ha existido un impuesto similar en el país de interés?
+
+- ¿Podemos identificar el efecto del impuesto a partir de variaciones en el salario?
+
+- Solo si asumimos que el efecto del impuesto actúa vía el salario
+
+---
+
+# Ejemplo gráfico
 
 ---
 
@@ -385,6 +432,7 @@ Material de clase en versión preliminar.
 <script src="https://platform.twitter.com/widgets.js"></script>
 <script src="libs/cols_macro.js"></script>
 <script>var slideshow = remark.create({
+"highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false,
 "ratio": "16:9",
