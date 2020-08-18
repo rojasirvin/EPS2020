@@ -21,4 +21,4 @@ Horario de oficina: por definir.
 
 [Sesiones](https://github.com/rojasirvin/EPS2020/blob/master/sesiones.md).
 
-[Presentaciones](https://github.com/rojasirvin/EPS2020/blob/master/presentacione.md).
+[Presentaciones](https://github.com/rojasirvin/EPS2020/blob/master/presentaciones.md).
