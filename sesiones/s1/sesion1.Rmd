@@ -276,10 +276,6 @@ $$E(H|W,X,t)=\int\phi(W(1-t_j),X,U)dG(U|X,W)$$
 
 ---
 
-# Ejemplo gráfico
-
----
-
 class: inverse, middle, center
 
 # 2. El diseño para responder las preguntas
