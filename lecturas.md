@@ -149,8 +149,9 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
   + \+ Cook, T. D., & Wong, V. C. (2008). Empirical tests of the validity of the regression discontinuity design. *Annales d'Economie et de Statistique*, 127-150.  
   + \+ Davis, L. W. (2008). The effect of driving restrictions on air quality in Mexico City. *Journal of Political Economy*, 116(1), 38-81.  
   + \+ Davis, L. W. (2017). Saturday driving restrictions fail to improve air quality in Mexico City. *Scientific Reports*, 7, 41652.  
-  + \+ Dell, M. (2015). Trafficking networks and the Mexican drug war. Ameri*can Economic Review*, 105(6), 1738-79.  
+  + \+ Dell, M. (2015). Trafficking networks and the Mexican drug war. *American Economic Review*, 105(6), 1738-79.  
   + \* Keele, L. J., & Titiunik, R. (2015). Geographic boundaries as regression discontinuities. *Political Analysis*, 23(1), 127-155.
+  + \+ Keele, L., & Titiunik, R. (2016). Natural experiments based on geography. Political Science Research and Methods, 4(1), 65-95.
   + \* Lee, D. S., & Lemieux, T. (2010). Regression discontinuity designs in economics. *Journal of economic literature*, 48(2), 281-355.  
   + Makarin, A., Pique, R., & Aragón, F. (2020). National or sub-national parties: Does party geographic scope matter? *Journal of Development Economics*, 102516.  
   + \* Manacorda, M., Miguel, E., & Vigorito, A. (2011). Government transfers and political support. *American Economic Journal: Applied Economics*, 3(3), 1-28.  
@@ -176,6 +177,7 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
 * Combinación de metodologías no experimentales  
   + \+ Cattaneo, M. D., Frandsen, B. R., & Titiunik, R. (2015). Randomization inference in the regression discontinuity design: An application to party advantages in the US Senate. *Journal of Causal Inference*, 3(1), 1-24.  
   + Donohue III, J. J., & Ho, D. E. (2007). The Impact of Damage Caps on Malpractice Claims: Randomization Inference with Difference‐in‐Differences. *Journal of Empirical Legal Studies*, 4(1), 69-102.  
+  + Keele, L., Titiunik, R., & Zubizarreta, J. R. (2015). Enhancing a geographic regression discontinuity design through matching to estimate the effect of ballot initiatives on voter turnout. *Journal of the Royal Statistical Society*. Series A (Statistics in Society), 223-239.
   + MacKinnon, J. G., & Webb, M. D. (2020). Randomization inference for difference-in-differences with few treated clusters. *Journal of Econometrics*.  
   + \+ Parker, S. W., Saenz, J., & Wong, R. (2018). Health insurance and the aging: Evidence from the Seguro Popular program in Mexico. *Demography*, 55(1), 361-386.  
 
