@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
 ## Programa del curso
 
 ### Objetivos
@@ -101,9 +96,10 @@ En cada entrada, el autor incluirá: 1) la relevancia del tema a investigar, 2) 
 
 
 ## Reglas de convivencia mínimas
-+ No se tolerarán actos de discriminación. Se procura un ambiente de respeto entre todos los miembros de la clase.
++ No se tolerarán actos de discriminación.
++ Se procura un ambiente de respeto entre todos los miembros de la clase.
 + Toda la comunicación relativa al curso se dará por medio del correo institucional del CIDE.
 + Las tareas y materiales de clase se subirán en el grupo EPS 2020 en Teams.
 + Los participantes en la sesión deberán procurar que haya un ambiente silencioso para el desarrollo de la clase cerrando sus micrófonos cuando no requieran hacer uso de la palabra.
-+ Se aplicarán estrictamente los lineamientos generales del CIDE en términos de plagio y fraude en tareas, exámenes y trabajo final.
++ Se aplicarán estrictamente los lineamientos generales del CIDE en términos de plagio y fraude en tareas, exámenes y blog.
 
