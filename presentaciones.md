@@ -9,4 +9,4 @@
   | Campos & coautores | DID | 29 de septiembre | María Jiménez |
   | Becerril & Abdulai | PSM | 8 de octubre | José Quintero |
   | Dell | RD Geográfica | 20 de octubre | Federico Daverio |
-  | Campos & Esquivel | 3 de noviembre | César Ángeles |
+  | Campos & Esquivel | Control sintético | 3 de noviembre | César Ángeles |
