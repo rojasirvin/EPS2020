@@ -40,7 +40,7 @@ Las lecturas obligatorias (marcadas con “*”) permiten una discusión informa
   + \+ De La O, A. L. (2013). Do conditional cash transfers affect electoral behavior? Evidence from a randomized experiment in Mexico. *American Journal of Political Science*, 57(1), 1-14.  
   + Duflo, E., Dupas, P., & Kremer, M. (2015). Education, HIV, and early fertility: Experimental evidence from Kenya. *American Economic Review*, 105(9), 2757-97.  
   + Dupas, P. (2011). Do teenagers respond to HIV risk information? Evidence from a field experiment in Kenya. *American Economic Journal*: Applied Economics, 3(1), 1-34.  
-  + \* Gertler, P. (2004). Do conditional cash transfers improve child health? Evidence from PROGRESA's control randomized experiment. *American economic review*, 94(2), 336-341.  
+  + \* Gertler, P. (2004). Do conditional cash transfers improve child health? Evidence from PROGRESA's control randomized experiment. *American economic review*, 94(2), 336-341.
   + Mousa, S. (2019). Creating Coexistence: Intergroup Contact and Soccer in Post-ISIS Iraq. Unpublished manuscript. Stanford University.  
   + \+ Seira, E., Elizondo, A., & Laguna-Müggenburg, E. (2017). Are information disclosures effective? evidence from the credit card market. *American Economic Journal: Economic Policy*, 9(1), 277-307.  
 
@@ -151,7 +151,7 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
   + \+ Davis, L. W. (2017). Saturday driving restrictions fail to improve air quality in Mexico City. *Scientific Reports*, 7, 41652.  
   + \+ Dell, M. (2015). Trafficking networks and the Mexican drug war. *American Economic Review*, 105(6), 1738-79.  
   + \* Keele, L. J., & Titiunik, R. (2015). Geographic boundaries as regression discontinuities. *Political Analysis*, 23(1), 127-155.
-  + \+ Keele, L., & Titiunik, R. (2016). Natural experiments based on geography. Political Science Research and Methods, 4(1), 65-95.
+  + Keele, L., & Titiunik, R. (2016). Natural experiments based on geography. Political Science Research and Methods, 4(1), 65-95.
   + \* Lee, D. S., & Lemieux, T. (2010). Regression discontinuity designs in economics. *Journal of economic literature*, 48(2), 281-355.  
   + Makarin, A., Pique, R., & Aragón, F. (2020). National or sub-national parties: Does party geographic scope matter? *Journal of Development Economics*, 102516.  
   + \* Manacorda, M., Miguel, E., & Vigorito, A. (2011). Government transfers and political support. *American Economic Journal: Applied Economics*, 3(3), 1-28.  

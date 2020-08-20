@@ -31,6 +31,7 @@ knitr::opts_chunk$set(echo = FALSE, fig.path = "figures/")
 library(tidyverse)
 library(magick)
 library(reticulate)
+library(knitr)
 xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 ```
 
@@ -51,7 +52,13 @@ xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 ---
 # Agenda
 
-- Al final
+1. ¿Por qué evaluar?
+
+1. Sobre la importancia del diseño
+
+1. Causalidad
+
+1. El experimento ideal
 
 
 ---
@@ -162,15 +169,17 @@ class: inverse, middle, center
 
 - Siguió una estrategia que podemos imitar:
 
+--
+
   1. Localizar el primer caso
   
-  1. Rastrear al sengundo y notar que ocupó el mismo espacio que el primero
+  1. Rastrear al segundo y notar que ocupó el mismo espacio que el primero
   
   1. Notar las diferencias en la limpieza entre los hogares infectados y los adyacentes
   
   1. Creó un mapa para rastrear a los infectados
   
-  1. Notó que los infectados eran atendidos por la ciertas compañias de agua
+  1. Notó que los infectados eran atendidos por la ciertas compañías de agua
   
   1. Experimentó cortando el suministro de compañías sospechosas
   
@@ -220,20 +229,22 @@ knitr::include_graphics("figures/table1snow.png")
 
 # El caso del asbesto
 
-- Un estudio publicado en el *American Journal of Epidemiology** mostraba que la fibra de aspesto **causaba** cáncer de pulmón (Kanarek et al., 1980)
+- Un estudio publicado en el *American Journal of Epidemiology** mostraba que la fibra de asbesto **causaba** cáncer de pulmón (Kanarek et al., 1980)
 
 - Se estudiaron 722 secciones censales en San Francisco
 
 - Se formuló un modelo econométrico del tipo
 
 $$tasa=f(sexo,raza,estado\,civil, educación, ingreso, ocupación)$$
--- ¿Qué salió mal?
+- ¿Qué salió mal?
+
+--
 
 - Variable omitida: fumar
 
 - Se corrieron 200 regresiones y solo en una $p<0.001$
 
-- Se antepusieron las técnias estadísticas y los supuestos a la lógica y el razonamiento
+- Se antepusieron las técnicas estadísticas y los supuestos a la lógica y el razonamiento
 
 ---
 
@@ -241,13 +252,43 @@ $$tasa=f(sexo,raza,estado\,civil, educación, ingreso, ocupación)$$
 
 - ¿Confiar más o menos en la KGB te hace más o menos políticamente activo (Bahry y Silver (1987)?
 
-- ¿Qué otras cosas como estas no se leen a diario en los periódicos?
-
 - ¿Y si la relación es a la inversa?
+
+- ¿Qué otras cosas como estas no se leen a diario en los periódicos?
 
 --
 
--
+- ¿Los estados en Estados Unidos tienen diferentes *culturas* (Erikson et al. 1987)?
+
+- ¿Puede una serie de variables *dummy* capturar la diferencia de culturas?
+
+
+---
+
+# Regresión para derivar causalidad
+
+
+---
+
+# Conclusión de Freedman sobre la regresión
+
+- Bastante pesimista sobre la utilidad
+
+- Refinamiento técnico no resuelve el problema
+
+- LaLonde (1986) compara estimadores experimentales vs no experimentales
+
+- Crítica a la minería de datos y a correr miles de modelos
+
+--
+
+- La regresión no revela por sí sola una causalidad
+
+- Hay que poner énfasis en el diseño
+
+--
+
+- Yo no soy tan pesimista como Freedman
 
 
 ---
@@ -259,16 +300,412 @@ class: inverse, middle, center
 
 ---
 
-class: inverse, middle, center
+# Efecto causal
 
-# El experimento ideal
+- Pensemos en un tratamiento binario
+
+$$T_i=\begin{cases}
+1 \quad\text{tratado} \\
+0 \quad\text{no tratado}
+\end{cases}$$
+
+- El resultado que cada individuo tendría bajo cada régimen de tratamiento:
+  - $y_{1i}$ con $T_i=1$
+  
+  - $y_{0i}$ con $T_i=0$
+
+
+- Supongamos que el tratamiento es recibir un trasplante y el resultado es morir (1) o seguir vivo (0) cinco días después de recibirlo (Hernan & Robins, 2018)
+
+  - Supongamos que Zeus recibió el trasplante y a los cinco días había fallecido
+  
+  - Por otro lado, Hena no recibió el trasplante y a los cinco días seguía viva
+  
+--
+  
+- No tardarían nuestros columnistas en decir que hay que prohibir los trasplantes
 
 
 ---
 
+# Efecto causal
+  
+- Supongamos también que podemos conocer que:
+  
+$$y_{Zeus}=\begin{cases}
+y_{Zeus,1}=1\\
+y_{Zeuz,0}=0
+\end{cases}$$
+
+es decir, si no hubiera recibo el trasplante, estaría vivo cinco días después
+
+- Similarmente, conocemos que:
+
+$$y_{Hena}=\begin{cases}
+y_{Hena,1}=1\\
+y_{Hena,0}=0
+\end{cases}$$
+
+- **Efecto causal para un individuo**: el tratamiento tiene un efecto causal para $i$ si $y_{1i}\neq y_{0i}$
+  
+- En nuestro ejemplo, el tratamiento tuvo un efecto causal en Zeus, pero no en Hena
+
+---
+
+# Resultados potenciales
+
+- $y_{1i}$ y $y_{0i}$ se conocen como resultados potenciales o contrafactuales
+
+- El término *potencial* se debe a que solo vemos uno de ellos
+
+- En nuestro ejemplo, solo observamos que $y_{Zeus}=y_{1,Zeus}=1$
+
+- En general, el efecto causal para un individuo no puede ser identificado
+
+---
+
+# Efectos causales promedio
+
+- Supongamos que podemos estudiar a la familia de Zeus, $N=20$
+
+.pull-left[
+```{r table_zeus1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+tabl <- "
+| i         | $y_{0i}$           | $y_{1i}$  |
+|-----------|:----------:|:----------:|
+| 1 | 0 | 1 |
+|2 | 1 | 0 |
+| 3 | 0 | 0 |
+| 4 |0|0|
+| 5 |0 |0|
+|6 | 1 | 0|
+|7 | 0 | 0 |
+| 8 | 0 | 1 |
+| 9 | 1 | 1 |
+| 10 | 1 | 0 |
+"
+cat(tabl)
+
+```
+]
+.pull-right[
+```{r table_zeus2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+tabl <- "
+| i         | $y_{0i}$           | $y_{1i}$  |
+|-----------|:----------:|:----------:|
+| 11 |0 | 1 |
+| 12 | 1 | 1 |
+| 13 | 1 | 1 |
+| 14 | 0 | 1 |
+| 15 | 0 | 1 |
+| 16 | 0 | 1 |
+| 17 | 1 | 1 |
+| 18 | 1 | 0 |
+| 19 | 1 | 0 |
+| 20 | 1 | 0 |
+
+"
+cat(tabl)
+
+```
+]
+
+---
+
+# Efectos causales promedio
+
+- De la tabla podemos concluir que $P(y{1i}=1)=10/200=0.5$, es decir, la mitad de quienes reciben el trasplante morirían después de cinco días
+
+- Y también observamos que $P(y_{0i}=1)=0.5$, es decir, que la probabilidad de morir de no haber recibido el tratamiento es también de 0.5
+
+--
+
+- En el anterior ejemplo, el tratamiento no tiene un efecto causal pues la probabilidad de morir con y sin el tratamiento es igual
+
+- **Efecto causal promedio** en una población: un efecto causal promedio de $T$ en el resultado $y$ está presente si $P(Y_{1i}=1\neq Y_{0i}=1)$ en la población de interés
+
+- Cuando pensamos en **poblaciones**, podemos usar expectativas para definir el efecto causal promedio: $E(Y_{1i}\neq E_{0i})$, lo cual permite generalizar a resultados no binarios
+
+- La ausencia de efectos individuales promedio no implica ausencia de efectos individuales
+
+--
+
+- Cuando no hay efecto causal individual para ningún individuo, $y_{0i}=y_{1i}$, para todo $i$, decimos que la hipótesis **estricta** (*sharp*) de efecto de tratamiento nulo es verdadera
+
+---
+
+# Variabilidad aleatoria
+
+- En la práctica, casi nunca podemos observar a la población de interés, sino solo a una muestra
+
+- Por tanto, $P(y_{ti}=y)$ no puede ser observada sino estimada
+
+- Debido al error muestral, la proporción que muere en la muestra no es numéricamente igual a la proporción que muere en la población
+
+--
+
+- La hipótesis que queremos probar es que hay un efecto causal en la población
+
+- Pero al trabajar con muestras, puede haber diferencias que surjan solo por el muestreo
+
+- Nuestra tarea es tratar de distinguir estas diferencias de los verdaderos efectos causales
+
+---
+
+class: inverse, middle, center
+
+# El experimento ideal
+
+---
+
+# El efecto de los hospitales
+
+- ¿Los hospitales hacen que la gente sea más sana?
+
+- Podemos conseguir datos de encuestas sobre cuántas veces las personas han ido al hospital en el último año
+
+
+```{r table_hospital, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+tabl <- "
+
+|Grupo | N | Salud (1-5)| Error estándar|
+|-|:-:|:-:|:-:|
+|Hospitalizados | 7,774 | 3.21 | 0.014 |
+|No hospitalizados | 90,049 | 3.93 | 0.003 |
+|Diferencia | | 0.72 | |
+| (t) | | (58.9) | |
+"
+cat(tabl)
+
+```
+
+--
+
+
+- ¿Tiene sentido? ¿Los hospitales enferman?
+
+- ¿Qué sucede?
+
+
+
+---
+
+# Comparaciones observacionales
+
+- Pensemos de nuevo en términos del *Modelo de Rubin* de resultados potenciales
+
+$$y_{i}=\begin{cases}
+y_{1i}=1\quad\text{si }D_i=1\\
+y_{0i}=0 \quad \text{si } D_i=0
+\end{cases}$$
+
+
+- Solo vemos al individuo en una situación, $y_i$:
+
+$$y_i=y_{0i}+(y_{1i}-y_{0i})D_i$$
+--
+
+- ¿Qué nos dicen las comparaciones observacionales?
+
+- Supongamos que tenemos acceso a datos sobre tratados y no tratados
+
+- Podemos calcular $E(y_i|D_i=1)-E(y_i|D_i=0)$:
+
+$$
+\begin{aligned}
+E(y_i|D_i=1)-E(y_i|D_i=0)=&E(y_{1i}|D_i=1)-E(y_{oi}|D_i=0)+\\& \underbrace{E(y_{0i}|D_i=1)-E(y_{0i}|D_i=1)}_0 
+\end{aligned}
+$$
+---
+
+# Sesgo de selección
+
+
+- Reordenando:
+
+$$
+\begin{aligned}
+E(y_i|D_i=1)-E(y_i|D_i=0)=&\overbrace{ E(y_{1i}|D_i=1)-E(y_{0i}|D_i=1)}^{\text{Efecto promedio en los tratados}}+\\& \underbrace{E(y_{0i}|D_i=1)-E(y_{oi}|D_i=0)}_{Sesgo de selección}
+\end{aligned}
+$$
+
+- El primer término nos da la diferencia promedio en la variable de salud entre los hospitalizados y lo que les hubiera pasado si no hubieran sido hospitalizados
+
+- En nuestro ejemplo, el **sesgo** de selección es la diferencia en salud entre los hospitalizados y los no hospitalizados
+
+- Específicamente, si quienes van al hospital tienen una peor salud, podemos esperar que $E(y_{0i}|D_i=1)-E(y_{oi}|D_i=0)<0$
+
+---
+
+# Sesgo de selección
+
+- Al hacer aseveraciones basadas en comparaciones observacionales se incluye el efecto causal del tratamiento, pero también el sesgo de selección
+
+- El sesgo de selección puede ser positivo o negativo
+
+- El objetivo de las estrategias de evaluación es eliminar el sesgo de selección
+
+---
+
+# Tratamiento aleatorio
+
+- Supongamos que tenemos la posibilidad de aleatorizar el tratamiento, es decir, hacer que $Y_i$ y $D_i$ sean independientes
+
+- En ese caso, por independencia: $E(Y_{0i}|D_i=0)=E(Y_{0i}|D_i=1)$
+
+- De la definición de comparación observacional:
+
+$$
+\begin{aligned}
+E(y_i|D_i=1)-E(y_i|D_i=0)=&E(y_{1i}|D_i=1)-E(y_{0i}|D_i=0)
+\end{aligned}
+$$
+
+- Sustituyendo el resultado de independencia:
+
+$$
+\begin{aligned}
+E(y_i|D_i=1)-E(y_i|D_i=0)&=E(y_{1i}|D_i=1)-E(y_{0i}|D_i=1) \\
+& =E(y_{1i}-y_{0i}|D_i=1) \\
+& =\underbrace{E(y_{1i}-y_{0i})}_{Efecto causal}
+\end{aligned}
+$$
+
+---
+
+# No siempre es factible
+
+- La aleatorización resuelve muchas cosas, pero muchas veces no es factible
+
+- ¿Qué tendríamos que hacer en el caso de estudio, "¿Los hospitales matan?"
+
+--
+
+- Pensemos en un programa de empleo para ex convictos
+
+- Seguramente una comparación observacional indicaría que estos ganan menos que el resto de la población
+
+- Pero esto no significa que el programa cause un efecto negativo en el ingreso
+
+- Siempre tenemos que pensar en el contrafactual
+
+---
+
+# El experimento STAR
+
+- ¿En qué consistió?
+
+--
+
+- Dos tipos de tratamiento:
+
+  - $T_1$: clase pequeña (13-17) con maestro de tiempo completo
+  - $T_2$: tamaño normal pero con asistente para el maestro
+  
+- Un grupo $C$ al que no se le hizo cambio alguno (22.3 alumnos en promedio)
+
+--
+
+- ¿Cuál es el efecto de tener clases más pequeñas?
+
+- ¿Por qué esto sería relevante? ¿Qué implicaciones de política tendría?
+
+---
+
+# El balance
+
+- ¿Qué vemos en la tabla 2.2.1 de MHE
+
+```{r table_balance, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+tabl <- "
+
+|Variable | C | $T_1$ | $T_2$ | $p$ igualdad |
+|--|:-:|:-:|:-:|:-: |
+| Lunch gratis | 0.47 | 0.48 | 0.50 | 0.09  | 
+|Blanco/asiático | 0.68 | 0.67| 0.66 | 0.26 |
+| Edad (1985) | 5.44 | 5.43| 5.42| 0.32 |
+|Atrición | 0.49 | 0.52 | 0.53 | 0.02|
+|Tamaño clase | 15.1 |  22.4 | 22.8 | 0.00 |
+|Calificación | 54.7 | 48.9 | 50.0 | 0.00 |
+"
+cat(tabl)
+
+```
+
+- ¿Qué nos indican los valores $p$?
+
+- ¿Qué significa *atrición*?
+
+- ¿Se logró el objetivo del experimento?
+
+---
+
+# Efecto del tratamiento
+
+```{r table_efecto, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+
+tabl <- "
+
+|Variable explicativa | (1) | (2) | (3) | (4) |
+|--|:-:|:-:|:-:|:-: |
+| $T_1$ | 4.82 | 5.37 | 5.36 | 5.37 |
+| | (2.19)| (1.26) | (1.21) | (1.19)
+| | | | | |
+| $T_2$ | 0.12 | 0.29 | 0.53 | 0.31 |
+| | (2.23) | (1.13) | (1.09) | (1.07) |
+| | | | | |
+| Efectos fijos de escuela | No | Sí  | Sí | Sí |
+|Controles| No | No | $X_1$ | $X_1+X_2$ |
+
+"
+cat(tabl)
+
+```
+
+- ¿Cómo se obtienen los resultados de esta tabla?
+
+- ¿Qué se deduce sobre los distintos tratamientos?
+
+---
+
+# Desventajas
+
+- Tiempo
+
+- Costo: 12 millones de USD del proyecto STAR
+
+- Preocupaciones legales y éticas
+
+--
+
+- A veces es posible hacer experimentos, a veces es muy difícil y a veces es imposible
+
+- Usando métodos no experimentales, Angrist y Lavy (1999) encuentran resultados parecidos (pero con otros métodos)
+
+
+---
 # Próxima sesión
 
-- Definir al final
+- Pregunta: ¿están libres el lunes por la mañana?
+
+- Analizaremos el papel de la regresión para la estimación de efectos de tratamiento
+
+  - MM, Capítulo 1, Apéndice
+  
+  - CT, Capítulo 25, Secciones 1 y 2
+  
+- Avancemos con dos ejemplos:
+
+  - Baird, S., McIntosh, C., & Özler, B. (2011). Cash or condition? Evidence from a cash transfer experiment. The *Quarterly journal of economics*, 126(4), 1709-1753.
+  
+  - Banerjee, A., Duflo, E., Goldberg, N., Karlan, D., Osei, R., Parienté, W., Shapiro, J., Thuysbaert, B. & Udry, C. (2015). A multifaceted program causes lasting progress for the very poor: Evidence from six countries. *Science*, 348(6236), 1260799. 
+
+- Por favor, un correo por materia
+
 ---
 
 class: center, middle
@@ -282,297 +719,3 @@ Material de clase en versión preliminar.
 **No reproducir, no distribuir, no citar.**
 
 
-
-
----
-
-class: inverse, middle, center
-
-# Evaluación, diseño y econometría
-
----
-
-# Evaluación de programas
-
-- Este curso está enfocado en métodos para identificar relaciones causales
-
-- Entre ellas están las relaciones que surgen por la implementación deliberada de programas públicos
-
-- Pero no nos limitamos a este tipo de acciones: nos interesa comprender la teoría y la práctica para dar respuesta a relaciones que surgen
-
-  - De la legislación nacional o subnacional
-  
-  - De fenómenos naturales
-  
-  - Del funcionamiento de los mercados y las instituciones
-
---
-
-- En el curso enfatizaremos lo siguiente:
-
-  1. La importancia de las preguntas
-  2. El diseño para responder las
-  3. Las técnicas apropiadas para implementar el diseño
-  
----
-
-class: inverse, middle, center
-
-# 1. La importancia de las preguntas
-
----
-
-# Las preguntas
-
-- Podemos estimar relaciones causales casi de cualquier cosa
-
-- Pero no todas las relaciones causales son de interés
-
-- Y muchas cosas que son de interés son difíciles de estudiar desde el punto de vista de las relaciones causales
-
----
-
-# La importancia de la teoría
-
-- En este curso enfatizacermos la evaluación relacionada a la respuesta de una relación teórica
-
-- Para los economistas, los datos no *hablan* solos
-
-- La teoría es necesaria para establecer la relación entre $x$ y $y$
-
-- Tenemos la fortuna de disponer cada vez de mejores datos
-
-- Mejores datos nos permiten probar mejor modelos cada vez más ricos
-
----
-
-# Series de tiempo vs microeconometría
-
-- Teoría económica usaba modelos y deducía de ellos los efectos de cambios de polítca
-
-- O usaba series de tiempo agregadas que trataban de ser ligadas a modelos con consumidores o empresas representativas
-
---
-
-- Cosas que han cambiado:
-
-  - Disponibilidad de microdatos
-  - Demanda por probar empíricamente modelos más ricos
-  - Capacidad de cómputo
-
---
-  
-- De hecho, algunos macroeconomistas están volteando a ver los métodos de la microeconomía aplicada:
-
-  - Estudios de evento
-  - Controles sintéticos
-
----
-
-# Tipos de problemas de evaluación
-
-1. *Efectos de tratamiento*
-
-  - ¿Cuál es el efecto de $T$ sobre los participantes o no participantes de cierta política?
-  
-  - ¿Funciona un determinado programa?
-  
-  - Se requieren condiciones débiles
-  
-  - No es fácil extrapolar las conclusiones a otros contextos
-
---
-
-1. *Estimación estructural*
-
-  - ¿Cuál es el efecto potencial de un nuevo $T$ en una población?
-  
-  - Problema parecido a determinar la demanda de un bien recién introducido al mercado
-  
-  - Se imponen condiciones fuertes
-  
-  - Se trata de estimar una serie de parámetros que caracterizan las preferencias y tecnología de individuos, hogares y empresas
-
----
-
-# Ejemplo: impuestos
-
-- Consideremos el cambio en la tasa del impuesto al ingreso $t$
-
-- La oferta es función del salario $W$, de características observadas $X$ y de inobservables $U$  $H=\phi(W,X,U)$
-
-- La pregunta de evaluación es encontrar la magnitud de $\phi(W(1-t'),X,U)-\phi(W(1-t),X,U)$ para cada individuo
-
---
-
-- Tenemos tres posibles tipos de evaluaciones, dependiendo del tipo de impuesto y dónde se va a implementar:
-
-  1. Un impuesto que ya ha existido antes en una población y queremos saber su efecto en la misma población, caracterizada por su distribución de $(W,X,U)$
-  
-  2. El impuesto ha existido antes, pero queremos conocer su efecto en una población distinta, con una distribución distinta de $(W,X,U)$
-  
-  3. El impuesto nunca ha sido implementado y queremos predecir su efecto en la población usada para estimar la oferta laboral o en otra población
-
----
-
-# Caso 1. Un impuesto ya conocido en la misma población
-
-- Supongamos que la población ha vivido distintos regímenes de impuestos $t_j$, con $j=1,\ldots, J$ y tenemos datos sobre la oferta laboral bajo estos regímenes
-
-- Este es un problema relativamente simple pues tenemos los datos para calcular la oferta laboral esperada para cada impuesto:
-
-$$E(H|W,X,t)=\int\phi(W(1-t_j),X,U)dG(U|X,W)$$
-- No necesitamos un contrafactual pues podemos esperar que lo ocurrido antes aplique para el futuro si $\phi(\cdot)$ y $G(\cdot)$ no cambiaron
-
-
----
-
-# Caso 2. Decir algo sobre una política en un nuevo contexto
-
-- Problema mucho más complicado
-
-- Debemos estimar $\phi'(\cdot)$ y $G'(\cdot)$ en el nuevo ambiente, o tratar determinar la relación entre $\phi$ y $\phi¿$ y entre $G$ y $G'$
-
---
-
-> "La existencia de un problema radica en que el futuro es distinto que el pasado, mientras que la posibilidad de una solución depende de que el futuro se parezca al pasado."
->
-> --- Kinight (1921)
-
---
-
-- Este es el tipo de problemas en donde la estimación estructural es de gran valor
-
----
-
-# Caso 3. Mucho más complicado
-
-- ¿Qué pasa si nunca ha existido un impuesto similar en el país de interés?
-
-- ¿Podemos identificar el efecto del impuesto a partir de variaciones en el salario?
-
-- Solo si asumimos que el efecto del impuesto actúa vía el salario
-
----
-
-class: inverse, middle, center
-
-# 2. El diseño para responder las preguntas
-
----
-
-# Causalidad y evaluación de políticas
-
-- Los diseños experimentales han puesto pie firme como el *gold standard* para la evaluación de políticas
-
-- Los investigadores pelean por fondos de gobiernos, ONGs y *think tanks* para evaluar políticas realizando asignaciones experimentales de tratamientos
-
-- Esther Duflo, Michael Kremer y Abhijit Banerjee ganaron el Nobel de Economía en 2019 por sus contribuciones a la lucha contra la pobreza, donde los experimentos tienen un papel primordial
-
-- El modelo de causal de Rubin o de *resultados potenciales* permite conceptualizar la mayoría de los problemas de evaluación pensando en qué *resultado* obtendría una unidad con y sin intervención
-
-- Sin embargo, el **problema fundamental de la inferencia causal** implica que solo podemos observar a cada unidad en uno de los estados posibles
-
----
-
-# Sesgo de selección
-
-- En la práctica tenemos que comparar entre unidades que han recibido y que no han recibido el tratamiento
-
-- Esto da original al *sesgo de selección*, es decir, a la existencia de factores que afectan tanto la asignación del tratamiento como del resultado mismo
-
-- Veremos cómo la experimentación resuelve el sesgo de selección
-
---
-
-- Pero también estudiaremos una amplia literatura que recae en una serie de supuestos bajo los cuales la asignación del tratamiento aproxima a una asignación aleatoria
-
-- Esta literatura incluye métodos muy estudiados como las técnicas de *matching* y el uso de variables instrumentales
-
----
-
-# Nuevas avenidas
-
-- Nuevas avenidas en la investigación han dado lugar a nuevas estrategias de identificación
-
-- Diseños de regresión discontinua
-
-  - Pliegues en regresión
-  
-  - Discontinuidades geográficas
-
-- Diferencia y diferencias y control sintético
-
-- Efectos de tratamiento con tratamiento multivariado y con intensidad de tratamiento
-
-- Efectos en el largo plazo
-
-- Papel para *machine learning* y *big data*
-
----
-
-class: inverse, middle, center
-
-# 3. Las técnicas apropiadas para implementar el diseño
-
----
-
-# La econometría como herramienta
-
-- Nuestras preguntas requieren diseño
-
-- Y nuestros diseños requieren una implementación apropiada
-
-- Parte importante de nuestro curso será:
-
-  1. Conocer la teoría que permite la identificación de efectos de tratamiento en los distintos diseños
-  
-  1. Implementar las estrategias empíricas con datos en *R*
-
-
----
-
-# Algunos temas que abordaremos en el curso incluyen
-
-- Regresión por MCO, variables instrumentales y modelos no lineales
-
-- Errores estándar robustos y agrupados
-
-- Rutinas *bootstrap*
-
-- Análisis con placebos
-
-- Pruebas de hipótesis
-
-- Métodos no paramétricos
-
-- Métodos de optimización
-
-
----
-
-class: inverse, middle, center
-
-# Habilidades de economista
-
----
-
-# Espero que al final del curso puedan
-
-- Identificar relaciones causales
-
-- Proponer estrategias para evaluar
-
-- Usar datos y programar sus estrategias empíricas
-
-- Identificar literatura relevante, huecos en ella y avenidas para investigación futura
-
-- Argumentar y presentar ideas de forma oral y escrita
-
----
-
-class: inverse, middle, center
-
-# Pendientes
-
----
