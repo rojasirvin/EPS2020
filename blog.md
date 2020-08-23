@@ -9,7 +9,7 @@
   | 5 | Los efectos económicos de incrementos al salario mínimo: ¿cuál es el estado de esta discusión que parece interminable? | Jueves 15 de octubre | Alonso Pizarro |
   | 6 | Divorcios, aborto y matrimonios del mismo sexo: ¿cuáles son los efectos de la política y la legislación en materia de inclusión y derechos en el mundo? | Jueves 22 de octubre | |
   | 7 | Política migratoria y mercados de trabajo: ¿qué lecciones nos ofrece el mundo en un contexto donde no podemos tener experimentos? | Jueves 29 de octubre | |
-  | | Intervenciones tempranas en la niñez: ¿cuál es la evidencia sobre la famosa *curva de Heckman* | Jueves 29 de octubre | |
+  | | Intervenciones tempranas en la niñez: ¿cuál es la evidencia sobre la *curva de Heckman*? | Jueves 29 de octubre | |
   |  | Política social y económica en México ¿qué evidencia existe de los efectos de los programas del Gobierno de México? | Jueves 5 de noviembre | Federico Daverio |
   |  | El impacto económico del covid-19: ¿qué nos dice la evidencia rigurosa sobre los efectos de la epidemia en el bienestar de las personas alrededor del mundo? | Jueves 5 de noviembre | |
   | | Por definir: COVID-19, movilidad y educación (I) | Jueves 12 de noviembre | Tonatiuh Cruz |
