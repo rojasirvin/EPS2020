@@ -15,4 +15,5 @@
   | Campos & Esquivel | Control sintético | 3 de noviembre | César Ángeles |
   | Keele & coautores | RD + Matching | 5 de noviembre | Eduardo García |
   | Parker & Vogl | CCT largo plazo | 5 de noviembre | Enrique Ramos | 
+  | Attanasio & coautores | Estructural | 19 de noviembre |
   | Arceo & Campos | Machine Learning | 26 de noviembre | Ana Paola Paredes |
