@@ -2,7 +2,7 @@
 
 | **Autores** | **Tema** | **Fecha de exposición** | **Presentador** |
   | --- | --- | --- | --- |
-      | De la O | CCT   | 1 de septiembre | Thania Hernández |
+| De la O | CCT   | 1 de septiembre | Thania Hernández |
   |Bruhn & coautores | Experimento | 3 de septiembre | Luis Armenta |
   | Arceo & Campos | Correspondencia | 3 de septiembre | Miguel Manrique |
   | Seira & Laguna | Experimento  | 3 de septiembre | Ricardo Solís |
