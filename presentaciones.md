@@ -9,6 +9,7 @@
   | McIntosh & coautores | LATE   | 3 de septiembre | Rafael Martínez |
   | Campos & coautores | DID | 29 de septiembre | María Jiménez |
   | Gutiérrez & Parrado | DID | 29 de septiembre | Tonatiuh Cruz |
+  | Levasseur | DID | 29 de septiembre | Manuel Lara |
   | Becerril & Abdulai | PSM | 8 de octubre | José Quintero |
   | Dell | RD Geográfica | 20 de octubre | Federico Daverio |
   | Campos & Esquivel | Control sintético | 3 de noviembre | César Ángeles |

@@ -17,7 +17,7 @@
   |  13| El impacto económico del covid-19: ¿qué nos dice la evidencia rigurosa sobre los efectos de la epidemia en el bienestar de las personas alrededor del mundo? | Jueves 5 de noviembre | |
   | 14| Por definir: COVID-19, movilidad y educación (I) | Jueves 12 de noviembre | Tonatiuh Cruz |
   | 15| Por definir: COVID-19, movilidad y educación (II) | Jueves 12 de noviembre | Manuel Lara |
-  | 16 | Conflicto y guerra: ¿cómo afectan estos episodios de destrucción al desarrollo y el bienestar de las personas? | Jueves 19 de noviembre | |
+  | 16 | Conflicto y guerra: ¿cómo afectan estos episodios de destrucción al desarrollo y el bienestar de las personas? | Jueves 19 de noviembre | Wilmer Ferrer |
   | 17 | Crimen e inseguridad en México: ¿cuáles son los efectos económicos y sociales de la violencia y el combate a la violencia en el país? | Jueves 19 de noviembre | Ricardo Solís |
 | 18 | Cambio climático y desarrollo: ¿qué nos dice la evidencia rigurosa sobre el efecto del cambio climático sobre la salud, la productividad y el desarrollo de capacidades? | Jueves 26 de noviembre | |
 | 19 | _Machine learning_ y _big data_: ¿qué oportunidades nos ofrece el rápido desarrollo de estas disciplinas para la evaluación de impacto? | Jueves 26 de noviembre | Rafael Martínez |
