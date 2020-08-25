@@ -319,8 +319,8 @@ class: inverse, middle, center
 - Supongamos también que podemos conocer que:
   
 `$$y_{Zeus}=\begin{cases}
-y_{Zeus,1}=1\\
-y_{Zeuz,0}=0
+y_{1,Zeus}=1\\
+y_{0,Zeuz}=0
 \end{cases}$$`
 
 es decir, si no hubiera recibo el trasplante, estaría vivo cinco días después
@@ -328,8 +328,8 @@ es decir, si no hubiera recibo el trasplante, estaría vivo cinco días después
 - Similarmente, conocemos que:
 
 `$$y_{Hena}=\begin{cases}
-y_{Hena,1}=1\\
-y_{Hena,0}=0
+y_{1,Hena}=0\\
+y_{0,Hena}=0
 \end{cases}$$`
 
 - **Efecto causal para un individuo**: el tratamiento tiene un efecto causal para `\(i\)` si `\(y_{1i}\neq y_{0i}\)`
@@ -389,7 +389,7 @@ y_{Hena,0}=0
 
 # Efectos causales promedio
 
-- De la tabla podemos concluir que `\(P(y{1i}=1)=10/200=0.5\)`, es decir, la mitad de quienes reciben el trasplante morirían después de cinco días
+- De la tabla podemos concluir que `\(P(y{1i}=1)=10/20=0.5\)`, es decir, la mitad de quienes reciben el trasplante morirían después de cinco días
 
 - Y también observamos que `\(P(y_{0i}=1)=0.5\)`, es decir, que la probabilidad de morir de no haber recibido el tratamiento es también de 0.5
 
@@ -600,24 +600,6 @@ $$
 - ¿Qué significa *atrición*?
 
 - ¿Se logró el objetivo del experimento?
-
----
-
-# Efecto del tratamiento
-
-
-|Variable explicativa | (1) | (2) | (3) | (4) |
-|--|:-:|:-:|:-:|:-: |
-| `\(T_1\)` | 4.82 | 5.37 | 5.36 | 5.37 |
-| | (2.19)| (1.26) | (1.21) | (1.19)
-| `\(T_2\)` | 0.12 | 0.29 | 0.53 | 0.31 |
-| | (2.23) | (1.13) | (1.09) | (1.07) |
-| Efectos fijos de escuela | No | Sí  | Sí | Sí |
-|Controles| No | No | `\(X_1\)` | `\(X_1+X_2\)` |
-
-- ¿Cómo se obtienen los resultados de esta tabla?
-
-- ¿Qué se deduce sobre los distintos tratamientos?
 
 ---
 
