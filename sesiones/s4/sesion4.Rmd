@@ -529,7 +529,9 @@ knitr::include_graphics("figures/sixcountries_treatmenteffect.png")
 
   - MM Capítulo 3
   
-  - Angrist, J. D. (2006). Instrumental variables methods in experimental criminological research: what, why and how. *Journal of Experimental Criminology*, 2(1), 23-44.  
+  - Angrist, J. D. (2006). Instrumental variables methods in experimental criminological research: what, why and how. *Journal of Experimental Criminology*, 2(1), 23-44.
+  
+- Pueden ir avanzando con las lecturas que se presentarán el jueves
 
 
 
