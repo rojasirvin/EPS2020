@@ -8,6 +8,10 @@
 
 [Sesión 3](https://rojasirvin.github.io/EPS2020/sesiones/s3/sesion3.html#1). Regresión y efectos causales
 
+[Sesión 4](https://rojasirvin.github.io/EPS2020/sesiones/s4/sesion4.html#1). Inferencia estadística y evaluación
+
+
+
 <!---commented
 
 -->
