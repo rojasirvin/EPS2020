@@ -3,10 +3,10 @@
   | **Entrada** | **Tema** | **Fecha de entrega** | **Autor** |
   | --- | --- | --- | --- |
   | 1 | Programas de transferencias condicionadas: ¿qué ha pasado 20 años después de PROGRESA con los programas de transferencias condicionadas alrededor del mundo? | Jueves 10 de septiembre | César Ángeles |
-  | 2 | Inclusión financiera y microfinanzas: ¿qué nuevas lecciones sabemos sobre sus efectos en la pobreza y otros indicadores de bienestar en países en desarrollo? | Jueves 17 de septiembre |  |
+  | 2 | Inclusión financiera y microfinanzas: ¿qué nuevas lecciones sabemos sobre sus efectos en la pobreza y otros indicadores de bienestar en países en desarrollo? | Jueves 17 de septiembre | Miguel Manrique |
   | 3 | Política para el desarrollo del campo: ¿qué estrategias se siguen en el mundo y que tan efectivas son para el desarrollo del sector primario? | Jueves 24 de septiembre | José Quintero |
   | 4 | Más allá de los impactos de corto plazo: ¿qué evidencia existe de los efectos de largo plazo de intervenciones para el desarrollo? | Jueves 8 de octubre | |
-  | 5| Política y regulación para la competencia: ¿cuál es la evidencia de la efectividad de la política para que los mercados funcionen mejor en países en desarrollo? | Jueves 8 de octubre | |
+  | 5| Política y regulación para la competencia: ¿cuál es la evidencia de la efectividad de la política para que los mercados funcionen mejor en países en desarrollo? | Jueves 8 de octubre | Luis Enrique Ramos |
   |  6| Los efectos económicos de incrementos al salario mínimo: ¿cuál es el estado de esta discusión que parece interminable? | Jueves 15 de octubre | Alonso Pizarro |
   | 7| Microeconometría para preguntas macro: ¿cómo la metodología de evaluación complementa las herramientas de los macroeconometristas? | Jueves 15 de octubre | |
   |  8| Divorcios, aborto y matrimonios del mismo sexo: ¿cuáles son los efectos de la política y la legislación en materia de inclusión y derechos en el mundo? | Jueves 22 de octubre | |
