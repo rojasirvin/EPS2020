@@ -14,7 +14,7 @@
   |  10| Política migratoria y mercados de trabajo: ¿qué lecciones nos ofrece el mundo en un contexto donde no podemos tener experimentos? | Jueves 29 de octubre | |
   | 11| Intervenciones tempranas en la niñez: ¿cuál es la evidencia sobre la *curva de Heckman*? | Jueves 29 de octubre | |
   |  12| Política social y económica en México ¿qué evidencia existe de los efectos de los programas del Gobierno de México? | Jueves 5 de noviembre | Federico Daverio |
-  |  13| El impacto económico del covid-19: ¿qué nos dice la evidencia rigurosa sobre los efectos de la epidemia en el bienestar de las personas alrededor del mundo? | Jueves 5 de noviembre | |
+  |  13| Por definir: COVID-19, medio ambiente y bienestar | Jueves 5 de noviembre | Isaac Soto |
   | 14| Por definir: COVID-19, movilidad y educación (I) | Jueves 12 de noviembre | Tonatiuh Cruz |
   | 15| Por definir: COVID-19, movilidad y educación (II) | Jueves 12 de noviembre | Manuel Lara |
   | 16 | Conflicto y guerra: ¿cómo afectan estos episodios de destrucción al desarrollo y el bienestar de las personas? | Jueves 19 de noviembre | Wilmer Ferrer |
