@@ -458,6 +458,8 @@ class: inverse, middle, center
 
 # Efectivo o condicionales (Baird, McIntosh & Özler, 2011)
 
+
+.pull-left[
 - ¿Cuál es la diferencia entre un CCT y un UCT?
 
 --
@@ -472,10 +474,15 @@ class: inverse, middle, center
   
 - Críticas a los CCT
 
+
+]
+
 --
 
+.pull-right[
 - O...
 <blockquote class="twitter-tweet" data-lang="en-gb"><p lang="en" dir="ltr">Hey, here&#39;s a short story whose moral is this: Consider writing empirical reports in RMarkdown... THREAD /1</p>&mdash; Heather Urry (@HeatherUrry) <a href="https://twitter.com/SergioSarmiento/status/1298945244713676801">27 February 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+]
 
 --
 
