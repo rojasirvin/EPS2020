@@ -474,6 +474,11 @@ class: inverse, middle, center
 
 --
 
+- O...
+<blockquote class="twitter-tweet" data-lang="en-gb"><p lang="en" dir="ltr">Hey, here&#39;s a short story whose moral is this: Consider writing empirical reports in RMarkdown... THREAD /1</p>&mdash; Heather Urry (@HeatherUrry) <a href="https://twitter.com/SergioSarmiento/status/1298945244713676801">27 February 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+--
+
 - Si queremos saber qué funciona mejor, ¿cuál es el experimento ideal?
 
 --
@@ -546,7 +551,7 @@ knitr::include_graphics("figures/cash_condition_table1.png")
 
 - ¿Cómo se obtienen los resultados de la Tabla 1
 
-$$y_i=\alpha+\beta_U C_i+\beta_U U_i + e_i$$
+$$y_i=\alpha+\beta_C C_i+\beta_U U_i + e_i$$
 
 donde $y_i$ toma el valor de 1 si la observación estaba en la línea base y también en la R3, por ejemplo
 
