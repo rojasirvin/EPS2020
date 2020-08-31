@@ -10,8 +10,8 @@
   |  6| Los efectos económicos de incrementos al salario mínimo: ¿cuál es el estado de esta discusión que parece interminable? | Jueves 15 de octubre | Alonso Pizarro |
   | 7| Microeconometría para preguntas macro: ¿cómo la metodología de evaluación complementa las herramientas de los macroeconometristas? | Jueves 15 de octubre | |
   |  8| Divorcios, aborto y matrimonios del mismo sexo: ¿cuáles son los efectos de la política y la legislación en materia de inclusión y derechos en el mundo? | Jueves 22 de octubre | |
-  | 9| Políticas de inclusión en materia de género: ¿qué evidencia hay de la efectividad de políticas para reducir las brechas económicas y sociales entre hombres y mujeres en países en desarrollo? | Jueves 22 de octubre | |
-  |  10| Política migratoria y mercados de trabajo: ¿qué lecciones nos ofrece el mundo en un contexto donde no podemos tener experimentos? | Jueves 29 de octubre | |
+  | 9| Políticas de inclusión en materia de género: ¿qué evidencia hay de la efectividad de políticas para reducir las brechas económicas y sociales entre hombres y mujeres en países en desarrollo? | Jueves 22 de octubre | María Guadalupe Jiménez |
+  |  10| Política migratoria y mercados de trabajo: ¿qué lecciones nos ofrece el mundo en un contexto donde no podemos tener experimentos? | Jueves 29 de octubre | Eduardo García |
   | 11| Intervenciones tempranas en la niñez: ¿cuál es la evidencia sobre la *curva de Heckman*? | Jueves 29 de octubre | |
   |  12| Política social y económica en México ¿qué evidencia existe de los efectos de los programas del Gobierno de México? | Jueves 5 de noviembre | Federico Daverio |
   |  13| Por definir: COVID-19, medio ambiente y bienestar | Jueves 5 de noviembre | Isaac Soto |
