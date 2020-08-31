@@ -54,7 +54,7 @@ a. [5 puntos] ¿Cómo reconcilia la evidencia encontrada por sus asistentes y qu
 
 ## Pregunta 2
 
-Suponga que desea evaluar el impacto de las medidas de sana distancia realizadas por el gobierno de un país para reducir la mortalidad causada por el covid-19. Suponga que hubiera tenido la oportunidad implementar un experimento **antes** de que la epidemia se realizará.
+Suponga que desea evaluar el impacto de las medidas de sana distancia realizadas por el gobierno de un país para reducir la mortalidad causada por el covid-19. Suponga que hubiera tenido la oportunidad implementar un experimento **antes** de que la epidemia se realizara.
 
 a. [10 puntos] Describa cómo diseñaría su experimento ideal para responder a esta pregunta. 
 
