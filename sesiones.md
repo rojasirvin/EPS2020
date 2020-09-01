@@ -10,6 +10,8 @@
 
 [Sesión 4](https://rojasirvin.github.io/EPS2020/sesiones/s4/sesion4.html#1). Inferencia estadística y evaluación
 
+[Sesión 5](https://rojasirvin.github.io/EPS2020/sesiones/s5/sesion5.html#1). LATE y variables instrumentales
+
 
 
 <!---commented
