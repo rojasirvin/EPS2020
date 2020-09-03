@@ -67,7 +67,19 @@ class: inverse, middle, center
 # RCT
 
 - Bruhn, M., Karlan, D., & Schoar, A. (2018). The impact of consulting services on small and medium enterprises: Evidence from a randomized trial in Mexico. *Journal of Political Economy*, 126(2), 635-687.
-  
+
+- Se estima el ITT y esto es interesante porque asemeja lo que suceda en la realidad con las políticas públicas
+
+- Los resultados no pueden ser extrapolados a otros contextos
+
+- Probablemente falto explorar el cumplimiento
+
+- Usa datos del IMSS, los cuales tienes menos error
+
+- Sus conclusiones abordan el mediano plazo, lo cual le da robustez a los resultados
+
+
+
 ---
 
 class: inverse, middle, center
@@ -79,7 +91,17 @@ class: inverse, middle, center
 # Estudios de correspondencia
 
 - Arceo-Gomez, E. O., & Campos-Vazquez, R. M. (2014). Race and marriage in the labor market: A discrimination correspondence study in a developing country. *American Economic Review*, 104(5), 376-80.
- 
+
+- Puede que haya trabajos donde el físico es más importante el físico
+
+- En este caso no hay un tratamiento propiamente, se aleatorizan las características en los CVs
+
+- Los fenotipos son aleatorios, por lo que diferencias en las tasa de respuesta se pueden atribuir a discriminación a ciertos fenotipos
+
+- La variable dependiente es la tasa de respuesta
+
+- Importantes implicaciones de política: CVs sin foto, hacer énfasis en combatir la ilegalidad de las restricciones para mujeres solteras, sin hijos
+
 
 ---
 
@@ -91,7 +113,25 @@ class: inverse, middle, center
 
 # Experimento
 
-- Seira, E., Elizondo, A., & Laguna-Müggenburg, E. (2017). Are information disclosures effective? evidence from the credit card market. *American Economic Journal: Economic Policy*, 9(1), 277-307.  
+- Seira, E., Elizondo, A., & Laguna-Müggenburg, E. (2017). Are information disclosures effective? evidence from the credit card market. *American Economic Journal: Economic Policy*, 9(1), 277-307-.
+
+- La intervención es proveer información
+  - TILA: información puramente financiera
+  - Non-TILA: información sobre cómo se compara un cliente con personas parecidas
+
+- ¡Hay en realidad 8 tratamientos!
+  
+- Los autores construyen celdas cruzando variables observables
+
+- Los tratamientos se aleatorizan dentro de cada una de estas celdas
+
+- Prueba de Kolmogorov: $H_0$ es que la distribuciones son iguales (valores p grandes nos indican que no podemos rechazar la $H_0$)
+
+- Pruebas de poder: con nuestra estrategia empírica, ¿qué efectos podríamos capturar si estos realmente existieran?
+
+- Crítica a la validez externa: usar otro banco
+
+
 
 ---
 
@@ -102,8 +142,6 @@ class: inverse, middle, center
   - Usaremos R para ejemplificar algunas ideas de lo que hemos visto sobre experimentos
 
 - Hablaré sobre cómo estimar el LATE usando variables instrumentales
-
-- Sigue pendiente:
 
   - Angrist, J. D. (2006). Instrumental variables methods in experimental criminological research: what, why and how. *Journal of Experimental Criminology*, 2(1), 23-44.
   
