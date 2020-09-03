@@ -459,7 +459,7 @@ class: inverse, middle, center
 # Efectivo o condicionales (Baird, McIntosh & Özler, 2011)
 
 
-.pull-left[
+
 - ¿Cuál es la diferencia entre un CCT y un UCT?
 
 - ¿Cuál es la racionalidad económica de los CCT?
@@ -473,17 +473,6 @@ class: inverse, middle, center
 - Críticas a los CCT
 
 
-]
-
---
-
-.pull-right[
-- O...
-
-<blockquote class="twitter-tweet" data-lang="en"> <a href="https://twitter.com/SergioSarmiento/status/1298945244713676801"></a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-]
 
 ---
 
