@@ -12,7 +12,7 @@
 
 [Sesión 5](https://rojasirvin.github.io/EPS2020/sesiones/s5/sesion5.html#1). LATE y variables instrumentales
 
-
+[Sesión 6](https://rojasirvin.github.io/EPS2020/sesiones/s6/sesion6.html#1). Aplicaciones de métodos experimentales
 
 <!---commented
 
