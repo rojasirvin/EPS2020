@@ -64,7 +64,11 @@ a. [5 puntos] ¿Cuáles considera que serían las distintas dificultades prácti
 
 ## Pregunta 3
 
+<<<<<<< HEAD
 Replique el ejercicio de representar la FEC de salarios en función de educación para México, como en la Figura 3.1.1 de MHE (p. 39), usando los datos del cuarto trimestre de 2019 de la ENOE. El gráfico es complejo, pero recibirá crédito completo si reproduce, al menos por separado, los dos siguientes tipos de gráficos:
+=======
+Replique el ejercicio de representar la FEC de salarios en función de educación para México, como en la Figura 3.1.2 de MHE (p. 39), usando los datos del cuarto trimestre de 2019 de la ENOE. El gráfico es complejo, pero recibirá crédito completo si reproduce, al menos por separado, los dos siguientes tipos de gráficos:
+>>>>>>> 9a155f9cde41d0e3eebc0a2f703cb89fc55fb7c0
 
 a.	[10 puntos] Gráfico de la relación promedio entre años de educación e ingresos.
 

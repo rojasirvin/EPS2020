@@ -14,8 +14,11 @@
 
 [Sesión 6](https://rojasirvin.github.io/EPS2020/sesiones/s6/sesion6.html#1). Aplicaciones de métodos experimentales
 
+<<<<<<< HEAD
 [Sesión 7](https://rojasirvin.github.io/EPS2020/sesiones/s7/sesion7.html#1). Métodos experimentales en R
 
+=======
+>>>>>>> 9a155f9cde41d0e3eebc0a2f703cb89fc55fb7c0
 <!---commented
 
 -->
