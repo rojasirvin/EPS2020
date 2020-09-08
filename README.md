@@ -9,7 +9,7 @@ Horario de clases: martes y jueves (8:00 a 9:30).
 
 Plataforma de enseñanza: Microsoft Teams.
 
-Horario de oficina: lunes de 12:00 a 13:00, martes de 13:00 a 14:00 y jueves de 17:00 a 18:00 por Microsoft Teams.
+Horario de oficina: martes y jueves de 17:00 a 18:00 por Microsoft Teams.
 
 [Programa del curso](https://github.com/rojasirvin/EPS2020/blob/master/programa.md).
 
@@ -22,3 +22,5 @@ Horario de oficina: lunes de 12:00 a 13:00, martes de 13:00 a 14:00 y jueves de 
 [Sesiones](https://github.com/rojasirvin/EPS2020/blob/master/sesiones.md).
 
 [Presentaciones](https://github.com/rojasirvin/EPS2020/blob/master/presentaciones.md).
+
+[Tareas](https://github.com/rojasirvin/EPS2020/blob/master/tareas.md).

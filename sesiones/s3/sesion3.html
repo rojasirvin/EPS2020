@@ -161,12 +161,38 @@ class: inverse, middle, center
 `$$E(y_i|X_i=x_i)=\sum_t t P(y_i=t|X_i=x_i)$$`
 ---
 
+# Ejemplo de FEC: salarios y educación en México
+
+.pull-left[
+- La figura 3.3.1 en MHE muestra la FEC de salarios en Estados Unidos
+
+- Para cada año de educación, vemos cuál es el (log) del ingreso semanal
+
+- La figura muestra dos cosas principales:
+
+  - La clara relación positiva entre salarios y educación
+  
+  - La gran variabilidad en salarios para un nivel de educación dado
+
+]
+
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/fec_mhe.png" alt="Fuente: Angrist &amp;amp; Pischke (2009)" width="100%" /&gt;
+&lt;p class="caption"&gt;Fuente: Angrist &amp; Pischke (2009)&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+
 # Algunas propiedades de la FEC
 
 - Las siguientes dos propiedades nos serán útiles para motivar el uso de regresión:
 
-- **Propiedad de descomposición**: cualquier variable aleatoria `\(y_i\)` puede ser descompuesta en una parte explicada por `\(X_i\)` (la FEC) y una parte ortogonal con cualquier función de `\(X_i\)`
+- **Propiedad de descomposición**: cualquier variable aleatoria `\(y_i\)` puede ser descompuesta en una parte explicada por `\(X_i\)` (la FEC) y una parte ortogonal con cualquier función de `\(X_i\)`:
 
+`$$y_i=E(y_i|X_i)+\varepsilon_i$$`
 --
 
 - **Propiedad predictiva**: la FEC es el mejor predictor de `\(y_i\)` dado `\(X_i\)` en el sentido de minimizar los errores cuadrados promedio de un problema de predicción:
@@ -195,7 +221,9 @@ class: inverse, middle, center
 # Interpretación de estos teoremas
 
 - El teorema 1 es muy restrictivo, solo aplica cuando la FEC es en sí misma lineal
+
 --
+
 - Los teoremas 2 y 3 son mucho menos restrictivos
 
 - El teorema 2 nos dice que, así como la FEC es el mejor predictor no restringido (de entre las funciones `\(m\)` en la propiedad predictiva de la FEC), la regresión es el **mejor predictor lineal**
@@ -331,7 +359,7 @@ E(y_i|X_i,D_i=1)-E(y_i|X_i,D_i=0)=E(y_{1i}-y_{0i}|X_i)
 \end{aligned}`
 $$
 
-- Para generalizar el concepto cuando la variable tiene más de dos valores (como con la educación `\(s_i\)`), escribamos `\(Y_{si}\equiv f_[is}\)`
+- Para generalizar el concepto cuando la variable tiene más de dos valores (como con la educación `\(s_i\)`), escribamos `\(Y_{si}\equiv f_i(s)\)`
 
 - Esta función nos dice cuál sería el ingreso de `\(i\)` bajo todos los posibles niveles de `\(s\)`
 
@@ -407,9 +435,9 @@ class: inverse, middle, center
 
 # Efectivo o condicionales (Baird, McIntosh &amp; Özler, 2011)
 
-- ¿Cuál es la diferencia entre un CCT y un UCT?
 
---
+
+- ¿Cuál es la diferencia entre un CCT y un UCT?
 
 - ¿Cuál es la racionalidad económica de los CCT?
 
@@ -421,13 +449,31 @@ class: inverse, middle, center
   
 - Críticas a los CCT
 
---
+
+
+---
+
+# El experimento ideal
 
 - Si queremos saber qué funciona mejor, ¿cuál es el experimento ideal?
 
 --
 
+- Ya hemos visto varios elementos para interpretar los resultados del trabajo
+
+  - Integridad del diseño
+  
+  - Efectos de tratamiento usando regresiones
+
+--
+
 - Este artículo contiene muchos elementos que no hemos visto, pero veremos cómo a lo largo del curso nos haremos de herramientas para entender la literatura
+
+  - `\(z\)`-scores
+  
+  - Interpretación de *complidores* y *no cumplidores*
+  
+  - Errores agrupados
 
 ---
 
@@ -496,7 +542,7 @@ class: inverse, middle, center
 
 - ¿Cómo se obtienen los resultados de la Tabla 1
 
-`$$y_i=\alpha+\beta_U C_i+\beta_U U_i + e_i$$`
+`$$y_i=\alpha+\beta_C C_i+\beta_U U_i + e_i$$`
 
 donde `\(y_i\)` toma el valor de 1 si la observación estaba en la línea base y también en la R3, por ejemplo
 

@@ -6,7 +6,7 @@
   |Bruhn & coautores | Experimento | 3 de septiembre | Luis Armenta |
   | Arceo & Campos | Correspondencia | 3 de septiembre | Miguel Manrique |
   | Seira & Laguna | Experimento  | 3 de septiembre | Ricardo Solís |
-  | McIntosh & coautores | LATE   | 3 de septiembre | Rafael Martínez |
+  | McIntosh & coautores | LATE   | 8 de septiembre | Rafael Martínez |
   | Campos & coautores | DID | 29 de septiembre | María Jiménez |
   | Gutiérrez & Parrado | DID | 29 de septiembre | Tonatiuh Cruz |
   | Levasseur | DID | 29 de septiembre | Manuel Lara |

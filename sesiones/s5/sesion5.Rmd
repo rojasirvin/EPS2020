@@ -1,0 +1,492 @@
+---
+title: "LATE y variables instrumentales"
+author: "Irvin Rojas"
+institute: "CIDE"
+date: "1 de septiembre"
+header-includes:
+  - \usepackage{tikz}
+  - \usetikzlibrary{shapes, shadows,arrows}
+output:
+  xaringan::moon_reader:
+    css: [default, "libs/cide.css", metropolis-fonts, "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css", "https://use.fontawesome.com/releases/v5.7.2/css/all.css", "https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css"]
+    seal: false
+    chakra: "https://remarkjs.com/downloads/remark-latest.min.js"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["middle", "center"]
+      ratio: "16:9"
+      beforeInit: ["https://platform.twitter.com/widgets.js", "libs/cols_macro.js"]
+      navigation:
+        scroll: false
+
+
+---
+class: title-slide
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.path = "figures/")
+library(tidyverse)
+library(magick)
+library(reticulate)
+library(knitr)
+xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
+```
+
+.title[
+# Sesión 5. LATE y variables instrumentales
+]
+.subtitle[
+## Evaluación de Programas Sociales
+]
+.author[
+### Irvin Rojas <br> [rojasirvin.com](https://www.rojasirvin.com/) <br> [<i class="fab fa-github"></i>](https://github.com/rojasirvin) [<i class="fab fa-twitter"></i>](https://twitter.com/RojasIrvin) [<i class="ai ai-google-scholar"></i>](https://scholar.google.com/citations?user=FUwdSTMAAAAJ&hl=en)
+]
+
+.affiliation[
+### Centro de Investigación y Docencia Económicas <br> División de Economía
+]
+
+---
+# Agenda
+
+1. Introduciremos problemas de evaluación cuando hay cumplimiento imperfecto
+
+1. Derivaremos e interpretaremos el estimador de efecto local promedio de tratamiento (LATE)
+
+---
+
+class: inverse, middle, center
+
+# Cumplimiento no perfecto
+
+---
+
+# La lotería KIPP
+
+- Frecuentemente nos encontraremos con intervenciones donde la aleatorización ocurre de manera íntegra, pero no todos aquellos asignados a cierto tratamiento efectivamente lo reciben
+
+- El experimento de las escuelas KIPP aleatorizó la **oferta de participar**
+
+- No todos los niños a los que se les ofrece entrar a una escuela charter acaban asistiendo a una
+
+--
+
+- El **local average treatment effect** es el efecto causal de **asistir** a una escuela charter en los niños que solo ingresan a una de estas escuelas si se les es ofrecido un lugar, pero que no lo harían en otro caso
+
+- A este tipo de individuos se les conoce como **cumplidores** o *compliers*
+
+- El efecto que nos interesa es el de asistir, no el de haber sido ofrecida la posibilidad de asistir
+
+---
+
+# Variable instrumental
+
+1. $Z$ es una variable que tiene un efecto causal en la variable de tratamiento
+
+  - $Z$ al efecto de $Z$ sobre $T$ se le conoce como **primera etapa**
+
+1. $Z$ es asignado aleatoriamente
+
+1. Asumimos que $Z$ afecta $y$ solo a través de su efecto en $T$
+
+---
+
+# Integridad del diseño
+
+**Tabla 3.1 en MM, Panel A**
+
+|| Todos, pública | Ganadores | Ganadores vs perdedores    | Asistieron KIPP | Asistieron vs otros |
+|:--------|:---:|:---:|:---:|:---:|:---:|
+| | (1)| (2)| (3)|(4)|(5)|
+|Hispanos   | 0.418| 0.510 | -0.058 | 0.539 | 0.012 |
+| | | | (0.058) | | (0.054) |
+| Negros | 0.173 | 0.257 | 0.026 | 0.240 | -0.001 |
+| | | | (0.047)| | (0.043)|
+
+--
+
+- La oferta fue asignada de manera aleatoria
+
+- Aún cuando fue elección de los alumnos o padres asistir o no, tampoco hay diferencias entre asistentes a KIPP y otros estudiantes
+
+---
+
+# Efecto del tratamiento
+
+**Tabla 3.1 en MM, Panel B**
+
+|| Todos, pública | Ganadores | Ganadores vs perdedores    | Asistieron KIPP | Asistieron vs otros |
+|:--------|:---:|:---:|:---:|:---:|:---:|
+| | (1)| (2)| (3)|(4)|(5)|
+|Matemáticas   | -0.363| -0.003 | 0.355 | 0.095 | 0.467 |
+| | | | (0.115) | | (0.103) |
+| Verbal | -0.417 | -0.262 | 0.113 | -0.211| 0.211 |
+| | | | (0.122)| | (0.109)|
+--
+
+- Noten que los tests están estandarizados con la media *estatal*
+
+--
+
+- La columna (3) muestra la diferencia en dos tests que los estudiantes que ganaron la lotería KIPP tienen un test de matemáticas que excede en $0.355\sigma$ las de quienes no ganaron la lotería
+
+---
+
+# Estimador de variables instrumentales
+
+- ¿Cómo se interpreta esta diferencia entre quienes ganan a lotería y los que no en términos de asistencia
+
+- El estimador de variables instrumentales (VI) relaciona los efectos de la oferta con los efectos de la asistencia
+
+- En nuestro caso, la variable instrumental o instrumento es recibir o no la oferta
+
+--
+
+- El efecto en las calificaciones puede expresarse como:
+
+$$\text{Efecto en el test}=(\text{Efecto de las ofertas en la asistencia})\times (\text{Efecto de la asistencia en el test})$$
+
+- Por tanto:
+
+$$\text{Efecto de la asistencia en el test}=\frac{\text{Efecto de las ofertas en el test}}{\text{Efecto de las ofertas en la asistencia}}$$
+
+- Ahora derivaremos formalmente este resultado, pero la intuión es importante: el efecto causal de la asistencia es el efecto de la asignación, escalado por el efecto de la asignación en la asistencia
+
+---
+
+class: inverse, middle, center
+
+# Identificación de efectos causales usando VI
+
+---
+
+# Identificación de efectos causales usando VI
+
+- Angrist, Imbens & Rubin (1996)
+
+- Asignación: $Z_i=\begin{cases} 1 \\0 \\ \end{cases}$
+
+- Cumplimiento: $D_i=\begin{cases} 1 \\0 \\ \end{cases}$
+
+- $Y_i$ variable de resultados
+
+- Nos importa el efecto de $D_i$ sobre $Y_i$
+
+---
+
+# Efectos causales y VI
+
+- $D_i(Z)$ es el indicador de cumplir, dada la asignación $Z$
+
+- Con cumplimiento perfecto tendríamos $D_i(Z)=Z_i$
+
+- En general, hay asignados que no cumplen y no asignados que cumplen
+
+- $Y_i(Z,D)$ es la variable de interés de $i$
+
+- $Y_i(Z,D)$ y $D_i(Z)$ son resultados potenciales
+
+---
+
+# Supuestos
+
+**Supuesto 1**: *Stable Unit Treatment Value Assumption (SUTVA)*
+
+- Este supuesto indica que los resultados potenciales de $i$ no están correlacionados con los de los otros individuos
+
+- Por tanto podemos escribir $Y_i(Z,D)=Y_i(Z_i,D_i)$ y $D_i(Z)=D_i(Z_i)$
+
+**Supuesto 2**: asignación aleatoria
+
+- La asignación de $Z_i$ es aleatoria, es decir, $P(Z=C)=P(Z=C')$ para todo $C$ y $C'$
+
+--
+
+- Los supuestos 1 y 2 nos permiten identificar los efectos causales de $Z$ en $Y$ y de $Z$ en $D$ calculando diferencias de medias por grupos de $Z$:
+
+  - $ITT_Y$ comparar las medias de $y$ entre quienes $Z=1$ y quienes $Z=0$
+  
+  - $ITT_D$ comparar las medias de $D$ entre quienes $Z=1$ y quienes $Z=0$
+
+---
+
+# Parada para reflexionar
+
+- Hasta ahora el supuesto crítico es la asignación aleatoria de $Z$
+
+- $D_i$ puede no serlo y, en general, no lo es
+
+- Por tanto, una comparación de $y$ entre grupos de $D$ es inapropiada
+
+- Necesitamos algunos supuestos para decir algo del efecto causal de $D$ sobre $Y$
+
+---
+
+# Más supuestos
+
+**Supuesto 3**: restricción de exclusión
+
+$$Y(Z,D)=Y(Z',D)\quad \forall \quad Z,Z',D$$
+
+- Este supuesto implica que podemos escribir:
+
+$$Y_i(1,d)=Y_i(0,d) \quad d=\{0,1\}$$
+- Es decir, resuleve el problema contrafactual
+
+--
+
+- Con el supuesto 3 podemos escribir:
+
+$$Y(D)=Y(Z,D)=Y(Z',D)\quad \forall \quad Z,Z',D$$
+--
+
+- Y por el supuesto 1:
+
+$$Y_i(D_i)=Y_i(Z,D)$$
+---
+
+# Más supuestos
+
+**Supuesto 4**: el efecto causal promedio de $Z$ sobre $D$ es distinto de cero
+
+- Esto es, $E(D_i(1)-D_i(0))\neq0$
+
+- En otras palabras, la asignación tiene efecto sobre el cumplimiento
+
+--
+
+**Supuesto 5**: monotonicidad
+
+$$D_i(1)\geq D_i(0) \quad \forall\quad i=1,\ldots N$$
+- Este supuesto simplemente dice que no hay un individuo que:
+
+  - Cuando se le asigna, no cumple
+  - Cuando no se le asigna, cumple
+  
+- Noten que este supuesto se debe pensar en términos contrafactuales
+
+- A un individuo que no cumple cuando se le asigna y cumple cuando no se le asigna se le conoce como **retador** o *defier*
+
+---
+
+# Variable instrumental
+
+- $Z$ es una **variable instrumental** para el efecto causal de $D$ sobre $Y$ si se cumplen los supuestos 1 al 5
+
+---
+
+# Interpretación del estimador de VI
+
+- Comencemos escribiendo el efecto causal de $Z$ en $Y$, que por el supuesto de exclusión de $Z$ es:
+
+$$
+\begin{aligned}
+Y_i(1,D_i(1))-Y_i(0,D_i(0))=\underbrace{Y_i(D_i(1))-Y_i(D_i(0))}_{A} \\
+\end{aligned}
+$$
+
+--
+
+- Notemos que el lado derecho, $A$, puede calcularse siguiendo la notación de resultados potenciales:
+
+$$
+\begin{aligned}
+Y(D)&=Y(0)+D(Z)(Y(1)-Y(0)) \\
+D(Z)&=D(0)+Z(D(1)-D(0))\\
+\end{aligned}
+$$
+--
+
+- Sustituyendo $D$ en $Y$:
+
+$$
+\begin{aligned}
+Y(D(Z))&=Y(0)+(D(0)+Z(D(1)-D(0)))(Y(1)-Y(0)) \\
+&=Y(0)D(0)(Y(1)-Y(0))+Z(D(1)-D(0))(Y(1)-Y(0))
+\end{aligned}
+$$
+
+---
+
+# Interpretación del estimador de VI
+
+- Podemos evaluar entonces los dos valores de $Z$ y obtener:
+
+$$
+\begin{aligned}
+Y(D(1))&=Y(0)+D(1)(Y(1)-Y(0)) \\
+Y(D(0))&=Y(0)+D(0)(Y(1))-Y(0) \\
+\end{aligned}
+$$
+--
+
+- Y entonces:
+
+$$
+\begin{aligned}
+A&=Y_i(D_i(1))-Y_i(D_i(0)) \\
+&=(Y_i(1)-Y_i(0))(D_i(1)-D_i(0))\\
+\end{aligned}
+$$
+
+--
+
+- Es decir, el efecto causal de $Z$ sobre $Y$ para $i$ es el producto del efecto causal de $D$ sobre $Y$ y del efecto causal de $Z$ sobre $Y$:
+
+$$
+\underbrace{Y_i(1,D_i(1))-Y_i(0,D_i(0))}_{B}=(Y_i(1)-Y_i(0))(D_i(1)-D_i(0))
+$$
+---
+
+# Interpretación causal del estimador de VI
+
+- Consideremos ahora $B$ y obtengamos el valor esperado:
+
+$$
+\begin{aligned}
+E(Y_i(1,D_i(1))-Y_i(0,D_i(0)))&=E(Y_i(1)-Y_i(0))(D_i(1)-D_i(0))\\
+&=(1)E(Y_i(1)-Y_i(0)|D_i(1)-D_i(0)=1)P(D_i(1)-D_i(0)=1)\\
+&+(0)E(Y_i(1)-Y_i(0)|D_i(1)-D_i(0)=1)P(D_i(1)-D_i(0)=0)\\
+&+(-1)E(Y_i(1)-Y_i(0)|D_i(1)-D_i(0)=1)P(D_i(1)-D_i(0)=-1)\\
+\end{aligned}
+$$
+--
+
+- Noten que la intución de este valor esperado es obtener el efecto en la variable de interés bajo los distintos posibles efectos de $Z$ sobre $D$
+
+- El segundo término de la suma es cero y corresponde a aquellos para quienes la asignación no modificó el cumplimento
+
+- Usando el supueto 5 de monotonicidad, sabemos $D_i(1)-D_i(0)$ es igual a uno o cero, es decir, $P(D_i(1)-D_i(0)=-1)=0$
+
+---
+
+# Interpretación causal del estimador de VI
+
+- Por tanto:
+
+$$
+\begin{aligned}
+E(Y_i(1,D_i(1))-Y_i(0,D_i(0)))=E(Y_i(1)-Y_i(0)|D_i(1)-D_i(0)=1)P(D_i(1)-D_i(0)=1)
+\end{aligned}
+$$
+--
+
+- Es decir, el efecto causal promedio de $Z$ sobre $Y$ es igual al producto del efecto causal promedio de $D$ sobre $Y$ en aquellos individuos que cuando se les asigna cumplen y cuando no se les asigna no cumplen, $D_i(0)=0$ y $D_i(1)=1$, y la proporción de estos individuos en la población
+
+---
+
+# Interpretación causal del estimador de VI
+
+**Proposición 1 en Angrist, Imbens & Rubin (1996)**: interpretación causal del estimador de VI
+
+- Si los supuestos 1 a 5 se cumplen, el estimador de VI es:
+
+$$E(Y_i(1)-Y_i(0)|D_i(1)-D_i(0)=1)=\frac{E(Y_i(D_i(1),1))-Y_i(D_i(0),0)}{E(D_i(1)-D_i(0)}=\lambda_{LATE}$$
+
+- Angrist y coautores llaman a este parámetro el **efecto local promedio del tratamiento** o *LATE*
+
+- El LATE es el efecto causal promedio del tratamiento en un conjunto de individuos cuyo estatus de tratamiento puede ser modificado por la asignación aleatoria
+
+- A estos individuos se les conoce como **cumplidores** o *compliers*
+
+
+---
+
+# Tipos de individuos
+
+- Hay cuatro tipos de individuos:
+
+| | $D_i(0)=0$ | $D_i(0)=1$ | 
+|--|:--:|:--:|
+| $D_i(1)=0$ | $Y_i(1,0)-Y_i(0,0)=0$ | $Y_i(1,0)-Y_i(0,1)=-(Y_i(1)-Y_i(0))$ |
+| | Nunca cumplidor | Retador |
+| $D_i(1)=1$ | $Y_i(1,1)-Y_i(0,0)=Y_i(1)-Y_i(0)$ | $Y_i(1,1)-Y_i(0,1)=0$ |
+| | Cumplidor | Siempre adoptador |
+
+--
+
+- Los cumplidores cumplen con el tratamiento si se les asigna y no lo cumplen si no se les asigna
+
+- $Z$ es independiente de $D$ para los nunca cumplidores y los siempre adoptadores y el efecto causal es 0 para ambos
+
+- Los retadores hacen lo contrario a lo que les es asignado
+
+- A la suma de nunca cumplidores, siempre adoptadores y retadores se le conoce como **no cumplidores**
+
+- El supuesto de monotonicidad descarta la existencia de retadores
+
+---
+
+# LATE y TT
+
+- En general el LATE y el TT difieren
+
+- Pero recordemos que $TOT=E(y_{1i}-y_{0i}|D_i=1)$
+
+- Noten que en el conjunto con $D_i=1$ se encuentran los cumplidores y los siempre adoptadores
+
+- Si podemos asegurar que no hay siempre adoptadores, el LATE y el TT son iguales
+
+
+---
+
+# Regresando al experimento KIPP
+
+- Podemos entonces estimar el efecto de asistir a una escuela charter en la prueba de matemáticas
+
+- Tenemos todo en la Tabla 3.1 de MM
+
+$$
+\begin{aligned}
+\lambda&=\frac{(\text{test}|oferta=1)-(\text{test}|oferta=0)}{(\text{prop. asiste}|oferta=1)-(\text{prop. asiste}|oferta=0)}\\
+&=\frac{-0.003-(-0.358)}{0.787-0.046}\\
+&=\frac{0.355}{0.741}\\
+&=0.48\sigma
+\end{aligned}
+$$
+
+
+---
+
+# Resumiendo
+
+- Hemos mostrado que el efecto promedio de $Z$ sobre $Y$ es proporcional al efecto de $D$ sobre $Y$ para los cumplidores
+
+- Por el supuesto 4, sabemos que la proporción de cumplidores es igual al efecto de $Z$ sobre $D$
+
+- Dado que $Z$ se asigna aleatoriamente, podemos estimar los dos ITT por separado para obtener $\lambda=\frac{ITT_Y}{ITT_D}$
+
+--
+
+- En la práctica de evaluación recurrimos a la econometría con variables instrumentales
+
+
+---
+# Próxima sesión
+
+- Hablaré sobre cómo estimar el LATE usando variables instrumentales
+
+  - Angrist, J. D. (2006). Instrumental variables methods in experimental criminological research: what, why and how. *Journal of Experimental Criminology*, 2(1), 23-44.
+  
+- Tres presentaciones sobre cómo la aleatorización nos ayuda a resolver problemas más allá de la asignación de tratamientos
+
+  - Arceo-Gomez, E. O., & Campos-Vazquez, R. M. (2014). Race and marriage in the labor market: A discrimination correspondence study in a developing country. *American Economic Review*, 104(5), 376-80.
+  - Bruhn, M., Karlan, D., & Schoar, A. (2018). The impact of consulting services on small and medium enterprises: Evidence from a randomized trial in Mexico. *Journal of Political Economy*, 126(2), 635-687.
+  - Seira, E., Elizondo, A., & Laguna-Müggenburg, E. (2017). Are information disclosures effective? evidence from the credit card market. *American Economic Journal: Economic Policy*, 9(1), 277-307.  
+
+---
+
+class: center, middle
+
+Presentación creada usando el paquete [**xaringan**](https://github.com/yihui/xaringan) en R.
+
+El *chakra* viene de [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), y [R Markdown](https://rmarkdown.rstudio.com).
+
+Material de clase en versión preliminar.
+
+**No reproducir, no distribuir, no citar.**
+
+
