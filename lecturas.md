@@ -116,13 +116,14 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
 
 * Aplicaciones del PSM  
   + Abadie, A., & Imbens, G. W. (2016). Matching on the estimated propensity score. *Econometrica*, 84(2), 781-807.  
-  + \* Angrist, J., Estimating the Labor Market Impact of Voluntary Military Service Using Social Security Data on Military Applicants, *Econometrica* 66(2), 1998, 249-288.  
+  + \* Angrist, J., Estimating the Labor Market Impact of Voluntary Military Service Using Social Security Data on Military Applicants, *Econometrica* 66(2), 1998, 249-288.
   + \+ Becerril, J., & Abdulai, A. (2010). The impact of improved maize varieties on poverty in Mexico: a propensity score-matching approach. *World development*, 38(7), 1024-1035.
   + Caliendo, M., & Kopeinig, S. (2008). Some practical guidance for the implementation of propensity score matching. *Journal of economic surveys*, 22(1), 31-72.  
   + \+ Chang, A., Miranda-Moreno, L., Cao, J., & Welle, B. (2017). The effect of BRT implementation and streetscape redesign on physical activity: A case study of Mexico City.   *Transportation Research Part A: Policy and Practice*, 100, 337-347.  
   + \* Dehejia, R. H., & Wahba, S. (1999). Causal effects in nonexperimental studies: Reevaluating the evaluation of training programs. *Journal of the American statistical Association*, 94(448), 1053-1062.  
-  + \+ Diaz, J. J., & Handa, S. (2006). An assessment of propensity score matching as a nonexperimental impact estimator evidence from Mexico’s PROGRESA program. *Journal of human resources*, 41(2), 319-345.  
-  + \+ Esquivel, G., & Pineda, A. H. (2007). Las remesas y la pobreza en México: un enfoque de pareo de puntuación de la propensión. *Integración & Comercio*, (27), 47-74.  
+  + \+ Diaz, J. J., & Handa, S. (2006). An assessment of propensity score matching as a nonexperimental impact estimator evidence from Mexico’s PROGRESA program. *Journal of human resources*, 41(2), 319-345.
+  + \+ Espinosa, V., & Rubin, D. B. (2015). Did the military interventions in the Mexican drug war increase violence?. *The American Statistician*, 69(1), 17-27.
+  + \+ Esquivel, G., & Pineda, A. H. (2007). Las remesas y la pobreza en México: un enfoque de pareo de puntuación de la propensión. *Integración & Comercio*, (27), 47-74. 
   + García-Díaz, R., Sosa-Rubí, S. G., Serván-Mori, E., & Nigenda, G. (2018). Welfare effects of health insurance in Mexico: The case of Seguro Popular de Salud. *PloS one*, 13(7), e0199876.  
   + \* LaLonde, R. J. (1986). Evaluating the econometric evaluations of training programs with experimental data. The *American economic review*, 604-620.
 
