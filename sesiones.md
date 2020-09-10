@@ -16,6 +16,7 @@
 
 [Sesión 7](https://rojasirvin.github.io/EPS2020/sesiones/s7/sesion7.html#1). Métodos experimentales en R
 
+[Sesión 8](https://rojasirvin.github.io/EPS2020/sesiones/s8/sesion8.html#1). Econometría del LATE
 
 <!---commented
 
