@@ -56,7 +56,7 @@ a. [5 puntos] Explique qué interpretación tiene la prueba realizada por el inv
 
 *Si la integridad del diseño se mantuvo durante el experimento, se esperaría que las características observables no predijeran el estado de tratamiento. En otras palabras, esperaríamos que los coeficientes en su conjunto no fueran significativos. Es decir, $H_0: \beta_1=\beta_2=\ldots=\beta_k=0$. Un estadístico $F$ debería entonces tener una probabilidad menor al valor de $\alpha$ escogido para el estudio. Claramente, en este caso, el valor $p$ está muy por debajo de cualquier valor de significancia usado normalmente en economía. Por tanto, rechazamos la hipótesis de que las características no predicen el tratamiento.*
 
-a. [5 puntos] ¿Qué concluye a partir de lo que le reporta el investigador A?
+b. [5 puntos] ¿Qué concluye a partir de lo que le reporta el investigador A?
 
 El investigador B le reporta lo siguiente:
 
@@ -96,11 +96,11 @@ a. [10 puntos] Describa cómo diseñaría su experimento ideal para responder a 
 
 a. [5 puntos] Escriba la regresión que usaría para estimar los efectos de las medidas implementadas en una variable de mortalidad.
 
-**Si el diseño permitió generar grupos estadísticamente idénticos de localidades tratadass y y de control, podemos evaluar el impacto de la intervención estimando:**
+*Si el diseño permitió generar grupos estadísticamente idénticos de localidades tratadass y y de control, podemos evaluar el impacto de la intervención estimando:*
 
 $$y_i=\alpha+\beta T_i+X_i'\Gamma+\varepsilon_i$$
 
-**donde $y_i$ es la tasa de fatalidad por localidad, $T_i$ es un indicador del estado de tratamiento y $X_i$ es un vector de características observables.**
+*donde $y_i$ es la tasa de fatalidad por localidad, $T_i$ es un indicador del estado de tratamiento y $X_i$ es un vector de características observables.*
 
 a. [5 puntos] ¿Cuáles considera que serían las distintas dificultades prácticas, institucionales y éticas en la implementación de su experimento ideal?
 
