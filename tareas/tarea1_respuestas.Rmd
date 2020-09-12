@@ -4,7 +4,7 @@ title: |
   | Licenciatura y Maestría en Economía
   | Evaluación de Programas Sociales
 
-subtitle: "Tarea 1"
+subtitle: "Respuestas a la tarea 1"
 author: "Profesor: Irvin Rojas"
 date: "Fecha de entrega: 10 de septiembre a las 8:00."
 output:
