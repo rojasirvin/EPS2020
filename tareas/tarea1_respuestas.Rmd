@@ -186,6 +186,7 @@ g2 <- data_grupos %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size=8))
 g2
 ```
+
 ## Pregunta 4
 
 se los datos del archivo *STAR_public_use.csv* para este problema. En este problema replicará la fila correspondiente a la variable **age** de la Tabla 1 en [Angrist et al. (2009)](https://pubs.aeaweb.org/doi/pdfplus/10.1257/app.1.1.136).[^1]
