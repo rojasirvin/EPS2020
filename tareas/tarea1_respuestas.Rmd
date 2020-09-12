@@ -54,7 +54,7 @@ $$T_i=\alpha+\sum_{j=1}^{5}x_{ji}'\beta +\varepsilon_i$$
 
 a. [5 puntos] Explique qué interpretación tiene la prueba realizada por el investigador A y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?
 
-*Si la integridad del diseño se mantuvo durante el experimento, se esperaría que las características observables no predijeran el estado de tratamiento. En otras palabras, esperaríamos que los coeficientes en su conjunto no fueran significativos. Es decir, $H_0: \beta_1=\beta_2=\ldots=\beta_k=0$. Un estadístico $F$ debería entonces tener una probabilidad menor al valor de $\alpha$ escogido para el estudio. Claramente, en este caso, el valor $p$ está muy por debajo de cualquier valor de significancia usado normalmente en economía. Por tanto, rechazamos la hipótesis de que las características no predicen el tratamiento.*
+    *Si la integridad del diseño se mantuvo durante el experimento, se esperaría que las características observables no predijeran el estado de tratamiento. En otras palabras, esperaríamos que los coeficientes en su conjunto no fueran significativos. Es decir, $H_0: \beta_1=\beta_2=\ldots=\beta_k=0$. Un estadístico $F$ debería entonces tener una probabilidad menor al valor de $\alpha$ escogido para el estudio. Claramente, en este caso, el valor $p$ está muy por debajo de cualquier valor de significancia usado normalmente en economía. Por tanto, rechazamos la hipótesis de que las características no predicen el tratamiento.*
 
 b. [5 puntos] ¿Qué concluye a partir de lo que le reporta el investigador A?
 
