@@ -44,20 +44,22 @@ La tarea debe entregarse de manera individual, pero se recomienda ampliamente co
 
 Suponga que para un experimento en un laboratorio se asignó a un grupo estudiantes a un brazo de tratamiento o a uno de control. Antes de comenzar el experimento se recolectaron una serie de características $x_{ji}$, $j=1,\ldots 5$, de cada estudiante. Se busca medir el efecto del tratamiento sobre una variable de resultados $y_i$.
 
-El investigador A quedó a cargo de comprobar el balance de la asignación del tratamiento y le reporta lo siguiente:
+a. [5 puntos] El investigador A quedó a cargo de comprobar el balance de la asignación del tratamiento y le reporta lo siguiente:
 
-*Para verificar que la aleatorización fue exitosa, tomé la serie de variables pre-intervención y la dummy de asignación al tratamiento $T_i$ para correr la siguiente regresión:*
+    *Para verificar que la aleatorización fue exitosa, tomé la serie de variables pre-intervención y la dummy de asignación al tratamiento $T_i$ para correr la siguiente regresión:*
 $$T_i=\alpha+\sum_{j=1}^{5}x_{ji}'\beta +\varepsilon_i$$
 
-*Después realicé una prueba $F$ de significancia conjunta sobre los coeficientes $\beta_j$ que resultó tener un valor $p$ de 0.003.*
+    *Después realicé una prueba $F$ de significancia conjunta sobre los coeficientes $\beta_j$ que resultó tener un valor $p$ de 0.003.*
 
-a. [5 puntos] Explique qué interpretación tiene la prueba realizada por el investigador A y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?
+    Explique qué interpretación tiene la prueba realizada por el investigador A y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?
 
-    *Si la integridad del diseño se mantuvo durante el experimento, se esperaría que las características observables no predijeran el estado de tratamiento. En otras palabras, esperaríamos que los coeficientes en su conjunto no fueran significativos. Es decir, $H_0: \beta_1=\beta_2=\ldots=\beta_k=0$. Un estadístico $F$ debería entonces tener una probabilidad menor al valor de $\alpha$ escogido para el estudio. Claramente, en este caso, el valor $p$ está muy por debajo de cualquier valor de significancia usado normalmente en economía. Por tanto, rechazamos la hipótesis de que las características no predicen el tratamiento.*
+    *Si la integridad del diseño se mantuvo durante el experimento, se esperaría que las características observables no predijeran el estado de tratamiento. En otras palabras, esperaríamos que los coeficientes en su conjunto no fueran significativos. Es decir, $H_0: \beta_1=\beta_2=\ldots=\beta_k=0$. Un estadístico $F$ debería entonces tener una probabilidad menor al valor de $\alpha$ escogido para el estudio. Claramente, en este caso, el valor $p$ está muy por debajo de cualquier valor de significancia usado normalmente en economía.*
 
 b. [5 puntos] ¿Qué concluye a partir de lo que le reporta el investigador A?
 
-    El investigador B le reporta lo siguiente:
+    *Por tanto, rechazamos la hipótesis de que las características no predicen el tratamiento. Concluimos que existe evidencia de que el diseño del experimento se vio comprometido.*
+
+a. [5 puntos] El investigador B le reporta lo siguiente:
 
     *Yo realicé un análisis adicional para determinar el balance en la asignación del tratamiento. Para cada una de las características $x_{ji}$ corrí la siguiente regresión:*
 $$x_{ji}=\gamma+\pi T_i+u_i$$
@@ -70,14 +72,14 @@ $$x_{ji}=\gamma+\pi T_i+u_i$$
     | $x_{3i}$	| 0.0127 |
     | $x_{4i}$	| 0.0076 |
     | $x_{5i}$	| 0.0902 |
-
-a. [5 puntos] Explique qué interpretación tienen las pruebas por el investigador B y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?
+    
+    Explique qué interpretación tienen las pruebas por el investigador B y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?
 
     *Otra forma de proveer evidencia de la integridad del tratamiento es viendo el balance de las características observadas entre grupos de tratamiento. En este caso, si las medias entre los grupos de tratados y de control son iguales, esperaríamos que el coeficiente $\pi$ fuera no significativo. En otras palabras, $H_0: \pi=0$ en cada una de las regresiones. De nuevo, en cada caso se rechaza la hipótesis nula, lo cual indica que las características son distintas entre tratados y controles.*
 
 a. [5 puntos] ¿Cómo reconcilia la evidencia encontrada por sus asistentes y qué concluye sobre el balance en la asignación del tratamiento? ¿Qué características tendría una diferencia de medias de $y_i$ después del tratamiento como estimador del impacto de este?
 
-    *La evidencia de las partes a. y b. es totalmente consistente entre sí. El investigador 1 concluye que el tratamiento se puede predecir usando las características observables, es decir, que hay carcaterísticas que hacen más probable estar en el grupo de tratados. Por su parte, el investigador 2 muestra que las características observables son distintas entre los grupos de tratamiento y de control. Por tanto, hay evidencia de que el experiemento estuvo comprometido y una diferencia de medias de $y$ entre tratados y controles resulta en un estimador sesgado e inconsistente del parámetro verdadero.*
+    *La evidencia de las partes a. y b. es totalmente consistente entre sí. El investigador A concluye que el tratamiento se puede predecir usando las características observables, es decir, que hay carcaterísticas que hacen más probable estar en el grupo de tratados. Por su parte, el investigador B muestra que las características observables son distintas entre los grupos de tratamiento y de control. Por tanto, hay evidencia de que el experiemento estuvo comprometido y una diferencia de medias de $y$ entre tratados y controles resulta en un estimador sesgado e inconsistente del parámetro verdadero.*
 
 ## Pregunta 2
 

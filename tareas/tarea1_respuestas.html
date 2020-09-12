@@ -392,14 +392,15 @@ Evaluación de Programas Sociales</div></h1>
 <div id="pregunta-1" class="section level2">
 <h2>Pregunta 1</h2>
 <p>Suponga que para un experimento en un laboratorio se asignó a un grupo estudiantes a un brazo de tratamiento o a uno de control. Antes de comenzar el experimento se recolectaron una serie de características <span class="math inline">\(x_{ji}\)</span>, <span class="math inline">\(j=1,\ldots 5\)</span>, de cada estudiante. Se busca medir el efecto del tratamiento sobre una variable de resultados <span class="math inline">\(y_i\)</span>.</p>
-<p>El investigador A quedó a cargo de comprobar el balance de la asignación del tratamiento y le reporta lo siguiente:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>[5 puntos] El investigador A quedó a cargo de comprobar el balance de la asignación del tratamiento y le reporta lo siguiente:</p>
 <p><em>Para verificar que la aleatorización fue exitosa, tomé la serie de variables pre-intervención y la dummy de asignación al tratamiento <span class="math inline">\(T_i\)</span> para correr la siguiente regresión:</em> <span class="math display">\[T_i=\alpha+\sum_{j=1}^{5}x_{ji}&#39;\beta +\varepsilon_i\]</span></p>
 <p><em>Después realicé una prueba <span class="math inline">\(F\)</span> de significancia conjunta sobre los coeficientes <span class="math inline">\(\beta_j\)</span> que resultó tener un valor <span class="math inline">\(p\)</span> de 0.003.</em></p>
-<ol style="list-style-type: lower-alpha">
-<li><p>[5 puntos] Explique qué interpretación tiene la prueba realizada por el investigador A y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?</p>
-<p><em>Si la integridad del diseño se mantuvo durante el experimento, se esperaría que las características observables no predijeran el estado de tratamiento. En otras palabras, esperaríamos que los coeficientes en su conjunto no fueran significativos. Es decir, <span class="math inline">\(H_0: \beta_1=\beta_2=\ldots=\beta_k=0\)</span>. Un estadístico <span class="math inline">\(F\)</span> debería entonces tener una probabilidad menor al valor de <span class="math inline">\(\alpha\)</span> escogido para el estudio. Claramente, en este caso, el valor <span class="math inline">\(p\)</span> está muy por debajo de cualquier valor de significancia usado normalmente en economía. Por tanto, rechazamos la hipótesis de que las características no predicen el tratamiento.</em></p></li>
+<p>Explique qué interpretación tiene la prueba realizada por el investigador A y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?</p>
+<p><em>Si la integridad del diseño se mantuvo durante el experimento, se esperaría que las características observables no predijeran el estado de tratamiento. En otras palabras, esperaríamos que los coeficientes en su conjunto no fueran significativos. Es decir, <span class="math inline">\(H_0: \beta_1=\beta_2=\ldots=\beta_k=0\)</span>. Un estadístico <span class="math inline">\(F\)</span> debería entonces tener una probabilidad menor al valor de <span class="math inline">\(\alpha\)</span> escogido para el estudio. Claramente, en este caso, el valor <span class="math inline">\(p\)</span> está muy por debajo de cualquier valor de significancia usado normalmente en economía.</em></p></li>
 <li><p>[5 puntos] ¿Qué concluye a partir de lo que le reporta el investigador A?</p>
-<p>El investigador B le reporta lo siguiente:</p>
+<p><em>Por tanto, rechazamos la hipótesis de que las características no predicen el tratamiento. Concluimos que existe evidencia de que el diseño del experimento se vio comprometido.</em></p></li>
+<li><p>[5 puntos] El investigador B le reporta lo siguiente:</p>
 <p><em>Yo realicé un análisis adicional para determinar el balance en la asignación del tratamiento. Para cada una de las características <span class="math inline">\(x_{ji}\)</span> corrí la siguiente regresión:</em> <span class="math display">\[x_{ji}=\gamma+\pi T_i+u_i\]</span> <em>A continuación, le reporto una tabla con los valores p asociados al coeficiente estimado de <span class="math inline">\(\pi\)</span> en cada una de las 5 regresiones.</em></p>
 <table>
 <thead>
@@ -430,8 +431,8 @@ Evaluación de Programas Sociales</div></h1>
 <td>0.0902</td>
 </tr>
 </tbody>
-</table></li>
-<li><p>[5 puntos] Explique qué interpretación tienen las pruebas por el investigador B y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?</p>
+</table>
+<p>Explique qué interpretación tienen las pruebas por el investigador B y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?</p>
 <p><em>Otra forma de proveer evidencia de la integridad del tratamiento es viendo el balance de las características observadas entre grupos de tratamiento. En este caso, si las medias entre los grupos de tratados y de control son iguales, esperaríamos que el coeficiente <span class="math inline">\(\pi\)</span> fuera no significativo. En otras palabras, <span class="math inline">\(H_0: \pi=0\)</span> en cada una de las regresiones. De nuevo, en cada caso se rechaza la hipótesis nula, lo cual indica que las características son distintas entre tratados y controles.</em></p></li>
 <li><p>[5 puntos] ¿Cómo reconcilia la evidencia encontrada por sus asistentes y qué concluye sobre el balance en la asignación del tratamiento? ¿Qué características tendría una diferencia de medias de <span class="math inline">\(y_i\)</span> después del tratamiento como estimador del impacto de este?</p>
 <p><em>La evidencia de las partes a. y b. es totalmente consistente entre sí. El investigador 1 concluye que el tratamiento se puede predecir usando las características observables, es decir, que hay carcaterísticas que hacen más probable estar en el grupo de tratados. Por su parte, el investigador 2 muestra que las características observables son distintas entre los grupos de tratamiento y de control. Por tanto, hay evidencia de que el experiemento estuvo comprometido y una diferencia de medias de <span class="math inline">\(y\)</span> entre tratados y controles resulta en un estimador sesgado e inconsistente del parámetro verdadero.</em></p></li>
