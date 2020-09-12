@@ -47,7 +47,6 @@ Suponga que para un experimento en un laboratorio se asignó a un grupo estudian
 El investigador A quedó a cargo de comprobar el balance de la asignación del tratamiento y le reporta lo siguiente:
 
 *Para verificar que la aleatorización fue exitosa, tomé la serie de variables pre-intervención y la dummy de asignación al tratamiento $T_i$ para correr la siguiente regresión:*
-
 $$T_i=\alpha+\sum_{j=1}^{5}x_{ji}'\beta +\varepsilon_i$$
 
 *Después realicé una prueba $F$ de significancia conjunta sobre los coeficientes $\beta_j$ que resultó tener un valor $p$ de 0.003.*
@@ -58,29 +57,27 @@ a. [5 puntos] Explique qué interpretación tiene la prueba realizada por el inv
 
 b. [5 puntos] ¿Qué concluye a partir de lo que le reporta el investigador A?
 
-El investigador B le reporta lo siguiente:
+    El investigador B le reporta lo siguiente:
 
-*Yo realicé un análisis adicional para determinar el balance en la asignación del tratamiento. Para cada una de las características $x_{ji}$ corrí la siguiente regresión:*
-
+    *Yo realicé un análisis adicional para determinar el balance en la asignación del tratamiento. Para cada una de las características $x_{ji}$ corrí la siguiente regresión:*
 $$x_{ji}=\gamma+\pi T_i+u_i$$
-
 *A continuación, le reporto una tabla con los valores p asociados al coeficiente estimado de $\pi$ en cada una de las 5 regresiones.*
 
-| **Característica** |	**Valor $p$** |
-|--- | --- |
-| $x_{1i}$	| 0.0012 |
-| $x_{2i}$	| 0.0312 |
-| $x_{3i}$	| 0.0127 |
-| $x_{4i}$	| 0.0076 |
-| $x_{5i}$	| 0.0902 |
+    | **Característica** |	**Valor $p$** |
+    |--- | --- |
+    | $x_{1i}$	| 0.0012 |
+    | $x_{2i}$	| 0.0312 |
+    | $x_{3i}$	| 0.0127 |
+    | $x_{4i}$	| 0.0076 |
+    | $x_{5i}$	| 0.0902 |
 
 a. [5 puntos] Explique qué interpretación tienen las pruebas por el investigador B y qué se esperaría de haberse logrado una aleatorización exitosa del tratamiento?
 
-*Otra forma de proveer evidencia de la integridad del tratamiento es viendo el balance de las características observadas entre grupos de tratamiento. En este caso, si las medias entre los grupos de tratados y de control son iguales, esperaríamos que el coeficiente $\pi$ fuera no significativo. En otras palabras, $H_0: \pi=0$ en cada una de las regresiones. De nuevo, en cada caso se rechaza la hipótesis nula, lo cual indica que las características son distintas entre tratados y controles.*
+    *Otra forma de proveer evidencia de la integridad del tratamiento es viendo el balance de las características observadas entre grupos de tratamiento. En este caso, si las medias entre los grupos de tratados y de control son iguales, esperaríamos que el coeficiente $\pi$ fuera no significativo. En otras palabras, $H_0: \pi=0$ en cada una de las regresiones. De nuevo, en cada caso se rechaza la hipótesis nula, lo cual indica que las características son distintas entre tratados y controles.*
 
 a. [5 puntos] ¿Cómo reconcilia la evidencia encontrada por sus asistentes y qué concluye sobre el balance en la asignación del tratamiento? ¿Qué características tendría una diferencia de medias de $y_i$ después del tratamiento como estimador del impacto de este?
 
-*La evidencia de las partes a. y b. es totalmente consistente entre sí. El investigador 1 concluye que el tratamiento se puede predecir usando las características observables, es decir, que hay carcaterísticas que hacen más probable estar en el grupo de tratados. Por su parte, el investigador 2 muestra que las características observables son distintas entre los grupos de tratamiento y de control. Por tanto, hay evidencia de que el experiemento estuvo comprometido y una diferencia de medias de $y$ entre tratados y controles resulta en un estimador sesgado e inconsistente del parámetro verdadero.*
+    *La evidencia de las partes a. y b. es totalmente consistente entre sí. El investigador 1 concluye que el tratamiento se puede predecir usando las características observables, es decir, que hay carcaterísticas que hacen más probable estar en el grupo de tratados. Por su parte, el investigador 2 muestra que las características observables son distintas entre los grupos de tratamiento y de control. Por tanto, hay evidencia de que el experiemento estuvo comprometido y una diferencia de medias de $y$ entre tratados y controles resulta en un estimador sesgado e inconsistente del parámetro verdadero.*
 
 ## Pregunta 2
 
@@ -88,25 +85,23 @@ Suponga que desea evaluar el impacto de las medidas de sana distancia realizadas
 
 a. [10 puntos] Describa cómo diseñaría su experimento ideal para responder a esta pregunta. 
 
-*Una posible propuesta de experimento ideal consistiría en seleccionar aleatoriamente localidades de tratamiento y control de entre las localidades consideradas como de alta marginación. En las localidades de tratamiento, a algunas familias se les asignaría de forma aleatoria a pertenecer al grupo de tratamiento, las cuales recibirían la intervención propuesta más adelante, mientras que al resto, no se les daría ningún beneficio*
+    *Una posible propuesta de experimento ideal consistiría en seleccionar aleatoriamente localidades de tratamiento y control de entre las localidades consideradas como de alta marginación. En las localidades de tratamiento, a algunas familias se les asignaría de forma aleatoria a pertenecer al grupo de tratamiento, las cuales recibirían la intervención propuesta más adelante, mientras que al resto, no se les daría ningún beneficio*
 
-*A las familias tratadas en las localidades de tratamiento se les otorgaría una transferencia de dos salarios mínimos diarios por hogar, hasta por dos meses, con el objetivo de reducir la interacción social y económica de las personas.*
+    *A las familias tratadas en las localidades de tratamiento se les otorgaría una transferencia de dos salarios mínimos diarios por hogar, hasta por dos meses, con el objetivo de reducir la interacción social y económica de las personas.*
 
-*Si el propósito es evaluar el efecto de la transferencia en la tasa de fatalidad de la localidad, bastará primero con mostrar que las localidades tratadas y las de control son estadísticamente iguales en características observables.*
+    *Si el propósito es evaluar el efecto de la transferencia en la tasa de fatalidad de la localidad, bastará primero con mostrar que las localidades tratadas y las de control son estadísticamente iguales en características observables.*
 
 a. [5 puntos] Escriba la regresión que usaría para estimar los efectos de las medidas implementadas en una variable de mortalidad.
 
-*Si el diseño permitió generar grupos estadísticamente idénticos de localidades tratadass y y de control, podemos evaluar el impacto de la intervención estimando:*
-
+    *Si el diseño permitió generar grupos estadísticamente idénticos de localidades tratadass y y de control, podemos evaluar el impacto de la intervención estimando:*
 $$y_i=\alpha+\beta T_i+X_i'\Gamma+\varepsilon_i$$
-
 *donde $y_i$ es la tasa de fatalidad por localidad, $T_i$ es un indicador del estado de tratamiento y $X_i$ es un vector de características observables.*
 
 a. [5 puntos] ¿Cuáles considera que serían las distintas dificultades prácticas, institucionales y éticas en la implementación de su experimento ideal?
 
-*La evaluación propuesta permitiría identificar el efecto a nivel localidad de una política que presume que un mayor ingreso del hogar permitiría que las personas pudieran reducir su participación en el mercado de trabajo. Esta intervención resultaría fácil de implementar dado que se asignaría de forma aleatoria el beneficio y no habría ningún requisito de elegibilidad. Las mayores barreras serían las políticas y éticas. Sabemos que el distanciamiento social reduce el contagio y, por tanto, la fatalidad. Entonces, ¿cómo se puede justificar de forma ética el realizar la intervención antes descrita sobre un subgrupo de la población? Además, ¿los hogares dentro de las localidades no tratadas que no fueran asignadas al grupo de tratamiento estarán muy conformes de que su vecino reciba la trasferencia y ellos no? Esto seguramente generaría una serie de conflictos a nivel localidad, poniendo en riesgo incluso la seguridad de los individuos.*
+    *La evaluación propuesta permitiría identificar el efecto a nivel localidad de una política que presume que un mayor ingreso del hogar permitiría que las personas pudieran reducir su participación en el mercado de trabajo. Esta intervención resultaría fácil de implementar dado que se asignaría de forma aleatoria el beneficio y no habría ningún requisito de elegibilidad. Las mayores barreras serían las políticas y éticas. Sabemos que el distanciamiento social reduce el contagio y, por tanto, la fatalidad. Entonces, ¿cómo se puede justificar de forma ética el realizar la intervención antes descrita sobre un subgrupo de la población? Además, ¿los hogares dentro de las localidades no tratadas que no fueran asignadas al grupo de tratamiento estarán muy conformes de que su vecino reciba la trasferencia y ellos no? Esto seguramente generaría una serie de conflictos a nivel localidad, poniendo en riesgo incluso la seguridad de los individuos.*
 
-*Noten que en esta pregunta no hay una sola respuesta correcta.*
+    *Noten que en esta pregunta no hay una sola respuesta correcta.*
 
 ## Pregunta 3
 
@@ -116,8 +111,7 @@ Replique el ejercicio de representar la FEC de salarios en función de educació
 
 a.	[10 puntos] Gráfico de la relación promedio entre años de educación e ingresos.
 
-
-```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
 #FEC
 
 data_empleo1<-read_csv(
@@ -160,7 +154,7 @@ g1
 a.	[10 puntos] Gráfico de la distribución de ingresos para cuatro niveles de educación que usted considere relevante destacar. Argumente sobre los niveles de educación elegidos.
 
 
-```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
 #Densidad por grupos
 #Con algo más de talacha podríamos superponerla
 #sobre la FEC
@@ -195,7 +189,7 @@ se los datos del archivo *STAR_public_use.csv* para este problema. En este probl
 
 a. [5 puntos] Obtenga la media y la desviación estándar en el grupo de control (columna 1), restringiendo la muestra a aquellos individuos con **noshow** igual a 0.
 
-```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
 data.angrist<-read_csv("./STAR_public_use.csv",
                        locale = locale(encoding = "latin1"))   %>% 
   clean_names()
@@ -219,7 +213,7 @@ data.angrist %>%
 a. [10 puntos] Usando una regresión lineal, muestre que el tratamiento es independiente de la edad. De nuevo, debe restringir la muestra quienes tienen **noshow** igual a 0. Reporte los coeficientes y los errores estándar (columnas 2 a 4).
 
 
-```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
 #Balance de características
 balance<-lm(age~ ssp + sfp+ sfsp, data=data.angrist)
 summary(balance)$coef
@@ -228,7 +222,7 @@ summary(balance)$coef
 a. [5 puntos] Realice una prueba de significancia conjunta de los coeficientes obtenidos en el punto b. Reporte el estadístico $F$ y el valor $p$ asociado (columna 5).
 
 
-```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
 #La prueba F ya está realizada con la regresión. Basta con pedirla
 summary(balance)$fstatistic
 
@@ -249,7 +243,7 @@ Antes de estimar los efectos, sustituya **gpa_year1** por missing cuando **grade
 a.	[10 puntos] Estime el efecto de cada tipo de tratamiento sobre el *GPA*, es decir, sobre la variable **gpa_year1**, para toda la muestra (Panel B, columna 1). Ponga atención a los errores estándar.
 
 
-```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
 #Efecto de tratamiento
 
 reg1<-lm(gpa_year1 ~ ssp + sfp+ sfsp+
@@ -298,7 +292,7 @@ data.angrist.reg %>%
 a. [10 puntos] Estime el efecto de recibir cada tipo de tratamiento, considerando los tratamientos SSP o SFP (de cualquier tipo) en las mujeres de la muestra (Panel B, columna 6). Ponga atención a los errores estándar.
 
 
-```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
 #Efecto de cualquier tratamiento solo en mujeres
 
 reg2<-lm(gpa_year1 ~ ssp + sspany+
