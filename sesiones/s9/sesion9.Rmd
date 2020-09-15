@@ -260,7 +260,7 @@ $$r^*=\frac{1+\rho(T-1)}{2\rho}$$
 - Podemos pensar el problema como uno de asignación de recursos
 
 - Supongamos
-  - $a$: costo de inclur un individuo más en una sección cruzada (costo de la intervención)
+  - $a$: costo de incluir un individuo más en una sección cruzada (costo de la intervención)
   - $b$ costo fijo de una ronda adicional
   - $c$ costo marginal de un cuestionario
   - $D$ presupuesto de una línea base
