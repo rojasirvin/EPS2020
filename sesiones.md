@@ -18,6 +18,8 @@
 
 [Sesión 8](https://rojasirvin.github.io/EPS2020/sesiones/s8/sesion8.html#1). Econometría del LATE
 
+[Sesión 9](https://rojasirvin.github.io/EPS2020/sesiones/s9/sesion9.html#1). Reflexiones sobre el diseño de experimentos
+
 <!---commented
 
 -->
