@@ -74,7 +74,10 @@ xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 ---
 # Agenda
 
-1. 
+1. Discutir sobre la decisión del número de rondas de datos en un experimento
+
+1. Discutir sobre la definición de las variables dependientes para evitar el problema de las múltiples hipótesis
+
 ---
 
 class: inverse, middle, center
