@@ -2,7 +2,7 @@
 title: "Consejos prácticos para leer y escribir"
 author: "Irvin Rojas"
 institute: "CIDE"
-date: "22 de septiembre"
+date: "15 de septiembre"
 header-includes:
   - \usepackage{tikz}
   - \usetikzlibrary{shapes, shadows,arrows}
