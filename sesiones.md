@@ -20,7 +20,7 @@
 
 [Sesión 9](https://rojasirvin.github.io/EPS2020/sesiones/s9/sesion9.html#1). Consejos prácticos para leer y escribir
 
-[Sesión 10](https://rojasirvin.github.io/EPS2020/sesiones/s10/sesion10.html#1). Reflexiones sobre el diseño de experimentos
+[Sesión 10](https://rojasirvin.github.io/EPS2020/sesiones/s10/sesion10.html#1). Número de rondas e hipótesis múltiples
 
 <!---commented
 

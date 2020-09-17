@@ -1,5 +1,5 @@
 ---
-title: "Reflexiones sobre el diseño de experimentos"
+title: "Número de rondas e hipótesis múltiples"
 author: "Irvin Rojas"
 institute: "CIDE"
 date: "22 de septiembre"
@@ -58,7 +58,7 @@ xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 ```
 
 .title[
-# Sesión 10. Reflexiones sobre el diseño de experimentos
+# Sesión 10. Número de rondas e hipótesis múltiples
 ]
 .subtitle[
 ## Evaluación de Programas Sociales
