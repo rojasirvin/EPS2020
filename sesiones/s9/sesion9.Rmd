@@ -1,8 +1,8 @@
 ---
-title: "Reflexiones sobre el diseño de experimentos"
+title: "Consejos prácticos para leer y escribir"
 author: "Irvin Rojas"
 institute: "CIDE"
-date: "15 de septiembre"
+date: "22 de septiembre"
 header-includes:
   - \usepackage{tikz}
   - \usetikzlibrary{shapes, shadows,arrows}
@@ -58,7 +58,7 @@ xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 ```
 
 .title[
-# Sesión 9. Reflexiones sobre el diseño de experimentos
+# Sesión 9. Consejos prácticos para leer y escribir
 ]
 .subtitle[
 ## Evaluación de Programas Sociales
@@ -74,546 +74,250 @@ xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 ---
 # Agenda
 
-1. Discutir sobre la decisión del número de rondas de datos en un experimento
+- En esta primera parte del curso hemos estudiado el diseño, implementación y análisis de experimentos
 
-1. Discutir sobre la definición de las variables dependientes para evitar el problema de las múltiples hipótesis
+- Hemos visto ejemplos de estudios de intervenciones con diseños experimentales de muy diversa índole
 
----
+  - Experimentos de campo
+  - Estudios de correspondencia
+  - RCTs a pequeña y gran escala
 
-class: inverse, middle, center
+- Hemos enfatizado el diseño y cómo su integridad permite identificar efectos de tratamiento
 
-# Sobre el número de rondas en un experimento
-
----
-
-# Más $T$s en los experimentos
-
-- McKenzie (2012), Beyond Baseline and Follow-up: The Case for More T in Experiments
-
-- $Y_{it}$ variable de resultados de interés
-
-- $m$ rondas de datos pre intervención, etiquetadas como $-(m-1)$ hasta 0
-
-- $r$ rondas de datos post intervención, etiquetadas de 1 a $r$
-
-
----
-
-# Diferencia en diferencias
-
-- Un estimador comúnmente usado en evaluación y que estudiaremos con mayor detalle en las siguientes semanas es el estimador de diferencia en diferencias (DID)
-
-- En esencia, este estimador consiste en comparar las **diferencias** pre y post tratamiento entre el grupo de tratamiento y el grupo de control
-
-- Suponiendo solo dos periodos, $PRE$ y $POST$ intervención
-
-  - Primera diferencia: $y_{POST}^T-y_{POST}^C$
-  
-  - Segunda diferencia: $y_{PRE}^T-y_{PRE}^C$
-  
---
-
-- Y entonces, el estimador de DID es: 
-$$(y_{POST}^T-y_{POST}^C)-(y_{PRE}^T-y_{PRE}^C)$$
-
-
-
-
----
-
-# ¿Cómo seleccionar la cantidad de rondas de datos?
-
-- En economía, muchos investigadores no consideran apropiadamente la cantidad de rondas de datos pre y post intervención
-
-- Noten que en los ejemplos estudiados en clase la regla parece ser una línea base y una o dos rondas de seguimiento
-
-- Veremos que un elemento clave a considerar en la selección del número de rondas de datos es la autocorrelación en la variable de interés
+- Hemos usado econometría para cuantificar dichos efectos
 
 --
 
-- Supuestos:
+- Este es un breve resumen de las lecciones prácticas que quisiera que tuvieran en cuenta cuando estudien e implementen evaluaciones
 
-  - $n=n_T=n_C$ es el tamaño de la muestra en cada sección cruzada
-  - $\rho$ la autocorrelación en la variable de interés
-  - $\sigma^2$ es la varianza en la sección cruzada
-
----
-
-# Estimadores a comparar
-
-- McKenzie (2012) compara tres estimadores:
-
-  - DID: $\hat{\gamma}_{DID}=(\bar{Y}_{POST}^T-\bar{Y}_{POST}^C)-(\bar{Y}_{PRE}^T-\bar{Y}_{PRE}^C)$
-  
-  - Diferencias post: $\hat{\gamma}_{POST}=(\bar{Y}_{POST}^T-\bar{Y}_{POST}^C)$
-  
-  - ANCOVA: $\hat{\gamma}_{ANCOVA}=(\bar{Y}_{POST}^T-\bar{Y}_{POST}^C)-\hat{\theta}(\bar{Y}_{PRE}^T-\bar{Y}_{PRE}^C)$
-
----
-
-# ANCOVA es más eficiente
-
-- **Resultado 1**
-
-- La varianza del estimador ANCOVA es
-
-$$V(\hat{\gamma}_{ANCOVA})=\frac{2\sigma^2}{n}\left(\frac{1+(r-1)\rho}{r}-\frac{m\rho^2}{1+(m-1)\rho}\right)$$
-
-- Frison and Pocock (1992) muestran que el estimador de ANCOVA tiene una varianza menor que estimador de DID y POST
-
-- Econométricamente, el estimador ANCOVA se obtiene condicionando por el promedio del la variable de interés en las rondas pre intervención en una regresión típica post tratamiento
-
-$$Y_{it}=\sum_{t=1}^r\delta_t+\gamma T_{it}+\theta \hat{Y}_{i,PRE}+\varepsilon_{it}$$
-donde $T_{it}$ es igual a 1 si la unidad $i$ recibió el tratamiento en el periodo $t$
-
-
----
-
-# Sin autocorrelación, $m$ no importa
-
-- **Resultado 2**
-
-- Cuando $\rho=0$, $V(\hat{\gamma}_{ANCOVA})=\frac{2\sigma^2}{n}$
-
-- El número de rondas pre intervención $m$ no importa para la precisión del estimador
-
-- Solo $r$ determina el poder del estimador
-
-- La intuición es que si no hay autocorrelación, cada ronda de datos es igual a la media más ruido
-
-- Y si el tratamiento efectivamente cambia la media, más rondas post tratamiento nos ayudan a eliminar el ruido
-
-- Más generalmente, con $\rho$ baja, los datos de línea base son poco informativos de los valores post intervención
-
----
-
-# ¿Cómo asignar entre $r$ y $m$ con $T$ fijo?
-
-- Consideremos el caso en que $T$ es fijo
-
-- Podemos obtener el número óptimo de rondas $r$ y, por tanto, de $m$ minimizando $V(\hat{\gamma}_{ANCOVA})$
-
-$$r^*=\frac{1+\rho(T-1)}{2\rho}$$
-
---
-
-- Consideremos dos casos
-
-| $\rho$ | $r^*$ | $T=4$ | $T=5$ |
-|:---:|:---:|:---:|:---:|
-| Alta (0.5) | $\frac{T+1}{2}$ | $r=3$, $m=1$ | $r=3$, $m=2$ |
-| Baja (0.25) | $\frac{T+3}{2}$ | $r=4$, $m=0$ | $r=4$, $m=1$ |
-
-
----
-
-# ¿Cómo asignar entre $r$ y $m$ con $T$ fijo?
-
-- **Resultado 3**
-
-- Típicamente en economía del desarrollo trabajamos con $\rho\approx 0.3$
-
-- Con ANCOVA, uno escoge menos rondas pre tratamiento entre más baja sea la autocorrelación
-
-- Incluso podría ser óptimo $m=0$
-
-
-
----
-
-# Trade-off entre $n$ y $T$
-
-- **Resultado 4**
-
-- Consideremos que tenemos un presupuesto fijo para realizar $K=2nT$ encuestas
-
-- Cuando $\rho$ es grande, es mejor hacer secciones cruzadas más grandes y menos rondas
-
-- Lo contrario ocurre cuando $\rho$ es pequeña
-
---
-
-- Consideremos el caso en que fijamos $nT$ y tenemos una sola línea base, $m=1$
-
-- McKenzie (2012) muestra que:
-
-  1. $r^*=int({1/\sqrt{\rho}})$
-  1. Cuando $\rho<0.5$ dos encuestas de seguimiento darán más poder que una
-  1. Cuando $\rho<1/6$ tres encuestas de seguimiento darán más poder que una o dos
-
-
----
-
-# Trade-off entre $n$ y $T$
-
-- La intución es que cuando hay mucha autocorrelación, es mejor obtener información de más individuos diferentes pues, cada ronda adicional nos dice poco nuevo de un mismo $i$
-
-- En evaluación, muchas veces $m=r=1$, pero posiblemente hubiera sido mejor sacrificar el tamaño de la sección cruzada en cada ronda y hacer más de un seguimiento
-
-- $r=m=1$ es la elección óptima solo en casos particulares
-
-
----
-
-# Trade-off entre $n$ y $T$
-
-- Podemos pensar el problema como uno de asignación de recursos
-
-- Supongamos
-  - $a$: costo de incluir un individuo más en una sección cruzada (costo de la intervención)
-  - $b$ costo fijo de una ronda adicional
-  - $c$ costo marginal de un cuestionario
-  - $D$ presupuesto de una línea base
-  
---
-
-- Debemos escoger $r$ y $n$ para minimizar:
-
-$$
-\begin{aligned}
-&\min_{r,n}\frac{2\sigma^2}{n}\left(\frac{1+(r-1)\rho}{r}-\frac{m\rho^2}{1+(m-1)\rho}\right)\\
-\\
-&s.a\quad 2n(a+c(r+1))+br=D
-\end{aligned}
-$$
----
-
-# Trade-off entre $n$ y $T$
-
-- Consideremos los siguientes parámetros:
-
-  - $\rho=0.30$
-  
-  - $b=100$
-  
-  - $c=50$
-  
-  - $D=500000$
-  
-- Caso 1: $a=100$, tratamiento barato
-
-  - En este caso, $n^*=811$ y $r^*=3$
-
---
-
-- Caso 2: $a=10000$, tratamiento caro
-
-  - $n^*=22$ y $r^*=25$
-
----
-
-# [Recomendaciones prácticas de McKenzie](https://blogs.worldbank.org/impactevaluations/another-reason-prefer-ancova-dealing-changes-measurement-between-baseline-and-follow)
-
-1. ANCOVA puede ser más poder que DID y las comparaciones post intervención cuando $\rho$ es baja
-
-1. También puede ser útil cuando hay cambios en la forma en que se mide $y$ entre la línea base y los seguimientos
-
-  - Hacer $y_0=0$ para las observaciones que en la línea base están faltantes
-  - Crear una dummy $mbl_i=1$ si no hay respuesta en la lína base
-  - Estimar $y_i=\alpha+\beta T_i+\gamma Y_{0i} + \pi mbl_i + \varepsilon_i$
-
---
-
-1. ANCOVA puede servir cuando hay cambios en el fraseo de preguntas (semanal vs mensual, por ejemplo)
-
-  - Supongamos que en la línea base se preguntó por el ingreso mensual, pero en el seguimiento por el ingreso semanal
-  - Simplemente estimemos $semanal_i=\alpha+\beta T_i + \gamma mensual_{0i} + \varepsilon_i$
-
---
-
-1. Puede ayudarnos si cambian los componentes de varibles para formar índices
-
-  - Ponemos el índice de la línea base como control
+- Muchos de estos principios 
 
 
 ---
 
 class: inverse, middle, center
 
-# Hipótesis múltiples
+# Resumen de consejos prácticos
 
 ---
 
-# Hipótesis múltiples
+# Cuando leemos sobre el diseño
 
-- **Error tipo I**: concluir que hay un efecto de tratamiento cuando la $H_0$ es verdader, es decir, cuando $H_0:\;\beta_i=0$
+- Identificar la pregunta causal que se busca responder: ¿qué causa qué?
 
-- En una investigación fijamos $\alpha$, la probabilidad de rechazar $H_0$ cuando $H_0$ es cierto
+- Identificar los mecanismos por medio de los cuales esto podría ser cierto: recurrimos a la teoría económica
 
-- En economía trabajamos con $\alpha=0.5$ o $\alpha=0.01$
+- Identificar cuáles son las característiacs del programa o intervención que se estudia
 
-- El problema con probar múltiples hipótesis es que inflamos la tasa de error tipo I
+- Caracterizar el diseño de la evaluación
+  - ¿Cómo se asignó el tratamiento? ¿Hubo una o varias etapas de aleatorización?
+  - ¿Quiénes recibieron los beneficios de la intervención o programa?
+  - ¿Existieron requisitos de elegibilidad?
+  - ¿Todos los asignados a recibir la intervención efectivamente la recibieron?
+
+- Caracterizar las posibles amenazas a la integridad del diseño
+
+
+---
+
+# Cuando leemos sobre el diseño
+
+- Buscar evidencia de la integridad del diseño
+
+  - ¿Los grupos de tratamiento y control tienen características similares antes de la intervención?
+  - ¿Qué tan grande es la atrición? ¿La atrición es diferenciada entre los grupos de tratamiento y control?
+  
+- Darle uso a las tablas de estadística descriptiva
+
+  - La media y la desviación estándar de $y$ nos serán informativos para interpretar los resultados
+  - ¿Tienen sentido los mínimos y máximos de las variables que se nos presentan?
+  
+- Identificar la especificación económetrica que da lugar a los resultados principales
+  - Nivel de agregación
+  - Controles
+  - Tipo de errores
+  
+---
+
+# Cuando interpretamos tablas de resultados
+
+- ¿Cuál es la variable dependiente?
+
+- ¿Cuál es la variable independiente clave? ¿Cuáles son los controles?
+
+- ¿Qué regresores no están reportados, pero sí fueron incluidos en el análisis
+
+- Si se tienen más de una variable dependiente, ¿cómo se relacionan dichas variables?
+
+- ¿Se toma en consideración el problema de probar múltiples hipótesis?
+
+- ¿Qué significan los símbolos y caracteres empleados?
+  
+  - Estrellas de significancia
+  - Paréntesis y corchetes
+  
+---
+
+# Sobre los análisis secundarios
+
+- ¿Qué evidencia adicional se presenta y cómo abona a nuestro entendimiento de la relación causal?
+
+  - Efectos diferenciados entre grupos (por ejemplo, entre hombres y mujeres, entre hogares rurales y urbanos, entre hogares pobres y ricos, entre otros)
+  
+  - Pruebas de poder: ¿el diseño planteado tiene el poder estadístico para detectar efectos de cierto tamaño?
+  
+  - Análisis costo beneficio
+  
+  - Efectos de *derramamiento*
+  
+  - Efectos placebo: ¿si realizo el análisis sobre variables donde yo no esperaría ver efectos, efectivamente obtengo un cero?
+
+---
+
+# Sobre el balance
+
+- En la [Tarea 1](https://rojasirvin.github.io/EPS2020/tareas/tarea1.html)  tuvimos un ejemplo estilizado donde las cosas salieron mal y toda la evidencia apuntaba en esa dirección
+
+  - Observables diferentes entre tratados y no tratados
+  - Observables predicen el estado de tratamiento
+  
+- En la práctica, puede que nos encontremos en algún área gris
 
 --
+ 
+- Una posibilidad es encontrar que *algunas* de las características no están balanceadas y los observables tienen algo de poder predicitvo para el estado de tratamiento
 
-- Por ejemplo, si tenemos 100 hipótesis y si usamos un valor estándar de $\alpha=0.05$, esperaríamos rechazar 5 hipótesis *por suerte*
+  - Discutir cuáles son las características que no están balanceadas y la significancia económica de los desbalances
+  - Incluir el conjunto completo de características usadas para mostrar el balance como covariables en las regresiones de efecto de tratamiento
+  - Explicar las posibles razones por las cuales estos desbalances ocurren
+  - Recordemos que algunos desbalances pueden ocurrir por suerte
 
 
 ---
 
-# Hipótesis múltiples
+# Sobre el balance
 
-- Si realizamos una prueba, la probabilidad de cometer un error es $alpha$ y la de no cometer un error es $1-\alpha$
+- Un estudio comprometido tendrá algunas de las siguientes características
 
-- Si realizamos $n$ pruebas, la probabilidad de no cometer un error es $(1-\alpha)^n$ y la probabilidad de cometer al menos un error es $1-(1-\alpha)^n$
-
---
-
-- Es decir, la probabilidad de cometer al menos un error se incrementa exponencialmente
-
---
-
-- Dos estrategias que abordaremos son:
-
-  - Controlar o ajustar $\alpha$
+  - Existen diferencias económica y estadísticamente significativas en características observadas entre tratados y no tratados antes de la intervención
   
-  - Crear índices que agreguen varias variables
+  - Existen diferencias económica y estadísticamente significativas en las variables de resultados observadas entre tratados y no tratados antes de la intervención
   
----
-
-class: inverse, middle, center
-
-# Control del error tipo I
-
----
-
-# Control del error tipo I
-
-- Popper (1995), Multiple Hypothesis Testing
-
-- Definimos *familias* de variables
-
-- Haremos el ajuste *hacia adentro* de estas familias
-
-- Antes habíamos estudiado de Banerjee et al. (2015)
-
-  - Seguridad alimentaria
-  - Consumo
-  - Activos
-  - Salud mental
+  - Tendrá un alta tasa de atrición diferenciada entre grupos de tratamiento y control
   
-- Dentro de cada familia tenemos $n$ hipótesis $H_i$, con un valor $p$ asociado $p_i$
-
-- Recordemos que $p_i$ es la probabilidad de que el estadístico $T_i$ exceda el valor teórico $t_i$
-
-- Ordenamos las hipótesis de menor a mayor,con $p_1$ siendo el valor más pequeño: $p_1\leq p_2\ldots \leq p_n$
-
+  - Si el estudio tiene incumplimiento imperfecto, poco o nada se discute sobre las diferencias en la adopción
 
 ---
 
-# Método de Bonferroni
+# Conceptos que deben tener a la mano siempre
 
-- El método propuesto por Bonferroni controla la **tasa de error por familia** (FEWR por *family-wise error rate*) definida como la probabilidad de cometer al menos un error tipo I
+- Planteamiento de pruebas de hipótesis: ¿cuál es la $H_0$ que se desea probar?
 
---
+- Relación entre los estadísticos de prueba (como $t$ o $F$), su valor $p$ y la hipótesis nula
 
-- Consiste en rechazar $H_i$ si $p_i\leq \alpha_i$, donde $\alpha_i$ se escoge de forma que $\sum_i\alpha_i=\alpha$
+  - A veces los estudios nos presentan $t$ y otros $p$, pero debemos recordar que son dos caras de la misma moneda y debemos tener la capacidad de ligarlos a la interpretación de resultados
 
-- Usualmente se hace $\alpha_i=\frac{\alpha}{n}$
+- Relación entre los errores estándar y los estadísticos (por ejemplo, el $t$) en una regresión
 
---
+- Cómo interpretar los coeficientes de efecto del tratamiento y de las *estrellas de significancia*
 
-- Por ejemplo, con dos tests y $\alpha=0.5$, $\alpha_i^B=0.025$
+- Cuando anaizamos un estudio con LATE
 
---
-
-- Noten que esta corrección es bastante conservadora
-
-- También podemos ver este test como crear unos valores $p^B$ ajustados: $p_i^B=p_i\times n$
+  - ¿Cuál es la relación estructural, cuál es el coeficiente de interés y cómo se interpreta?
+  - ¿Cuál es la primera etapa, cuál es el coeficiente de interés y cómo se interpreta?
+  - ¿Cuál es la forma reducida, cuál es el coeficiente de interés y cómo se interpreta?
 
 ---
 
-# Método de Hochberg
+# Cuando escribimos sobre una intervención
 
-- Si $p_j\leq \frac{\alpha}{n-j+1}$ para todo $j=1,\ldots,n$, rechazar todas las hipótesis $H_i$ para $i<j$
+- Dar contexto sobre el lugar y momento en que se realiza la intervención
 
-- Visto de otro modo
-
-  - Rechazar todas las $H_i$ si $p_n\leq \alpha$
+- Dar contexto sobre el programa público o describir la intervención con detalle
   
-  - Si no, pasar a la hipótesis $n-1$. Rechazar las hipótesis $H_1,\ldots,H_{n-1}$ si $p_{n-1}\leq \frac{\alpha}{2}$
+- Ayudar al lector a entender la implementación del estudio por todos los medios
+
+  - Incluir mapas de los lugares donde el estudio tuvo lugar
+  - Una línea temporal es un buena ayuda visual para comprender la estructura de la intervención a lo largo del tiempo
+  - Mostrar los cuestionarios empleados (el apéndice es un buen lugar para esto)
+
+- Proveer la intuición económica de la relación causal estudiada: ¿por qué esperamos que $T_i$ afecte $y_i$
+
+  - Varios de los artículos de evaluación mejor publicados incluyan un modelo microeconómico sólido para sustentar la intervención implementada
+  - Aunque a veces no viable tener un modelo en el estudio, sí vale la pena al menos argumentar sobre la relación económica entre las variables estudiadas
+
+
+
+---
+
+# Cosas que evitar al escribir
+
+- Una postura muy personal es evitar pies de página en exceso, aunque esto cambia entre asesores y coautores
+
+- Eviten el uso incorrecto de mayúsculas y recuerden que las reglas ortográficas son distintas entre el español y otros idiomas
+
+- Describir algunas de las dificultades de la implementación y el análisis, pero ser cuidadoso
   
-  - Continuar hasta encontrar la hipótesis $j$ tal que se rechacen las hipótesis $H_1,\ldots,H_{j}$
-
----
-
-# ¿Por qué preocuparnos por la FWER?
-
-- La idea de la FWER tiene sentido si nos preocupa tener incluso un solo falso positivo
-
-- En la práctica, podemos vivir con algunos falsos positivos
-
----
-
-# Método de Benjamini y Hochberg
-
-- Este método controla la tasa de falso descubrimiento
-
-- Si $V$ es el número de falsos rechazos (cuando rechazamos la $H_0$ que es verdadera) y si $R$ es el número total de rechazos, entonces $Q=V/R$ es la proporción de falsos rechazos
-
-- Al valor esperado de $Q$ se le conoce como **tasa de falsos rechazos** (FDR por *false discovery rate*)
-
---
-
-- Sea $k$ el más grande de los $i$ tal que
-$$p_i\leq\frac{1}{n}\alpha$$
-entonces rechar todos los $H_i$ para $i=1,2,\ldots,k$
-
-- En la práctica usamos R
-
-
----
-
-# Ejemplo: Benjamini & Hochberg (1995)
-
-.pull-left[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
-
-data.pvalues<-read_csv("./data_benjamini_hochberg.csv",
-                       locale = locale(encoding = "latin1"))  
-n <- 15
-alpha <- 0.05
-```
-]
-
-.pull-right[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
-data.pvalues
-```
-]
-
-
----
-
-# Ejemplo: Bonferroni
-
-.pull-left[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
-#Bonferroni
-data.bonferroni <- data.pvalues %>% 
-  mutate(bonferroni_alpha=alpha/n) %>% 
-  mutate(bonferrini_rechazar=ifelse(poriginal<=bonferroni_alpha,1,0))
-```
-]
-
-.tiny[
-.pull-right[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
-data.bonferroni
-```
-]
-]
-
-
----
-
-# Ejemplo: Hochberg
-
-.pull-left[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
-#Hochberg
-data.hochberg <- data.pvalues %>% 
-  mutate(hochberg_alpha=alpha/(n-hipotesis+1)) %>% 
-  mutate(hochberg_rechazar=ifelse(poriginal<=hochberg_alpha,1,0))
-```
-]
-
-.tiny[
-.pull-right[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
-data.hochberg
-```
-]
-]
-
----
-
-# Ejemplo: Benjamini & Hochberg
-
-.pull-left[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
-#Benjamini & Hochberg
-data.bh <- data.pvalues %>% 
-  mutate(bh_alpha=alpha*hipotesis/n) %>% 
-  mutate(bh_rechazar=ifelse(poriginal<=bh_alpha,1,0))
-```
-]
-
-.tiny[
-.pull-right[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
-data.bh
-```
-]
-]
-
----
-
-class: inverse, middle, center
-
-# Índices
-
----
-
-# Creación de $z$-scores
-
-- Otra forma comúnmente usada de evitar el problema de las múltiples hipótesis es crear índices
-
-- Kling, Liebmand y Katz (2007) proponen el siguiente promedio de los $z$-score para generar un solo índice
-
-  1. Definir las familias y las variables que componen cada familia, donde $y_{ij}$ es la $j$ésima variable en la familia con $J$ variables
+  - No es de interés del lector si sus regresiones tardaron mucho en correr
+  - No es relevante si su base de datos era muy grande o si tuvieron que trabajar mucho en limpiarla
+  - Tampoco es relevante qué tan difícil fue el trabajo de campo, a menos de que esto tenga un impacto en la integridad del diseño<sup>1</sup>
   
-  1. Definir las varibles $y_{ij}$ de tal forma que mayores valores se interpreten como *mejora*
-  
-  1. Crear $z_{ij}$ como $z_{ij}=\frac{y_{ij}-\bar{y_j}^C}{sd(y_j)^C}\sim(0,1)$, es decir, estandarizar cada una de las $J$ variables usando al grupo de control como referencia
-  
-  1. Crear $z_i$, un solo índice para cada individuo que agregue los $J$ índices creados antes
+.footnote[
+[1] Al autor de este resumen le dio [chikungunya](https://www.who.int/es/news-room/fact-sheets/detail/chikungunya) mientras realizaba trabajo de campo en Oaxaca. Un blog o unas diapositivas de curso son un buen lugar para esa anéctoda
+]
 
-- El procedimiento descrito en Banerjee et al. (2015) es bastante general, pues incluye el caso donde hay varias rondas de seguimiento y varios países
-  
----
-
-# Creación de $z$-scores
-
-- Podemos escribir el índice descrito como
-
-  $$z_i=\frac{(\frac{1}{J}\sum_j z_{ij})-\bar{z}_j^C}{sd(z_j^C)}$$
-
-- Esta transformación tiene la ventaja de que en la siguiente regresión de efecto de tratamiento
-
-$$z_i=\alpha+\beta T_i + X_i'\gamma+\varepsilon_i$$
-
-el coeficiente $\beta$ se interpreta como el efecto del tratamiento medido en desviaciones estándar con respecto a la media del grupo de control
-
---
-
-- Noten que todos las variables dentro de la familia *pesan* igual
-
-- Quizás nos gustaría tomar en cuenta la correlación entre las variables dentro del índice
 
 ---
 
-# Índice de Anderson
+# Cuando reportamos resultados en tablas
 
-- Anderson (2008) propone el siguiente índice, que puede verse como una generalización del de Kling:
+- Mi sugerencia es reportar resultados de regresión en el siguiente formato
 
-$$\bar{s}_i=\frac{1}{W_{i}}\sum_{j\in J} w_j z_{ij}$$
-- $w_j$ es el peso para la variable $j$ y $W_i=\sum_{j\in J}w_{j}$
+  - $\beta$ con estrellas de significancia para $\alpha$ de 10, 5 y 1%
+  - Debajo de $\beta$, reportar los errores estándar entre paréntesis (reservar corchetes para otra nomenclatura)
+  - En los pies de la tabla, aclarar la estructura de los errores (robustos, agrupados, bootstrap o lo que aplique) y la especificación econométrica usada para generar los resultados
+  
+- Cuando implementamos la estimación de un LATE
 
-- Los pesos son una función de la matriz de covarianzas entre las variables que conforman la familia
+  - Incluir los resultados de la primera etapa
+  - Discutir la maginitud del estadístico $F$ y la posibilidad de instrumentos débiles
+  
+- Evitar las tablas de longitud kilométrica
+
+- Siempre describir las tablas dentro del texto (hay pocas cosas más tristes que una tabla huérfana en medio del texto)
+
+
+---
+
+# Cuando hacemos figuras
+
+- Anotar todas la información relevante para que la figura pueda interpretarse sin leer el texto
+
+  - Incluir etiquetas para los ejes
+  
+  - Incluir etiquetas para los *breaks* en los ejes que sean claras
+  
+  - Incluir notas sobre las fuentes de los datos
+  
+- Usar pocos colores o, de preferencia, escalas de grises
+
+- Quizás la otra cosa tan triste como las tablas huérfanas son las figuras huérfanas: comentar sobre las figuras dentro del texto
+
 
 ---
 
 # Próxima sesión
 
-- Continuaré con para afinar la estimación, ahora hablando sobre errores estándar y formas alternativas de hacer inferencia 
+- Jueves:
+
+  - McKenzie, D. (2012). Beyond baseline and follow-up: The case for more T in experiments. *Journal of development Economics*, 99(2), 210-221.
+  - Rojas Valdes, R.I., Wydick, B., & Lybbert, T.J. (2020). Can Hope Elevate Microfinance? Evidence from Oaxaca, Mexico. Forthcoming in *Oxford Economic Papers*.
+  
+- Martes:
 
   - MHE, Capítulo 8
   - Ho, D. E., & Imai, K. (2006). Randomization inference with natural experiments: An analysis of ballot effects in the 2003 California recall election. *Journal of the American Statistical Association*, 101(475), 888-900.
-  
-- Discutiremos cómo lo que hemos visto está implementado en una aplicación reciente
 
-  - Rojas Valdes, R.I., Wydick, B., & Lybbert, T.J. (2020). Can Hope Elevate Microfinance? Evidence from Oaxaca, Mexico. Forthcoming in *Oxford Economic Papers*.
 
 ---
 
