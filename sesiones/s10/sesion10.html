@@ -144,7 +144,7 @@ donde `\(T_{it}\)` es igual a 1 si la unidad `\(i\)` recibió el tratamiento en 
 
 - **Resultado 2**
 
-- Cuando `\(\rho=0\)`, `\(V(\hat{\gamma}_{ANCOVA})=\frac{2\sigma^2}{n}\)`
+- Cuando `\(\rho=0\)`, `\(V(\hat{\gamma}_{ANCOVA})=\frac{2\sigma^2}{nr}\)`
 
 - El número de rondas pre intervención `\(m\)` no importa para la precisión del estimador
 
@@ -311,7 +311,7 @@ class: inverse, middle, center
 
 - En una investigación fijamos `\(\alpha\)`, la probabilidad de rechazar `\(H_0\)` cuando `\(H_0\)` es cierto
 
-- En economía trabajamos con `\(\alpha=0.5\)` o `\(\alpha=0.01\)`
+- En economía trabajamos con `\(\alpha=0.05\)` o `\(\alpha=0.01\)`
 
 - El problema con probar múltiples hipótesis es que inflamos la tasa de error tipo I
 
@@ -324,7 +324,7 @@ class: inverse, middle, center
 
 # Hipótesis múltiples
 
-- Si realizamos una prueba, la probabilidad de cometer un error es `\(alpha\)` y la de no cometer un error es `\(1-\alpha\)`
+- Si realizamos una prueba, la probabilidad de cometer un error es `\(\alpha\)` y la de no cometer un error es `\(1-\alpha\)`
 
 - Si realizamos `\(n\)` pruebas, la probabilidad de no cometer un error es `\((1-\alpha)^n\)` y la probabilidad de cometer al menos un error es `\(1-(1-\alpha)^n\)`
 
@@ -384,7 +384,7 @@ class: inverse, middle, center
 
 --
 
-- Por ejemplo, con dos tests y `\(\alpha=0.5\)`, `\(\alpha_i^B=0.025\)`
+- Por ejemplo, con dos tests y `\(\alpha=0.05\)`, `\(\alpha_i^B=0.025\)`
 
 --
 
