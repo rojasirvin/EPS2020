@@ -358,11 +358,11 @@ donde `\(x_k\)` está correlacionado con `\(u\)`
 
 `$$x_K=\delta_0+\delta_1 x_1+\delta_2 x_2+\ldots+\delta_{K-1}x_{K-1}+\theta_1 z_1+e_K$$`
 
-donde `\(E(r_K)=0\)` y `\(r_K\)` no está correlacionado con las `\(x_j\)` ni con `\(z_1\)`
+donde `\(E(e_K)=0\)` y `\(x_K\)` no está correlacionado con las `\(x_j\)` ni con `\(z_1\)`
 
 --
 
-- Supongamos que tenemos una variable instrumental `\(Z_1\)` tal que:
+- Supongamos que tenemos una variable instrumental `\(z_1\)` tal que:
 
   - **Exclusión**: `\(z_1\)` no pertenece a la ecuación de `\(y\)`, es decir, `\(Cov(z_1,u)\)`
   
@@ -376,7 +376,7 @@ entonces `\(z_1\)` es una variable instrumental para `\(x_k\)`
 # Estimador de variables instrumentales
 
 
-- Escribamos el modelo como `\(y=x\beta+u\)`, donde `\(x=(1,x_2,\dots,x_K)\)` y definamos `\(z=(1,x_2,\ldots,x_{K-1}),z_1\)`
+- Escribamos el modelo como `\(y=x\beta+u\)`, donde `\(x=(1,x_2,\dots,x_K)\)` y definamos `\(z=(1,x_2,\ldots,x_{K-1},z_1)\)`
 
 - Premultiplicamos la ecuación de `\(y\)` por `\(z'\)` y tomamos el valor esperado:
 
@@ -402,7 +402,7 @@ entonces `\(z_1\)` es una variable instrumental para `\(x_k\)`
 
 - En nuestro problema del LATE, el instrumento será la asignación al tratamiento
 
-  - Si `\(Z\)` es aleatorio, se cumple la restricción de exclusión
+  - Si `\(Z\)` es asignado de manera aleatoria, se cumple la restricción de exclusión
 
 - La variable *endógena* es la adopción, por lo que la variable de asignación funciona como un instrumento de la adopción
 
