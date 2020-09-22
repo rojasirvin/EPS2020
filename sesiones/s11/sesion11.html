@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Errores estándar e inferencia</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Irvin Rojas" />
+    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="libs\cide.css" type="text/css" />
+    <link rel="stylesheet" href="https:\\stackpath.bootstrapcdn.com\bootstrap\4.3.1\css\bootstrap-grid.min.css" type="text/css" />
+    <link rel="stylesheet" href="https:\\use.fontawesome.com\releases\v5.7.2\css\all.css" type="text/css" />
+    <link rel="stylesheet" href="https:\\cdn.rawgit.com\jpswalsh\academicons\master\css\academicons.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide
+
+
+
+&lt;style type="text/css"&gt;
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 60% !important;
+}
+&lt;/style&gt;
+
+.title[
+# Sesión 11. Errores estándar e inferencia
+]
+.subtitle[
+## Evaluación de Programas Sociales
+]
+.author[
+### Irvin Rojas &lt;br&gt; [rojasirvin.com](https://www.rojasirvin.com/) &lt;br&gt; [&lt;i class="fab fa-github"&gt;&lt;/i&gt;](https://github.com/rojasirvin) [&lt;i class="fab fa-twitter"&gt;&lt;/i&gt;](https://twitter.com/RojasIrvin) [&lt;i class="ai ai-google-scholar"&gt;&lt;/i&gt;](https://scholar.google.com/citations?user=FUwdSTMAAAAJ&amp;hl=en)
+]
+
+.affiliation[
+### Centro de Investigación y Docencia Económicas &lt;br&gt; División de Economía
+]
+
+---
+# Agenda
+
+1. En esta sesión nos concentraremos en la estimación de errores estándar
+
+1. Definiremos los estimadores de la matriz de varianzas robusta usadas por los programas más usados
+
+1. Estudiaremos el uso de rutinas bootstrap para la estimación de errores estándar
+
+1. Estudiaremos las implicaciones de los datos agrupados en la estimación de errores estándar
+
+1. Estudiaremos una alternativa para realizar inferencia explotando la incertidumbre que surge de la asignación de los tratamientos
+
+---
+
+class: inverse, middle, center
+
+# Errores estándar no estándar
+
+---
+
+# Errores estándar robustos
+
+- Recordemos que con errores homocedásticos, la matriz de varianzas del estimador de MCO puede ser estimada como:
+
+`$$\Omega_{MCO}=\hat{\sigma}^2(X'X)^{-1}$$`
+donde `\(\hat{\sigma}^2=\frac{1}{N-k}\hat{e}_i^2\)` y `\(\hat{e}_i^2=(y_i-X_i'\hat{\beta}_{MCO})^2\)`
+
+--
+
+- Una primera *desviación*  respecto a los errores clásicos ocurre cuando relajamos el supuesto de homocedasticidad
+
+- En la [sesión 3](https://rojasirvin.github.io/EPS2020/sesiones/s3/sesion3.html#23) estudiamos de manera general las propiedades asintóticas del estimador de MCO
+
+- La varianza asintótica es:
+
+`$$V(\hat{\beta})=(X'X)^{-1}X'\Omega X(X'X)^{-1}$$`
+
+- Un estimador de la varianza del estimador de MCO que no asume homocedasticidad es el estimador propuesto por White (1980)
+
+---
+
+# Errores estándar robustos
+
+- Dependiendo de cómo se especifique `\(\Omega\)`, obtenemos distintas versiones del estimador de varianzas robusto
+
+- La propuesta de White original es:
+
+`$$HC0:\quad\hat{\omega}_i=\hat{e}_i^2$$`
+- Este estimador asintóticamente consistente
+
+--
+
+- En muestras pequeñas, muchas veces se emplea la siguiente corrección:
+
+`$$HC1:\quad\hat{\omega}_i=\frac{N}{N-k}\hat{e}_i^2$$`
+---
+
+# Desviación a la influencia
+
+- Un par de resultados nos ayudarán a entender qué hacen las otras correcciones a la matriz robusta en el software
+
+- Definimos la **influencia** de la observación `\(i\)` como:
+
+`$$h_{ii}=X_i'(X'X)^{-1}X_i$$`
+
+- `\(h_{ii}\)` nos dice qué tanto *jala* la observación `\(i\)` a la línea de regresión
+
+- En una regresión con un solo regresor `\(x\)`, se puede mostrar que la influencia de la observación `\(i\)` es:
+
+`$$h_{ii}=\frac{1}{N}+\frac{(x_i-\bar{x})2}{\sum(x_j-\bar{x})^2}$$`
+es decir, que la influencia se incrementa cuando `\(x_i\)` se aleja de la media
+
+- La influencia es un número entre 0 y 1
+
+---
+
+# Errores estándar robustos
+
+- Algunos autores sugieren usar la influencia en la matriz de varianzas robusta
+
+- Se proponen algunas alternativas:
+
+`$$HC2:\quad\hat{\omega}_i=\frac{1}{1-h_{ii}}\hat{e}_i^2$$`
+
+`$$HC3:\quad\hat{\omega}_i=\frac{1}{(1-h_{ii})^2}\hat{e}_i^2$$`
+
+--
+
+- Long &amp; Ervin (2000) condujeron un experimento de simulación y recomendaron usar `\(HC3\)` en muestras pequeñas, por lo que el paquete *sandwich* en R usa `\(HC3\)` por default
+
+- Es importante tener en cuenta qué tipo de errores estándar piden que el software calcule
+
+---
+
+class: inverse, middle, center
+
+# Bootstrap
+
+---
+
+# Bootstrap
+
+- A veces es difícil encontrar una expresión analítica de los errores estándar
+
+- La idea de las técnicas bootstrap es consutrir una distribución empírica del estimador de interés
+
+- Una muestra bootstrap es una muestra tomada de los mismos datos
+
+--
+
+- En las rutinas para errores bootstrap, pensamos en `\(\{(y_1,x_1),\ldots,(y_N,X_n)\}\)` como la población
+
+- Una muestra bootstrap es una muestra de tamaño `\(N\)` tomada de la muestra original
+
+--
+
+- El procedimiento bootstrap más usado es el boostrap no paramétrico o boostrap en parejas (nos enfocaremos en este tipo de bootstrap en el curso)
+
+- La idea es remuestrear la pareja completa `\((y_i,x_i)\)`
+
+---
+
+# Algoritmo para errores estándar bootstrap
+
+1. Dada una muestra `\(W_1,\ldots,W_n\)`, obtener una muestra de tamaño `\(N\)`, remuestreando de la muestra original
+
+1. Calcular el estadístico `\(\hat{\theta}_b\)` usado con la muestra bootstrap (coeficiente de regresión, diferencia de medias, función de coeficientes)
+
+1. Repetir los pasos 1 y 2 `\(B\)` veces, donde `\(B\)` es lo suficientemente grande (usualmente 1000 es suficiente)
+
+1. Usar las `\(B\)` repeticiones para obtener el error estándar del estadístico como la raíz cuadrada de `\(s^2_{\hat{\theta},B}\)`:
+
+`$$s^2_{\hat{\theta},B}=\frac{1}{B-1}\sum_{b=1}^B(\hat{\theta}_{b}-\bar{\hat{\theta}})^2$$`
+donde `\(\bar{\hat{\theta}}=\frac{1}{B}\sum_{b=1}^B\hat{\theta}_b\)`
+
+---
+
+# Refinamiento asintótico
+
+- Una aplicación de las técnicas bootstrap es el *refinamiento asintótico* de la prueba `\(t\)` de coeficientes de regresión
+
+- Supongamos que `\(H_0:\quad \beta=0\)` y trabajamos con un nivel `\(\alpha\)` 
+
+--
+
+- En cada repetición bootstrap el estadístico calculado es `\(t_b\)`
+
+- Ordenamos los `\(B\)` estadísticos obtenidos
+
+- Rechazamos `\(H_0\)` si `\(|t|\)` está por encima del `\((1-\alpha)\)`ésimo percentil de los `\(|t_b|\)` en la distribución bootstrap
+
+--
+
+- A pesar de sus propiedades teóricas, el refinamiento asintótico es poco usado
+
+---
+
+# Aplicaciones comunes de bootstrap
+
+- Métodos de varias etapas (por ejemplo, el estimador de dos etapas de Heckman)
+
+- Funciones de estimadores (aunque aquí el método Delta también podría ser usado)
+
+- Datos agrupados con pocos grupos
+
+--
+
+- El consejo práctico es usar resultados teóricos cuando se puede (por ejemplo, las matrices robustas descritas antes)
+
+- Pensemos siempre en la estructura de los datos antes de hacer boostrap
+
+- Usar una semilla siempre para poder reproducir sus resultados
+
+---
+
+# Otras aplicaciones
+
+- Bootstrap salvaje
+
+- Bootstrap jacknife (útil para problemas con errores agrupados y pocos grupos)
+
+---
+
+class: inverse, middle, center
+
+# Errores agrupados
+
+---
+
+# Errores agrupados
+
+- Surgen naturalmente cuando las observaciones estána agrupadas
+
+  - Niños en salones de clase
+  - Hogares en localidades
+  - Solicitudes de empleo en una empresa
+  - Ahorradoras en un banco
+
+- El supuesto de errores independientes claramente no se cumple
+
+--
+
+- Pensemos en un problema simple para entender la intución:
+
+`$$y_{ig}=\beta_0+\beta_1 x_g+e_{ig}$$`
+
+- Aquí, `\(x_g\)` es un regresor que es el mismo para todos los miembros del grupo `\(g\)` (como cuando se asigna un tratamiento a todos los miembros del grupo)
+
+- Asumamos que todos los grupos tienen tamaño `\(n\)`
+
+---
+
+# Errores agrupados
+
+- Podemos mostrar que la correlación de errores entre dos observaciones `\(i\)` y `\(j\)` que pertenecen a `\(g\)` es `$$E(e_{ig}e_{jg})=\overbrace{\rho_e}^{\text{coeficiente de correlación intraclase}} \underbrace{\sigma_e^2}_{\text{varianza residual}}$$`
+
+- Le damos una estructura aditiva a los errores:
+
+`$$e_{ig}=\nu_g+\eta_{ig}$$`
+donde `\(\nu_g\)` captura toda la correlación dentro del grupo
+
+- `\(\eta_{ig}\)` es un error idiosincrático con media cero e independiente de cualquier otro `\(\eta_{jg}\)`
+
+- Como queremos analizar el problema del agrupamiento, asumimos que tanto `\(v_g\)` y `\(\eta_{ig}\)` son homocedásticos
+
+
+---
+
+# Errores agrupados
+
+- Con esta estructura de errores, el coeficiente de correlación intraclase es:
+
+`$$\frac{\sigma_{\nu}^2}{\sigma_{\nu}^2+\sigma_{\eta}^2}$$`
+- Deberíamos calcular la matriz de varianzas `\(V_C(\hat{\beta})\)` tomando en cuenta esta estructura
+
+
+--
+
+- ¿Qué pasa si hacemos MCO en el contexto de este problema?
+
+
+- Moulton (1984) muestra que:
+
+`$$\frac{V_C(\hat{\beta})}{V_{MCO}(\hat{\beta})}=1+(n-1)\rho_e$$`
+- A `\(\sqrt{\frac{V_C(\hat{\beta})}{V_{MCO}(\hat{\beta})}}\)` se le conoce como el *factor de Moulton*
+
+---
+
+# Factor de Moulton
+
+- El factor de Moulton nos dice qué tanto sobreestimamos la precisión al ignorar la correlación entra clase
+
+- Visto de otro modo:
+
+`$$V_C(\hat{\beta})=\left(1+(n-1)\rho_e\right)V_{MCO}(\hat{\beta})$$`
+
+- Es decir entre más grande sea la correlación dentro de los grupos, más deberíamos *inflar* los errores de MCO
+
+--
+
+- Consideremos el caso extremo de que `\(\rho_e=1\)`, es decir, que todas las `\(y_{ig}\)` dentro del mismo `\(g\)` son iguales
+
+- Entonces el factor de Moulton es simplemente `\(\sqrt{n}\)`
+
+- Y tendríamos que multiplicar por `\(n\)` los errores de MCO:
+
+`$$V_C(\hat{\beta})=n V_{MCO}(\hat{\beta})$$`
+---
+
+# Errores agrupados en general
+
+- En general, `\(x_{ig}\)` varía a nivel individual y tenemos grupos de tamaño `\(n_g\)`
+
+- En este caso, el factor de Moulton es la raíz cuadrada de:
+
+`$$\frac{V_C(\hat{\beta})}{V_{MCO}(\hat{\beta})}=1+\left(\frac{V(n_g)}{\bar{n}}+\bar{n}-1\right)\rho_x\rho_e$$`
+donde `\(\bar{n}\)` es el tamaño promedio del grupo y `\(\rho_x\)` es la correlación intraclase de `\(x_{ig}\)`
+
+- No es necesario asumir una forma para `\(\rho_x\)` (se puede calcular)
+
+--
+
+- Noten que el error que cometemos es más grande entre más heterogéneo es el tamaño de grupos y entre más grande es `\(\rho_x\)`
+
+- Por tanto, cuando el tratamiento no varía entre grupos, este error es grande
+
+---
+
+# Soluciones para errores agrupados
+
+- Solución paramétrica: calcular directamente el factor de Moulton e inflar los errores de MCO
+
+- Bootstrap por bloques: en vez de hacer muestras bootrstrap remuestreando individuos, se remuestrean grupos
+
+- Estimar los errores agrupados (*clustered standard errors*)
+
+---
+
+# Errores estándar agrupados
+
+- Es una generalización de la propuesta de White para errores robustos
+
+- Si `\(G\to\infty\)`, el estimador de la matriz de errores agrupados robusta (CRVE) es consistente para estimar `\(V(\hat{\beta})\)`:
+
+`$$\hat{V}_{CRVE}(\hat{\beta})=(X'X)^{-1}\left(\sum_{g=1}^G X_g'\hat{u}_g\hat{u}_g'X'_g\right)(X'X)^{-1}$$`
+donde `\(\hat{u}_g\hat{u}_g'\)` es la matriz de varianzas para los individuos del grupo `\(g\)`
+
+- El software calcula esta matriz de varianzas haciendo una correción parecida a `\(HC1\)`, pero ahora tomando en cuanta `\(G\)` y no `\(N\)`
+
+--
+
+- El resultado asintótico de consistencia depende de que `\(G\to\infty\)`
+
+- Si `\(G\)` está fijo, no importa qué tan grande sea `\(N\)`, `\(\hat{V}_{CRVE}(\hat{\beta})\)` no será consistente
+
+- Recuerden que podemos aplicar una LGN a un promedio, pero noten que aquí la suma corre sobre `\(g\)`
+---
+
+class: inverse, middle, center
+
+# Inferencia por aleatorización
+
+---
+
+# Inferencia por aleatorización
+
+- Pensemos en que situaciones en que tenemos el control sobre la variación experimental
+
+- Además, supongamos que observamos a la población de estudio completa
+
+- En este caso, la única variación viene de la asignación del tratamiento, es decir, no hay error muestral
+
+- Queremos entonces construir pruebas de hipótesis y valores `\(p\)` que reflejen esta variación
+
+---
+
+# Inferencia por aleatorización
+
+- Consideren cómo pensamos los desbalances en una prueba de balance en la línea base
+
+- Decimos que esperaríamos cierto porcentaje de hipótesis nulas rechazadas aún cuando todas fueran verdaderas por razones del azar
+
+- Esto solo tiene sentido cuando pensamos en muestras
+
+- Si tuviéramos acceso a toda la población, tenemos que pensar en que la única fuente de variación es la asignación aleatoria
+
+- El siguiente ejemplo, con una asignación bastante compleja, nos ayuda a pensar en una forma distinta de hacer inferencia
+
+
+---
+
+# Aplicación a las elecciones en California
+
+- Randimization Inference with Natural Experiments (Ho &amp; Imagi, 2006)
+
+- Se reunieron las firmas necesarias para convocar a elecciones de un nuevo gobernador (*recall election*)
+
+--
+
+- Anteriormente, el funcionario en turno y que buscaba reelegirse aparecía en la primera página
+
+- Una nueva ley ordenío aleatorizar el orden de aparición en la primera página
+
+- ¿Cómo afecta el aparecer en la primera página la probabilidad de ser electo?
+
+---
+
+# Diseño de la asignación
+
+.pull-left[
+- Hubo 135 candidatos
+
+- Particularidad: cada condado diseña su boleta, lo cual hace distinto el número de páginas
+
+- Las unidades de análisis son 121 distritos que tienen boletas de más de una página
+
+- La Figura 1 muestra las veces en que cada candidato aparece en la primera página
+
+- Podemos definir `\(T_i=\begin{cases}1 \quad\text{estar en la primera página} \\ 0 \quad\text{otr caso}\end{cases}\)`
+
+- `\(y_i\)` es el porcentaje de votos recibido en el distrito `\(i\)`
+]
+
+
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/recall_election_figure1.png" alt="Fuente: Ho &amp;amp; Imai (2006)" width="100%" /&gt;
+&lt;p class="caption"&gt;Fuente: Ho &amp; Imai (2006)&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+
+#Asignación aleatoria
+
+- Se conoce el mecanismo asignación aleatoria
+
+- Se realizó un sorteo para determinar el orden de las letras del alfabeto:
+
+  - R, W, Q, O, J, M, V, A, H, B, S, G, Z, X, N, T, C, I, E, K, U, P, D, Y, F, L
+
+--
+
+- El distrito 1 tomó este orden para ordenar a los candidatos en su boleta
+
+- El distrito dos pasó R al final y los ordenó de acuerdo a:
+
+  - W, Q, O, J, M, V, A, H, B, S, G, Z, X, N, T, C, I, E, K, U, P, D, Y, F, L, R
+
+--
+
+- Y así hasta llegar al distrito 121
+---
+
+# Resultados potenciales
+
+- Podemos pensar en el efecto de estar en la primer página en el distrito `\(i\)` `\(\tau_i=y_{1i}y_{0i}\)`
+
+- Para cada candidato tenemos 121 efectos
+
+- Definamos una prueba exacta de Fisher:
+
+`$$H_0:\quad\tau_i=0\quad\forall\quad i=1,2,\ldots,121$$`
+--
+
+- Esta hipótesis indica que la fracción de votos que recibe un candidato en cada distrito es la misma, sin importar la página en que aparece
+
+- A esto se le conoce como una `\(H_0\)` estricta o *sharp* porque se refiere al efecto en **cada** distrito en vez del efecto promedio
+
+- Balo la `\(H_0\)`, `\(y_i=y_{1i}\)` para quienes aparecen en la primera página 
+
+---
+
+# Estadísticos de prueba
+
+- Consideremos el siguiente estadístico de prueba para una diferencia de medias:
+
+`$$W(T)=\frac{\sum_{i=1}^{121}T_iy_i}{N_1}-\frac{\sum_{i=1}^{121}(1-T_i)y_i}{N_0}$$`
+
+- Bajo la `\(H_0\)`, los resultados potenciales son conocidos y corresponden al resultado observado `\(y_i\)`
+
+- Bajo la `\(H_0\)` estricta, lo único que es aleatorio es la asignación de `\(T_i\)`
+
+--
+
+- El estadístico de prueba con los datos observados se define como `\(W(t)\)`
+
+---
+
+# Rechazo de la `\(H_0\)`
+
+- Como conocemos la regla de asignación, podemos calcular la probabilidad de que `\(W(T)\)` sea mayor que el observado `\(W(t)\)`:
+
+`$$p=P(W(T)\geq W(t))$$`
+
+- Comparamos esa probabilidad con el valor `\(\alpha\)` elegido para la investigación
+
+- Si la probabilidad es menor que `\(\alpha\)`, rechazamos la `\(H_0\)` estricta
+
+- La prueba no asume ninguna distribución
+
+---
+
+# Estimación de los valores `\(p\)`
+
+- Idealmente, calcularíamos `\(W(T)\)` para todas las posibles formas de asignar el tratamiento
+
+- Esto es prácticamente imposible (hay `\(23!\)` formas de ordenar el alfabeto)
+
+- Se realiza una proximación Monte Carlo con `\(m\)` repeticiones
+
+- En cada una de las `\(j=1,\ldots,m\)` repeticiones, se hace el sorte del alfabeto y se obtiene `\(W(T^{j})\)`
+
+- Luego comparamos `\(W(T^{j})\)` con `\(W(t)\)`, lo que vemos en los datos
+
+- El valor `\(p\)` se aproxima como sigue:
+
+`$$p=\frac{1}{m}\sum_{j=1}^m I \left(W(T^{j})\geq W(t)\right)$$`
+donde `\(I\)` es una variable indicadora que toma el valor de 1 si `\(W(T^{j})\geq W(t)\)`
+
+
+---
+
+# Estimación de los valores `\(p\)`
+
+- `\(p\)` nos dice la fracción de las veces en que la diferencia fue mayor que la observada en los datos
+
+- En otras palabras, estamos preguntándonos qué tan *raro* o poco probable de ver es `\(W(t)\)` entre la distribución simulada
+
+- Si `\(p\)` es pequeño, es poco probable que se haya obtenido `\(W(t)\)` por cuestiones de azar
+
+--
+
+- Si ahora pensamos en los 135 candidatos, esperaríamos que los valores `\(p\)` se distribuyeran de manera uniforme
+
+- Más aún, esperaríamos que, si `\(\alpha=0.10\)`, se rechazara la `\(H_0\)` para 14 candidatos por cuestiones de azar, aún cuando no haya un efecto de aparecer en la primera página
+
+---
+
+# Efecto de aparecer en la primera página
+
+.pull-left[
+- La Figura 2 muestra a los 135 candidatos, ordenados por la magnitud de `\(p\)`
+
+- En 59 casos el valor `\(p\)` es menor que `\(\alpha\)`
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/recall_election_figure2.png" alt="Fuente: Ho &amp;amp; Imai (2006)" width="75%" /&gt;
+&lt;p class="caption"&gt;Fuente: Ho &amp; Imai (2006)&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+
+# Efecto de aparecer en la primera página
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/recall_election_figure3.png" alt="Fuente: Ho &amp;amp; Imai (2006)" width="70%" /&gt;
+&lt;p class="caption"&gt;Fuente: Ho &amp; Imai (2006)&lt;/p&gt;
+&lt;/div&gt;
+
+- La Figura 3 es como una prueba de balance
+
+- Se realiza exactamente el mismo procedimiento, pero en vez de `\(y_i\)`, se analizan variables que no deberían estar afectadas por la asignación aleatoria
+
+- Es lo que esperaríamos si la `\(H_0\)` fuera verdadera
+
+
+---
+
+# Efecto de aparecer en la primera página
+
+- Los autores dedican tiempo a comparar los resultados con lo que se obtendría con procedimientos convencionales, como MCO
+
+- Por ejemplo, usando MCO, se concluiría que el candidato Schwarzenegger sí se benefició de aparecer en la perimera página
+
+- En cambio, usando el procedimiento de inferencia por aleatorización, el valor `\(p\)` del candidato indica que no se rechaza la `\(H_0\)`
+
+
+---
+
+# Por qué inferencia por aleatorización
+
+- Incorporar el procedimiento de asignación a los métodos paramétricos vistos hasta ahora es complicado
+
+- Por la asignación rotatoria, los candidatos tienen distintas probabilidades de ser asignados en las páginas en cada distrito
+
+- La estimación de las varianzas de los estimadores sería aún más complicada
+
+--
+
+- La prueba exacta de Fisher nos permite incorporar exactamente el procedimiento de aleatorización
+
+- Muchos econometristas, entre ellos Athey e Imbens han propuesto recurrir a los métodos de inferencia basada en aleatorización para tomar en cuenta la incertidumbre que surge de la asignación aleatoria al tratamiento y no del muestreo
+
+- El procedimiento comienza a ser más usado en evaluaciones experimentales
+
+- **No confundir con técnicas bootstrap**, como bien diferencia Jason Kerwin en [esta entrada](https://jasonkerwin.com/nonparibus/2017/09/25/randomization-inference-vs-bootstrapping-p-values/)
+
+---
+
+# Procedimiento general
+
+- Más generalmente, podemos pensar el proceso de inferencia por aleatorización como sigue:
+
+--
+
+1. Asignar aleatoriamente el tratamiento *falso* siguiendo las mismas reglas de como se asignó el tratamiento original
+
+1. Estimar el estadístico usado para probar la hipótesis nula usando la asignación *falsa* (lo cual puede ser un coeficiente de regresión, una diferencia de medias, un estadístico `\(t\)`, etc.)
+
+  - Por construcción, el tratamiento *falso* tiene efecto promedio cero
+  - Sin embargo, es posible rechazar la `\(H_0\)` por razones de azar
+  - Queremos ver cómo se compara el estadístico obtenido en los datos con la asignación verdadera en la distribución de estadísticos *falsos*
+  
+1. Coleccionar el estadístico obtenido y repetir `\(S\)` veces, donde `\(S\)` es lo suficientemente grande (1000 repeticiones suelen bastar)
+
+1. Buscar el estadístico obtenido con los datos en la distribución del estadístico *falso*
+
+1. Obtenemos el valor `\(p\)` como el la fracción de repeticiones en las que `\(T\geq t\)`, donde `\(T\)` y `\(t\)` son estadísticos en general
+
+---
+
+# Ejemplos experimentales
+
+- Kerwin y Thornton (2020) estudian la importancia de las complementariedades en insumos de programas de educación
+
+- Estudian una intervención con dos tipos de tratamientos
+
+  - Insumos de alta calidad
+  
+  - Versión ligera (60% más barata)
+  
+- `\(y_{is}\)` es un test de lectura o escritura del alumno `\(i\)` en la escuela `\(s\)`
+
+- Programa en 38 escuelas
+
+---
+
+# Asignación del programa
+
+- La asignación aleatoria se llevó a cabo a nivel *celda de estratificación*
+
+- Una celda de estratificación consiste en tres escuelas que comparten características observables
+
+  - En este caso era el centro coordinador escolar, el número de alumnos en el primer año y la distancia a la coordinación
+  
+- Dentro de cada celda, una escuela se asigna a control, otra al tratamiento completo y otra al tratamiento ligero
+
+
+---
+
+# Estimación
+
+- Se especifica el siguiente modelo:
+
+`$$y_{is}=\beta_0+\beta_1 T_1+ \beta_2 T_2 + L_e'\gamma+\nu y_{is0}+\varepsilon_{is}$$`
+
+--
+
+- Cuando el diseño tiene estratificación, se incluye una dummy para cada celda 
+
+- Podemos estimar `\(\beta_1\)` y `\(\beta_2\)` por MCO
+
+---
+
+# Inferencia
+
+- Los valores `\(p\)` respectivos se calculan usando el mismo principio de inferencia por aleatorización:
+
+  1. Para cada una de las `\(j=1,\ldots,1000\)` repeticiones, se reasignan `\(T_1\)`, `\(T_2\)` y `\(C\)` en las mismas celdas de estratificación
+  
+  1. Se estiman `\(\beta_1^j\)` y `\(\beta_2^j\)`
+  
+  1. Se obtiene la distribución de los efectos de tratamiento que tienen tiene esperanza cero por construcción
+  
+  1. Para `\(\beta_1\)`, se calcula el valor `\(p\)` como la fracción de las veces en que los `\(\beta_1^j\)` son mayores que `\(\beta_1^{MCO}\)`
+  
+---
+
+# Resultados
+  
+- Los autores concluyen que, como posiblemente hubiéramos esperado, solo la versión completa del programa tiene efectos significativos
+
+- El punto principal de la conclusión de los autores es sobre cómo se escalan los programas
+
+- Los pilotos pueden (suelen) ser exitosos, pero si al escalarlos no se otorgan los beneficios completos, no se obtendrán los mismos resultados que en el piloto
+
+
+
+---
+
+# Próxima sesión
+
+- Discutiremos cómo lo que hemos visto sobre errores e inferencia está implementado en
+
+  - Rojas Valdes, R.I., Wydick, B., &amp; Lybbert, T.J. (2020). Can Hope Elevate Microfinance? Evidence from Oaxaca, Mexico. Forthcoming in *Oxford Economic Papers*.
+
+- Comenzaremos con diferencia en diferencias
+
+- Diferencia en diferencias  
+  + \* MM, Capítulo 5
+  + CT, Capítulo 25, Sección 25.5  
+  + \* GMPRV, Capítulo 7  
+
+- Efectos fijos individuales  
+  + \* MHE, Capítulo 5, Secciones 1, 2 y 3
+
+---
+
+class: center, middle
+
+Presentación creada usando el paquete [**xaringan**](https://github.com/yihui/xaringan) en R.
+
+El *chakra* viene de [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), y [R Markdown](https://rmarkdown.rstudio.com).
+
+Material de clase en versión preliminar.
+
+**No reproducir, no distribuir, no citar.**
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script src="libs/cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

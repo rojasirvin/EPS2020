@@ -87,7 +87,7 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
 
 *Semana 6*
 * Diferencia en diferencias  
-  + CT, Capítulo 25, Sección 4  
+  + CT, Capítulo 25, Sección 25.5 
   + \* GMPRV, Capítulo 7  
   + \* MM, Capítulo 5
 

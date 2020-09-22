@@ -22,6 +22,9 @@
 
 [Sesión 10](https://rojasirvin.github.io/EPS2020/sesiones/s10/sesion10.html#1). Número de rondas e hipótesis múltiples
 
+[Sesión 11](https://rojasirvin.github.io/EPS2020/sesiones/s11/sesion11.html#1). Errores estándar e inferencia
+
+
 <!---commented
 
 -->
