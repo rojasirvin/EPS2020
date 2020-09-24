@@ -24,6 +24,8 @@
 
 [Sesión 11](https://rojasirvin.github.io/EPS2020/sesiones/s11/sesion11.html#1). Errores estándar e inferencia
 
+[Sesión 12](https://rojasirvin.github.io/EPS2020/sesiones/s12/sesion12.html#1). Diferencia en diferencias
+
 
 <!---commented
 
