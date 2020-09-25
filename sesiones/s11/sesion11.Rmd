@@ -196,7 +196,7 @@ class: inverse, middle, center
 
 # Algoritmo para errores estándar bootstrap
 
-1. Dada una muestra $W_1,\ldots,W_n$, obtener una muestra de tamaño $N$, remuestreando de la muestra original
+1. Dada una muestra $W_1,\ldots,W_N$, obtener una muestra de tamaño $N$, remuestreando de la muestra original **con reemplazo**
 
 1. Calcular el estadístico $\hat{\theta}_b$ usado con la muestra bootstrap (coeficiente de regresión, diferencia de medias, función de coeficientes)
 
