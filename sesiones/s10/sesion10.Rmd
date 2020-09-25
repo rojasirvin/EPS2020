@@ -609,12 +609,6 @@ $$\bar{s}_i=\frac{1}{W_{i}}\sum_{j\in J} w_j z_{ij}$$
 - Continuaré con para afinar la estimación, ahora hablando sobre errores estándar y formas alternativas de hacer inferencia 
 
   - MHE, Capítulo 8
-  - Ho, D. E., & Imai, K. (2006). Randomization inference with natural experiments: An analysis of ballot effects in the 2003 California recall election. *Journal of the American Statistical Association*, 101(475), 888-900.
-  
-- Discutiremos cómo lo que hemos visto está implementado en una aplicación reciente
-
-  - Rojas Valdes, R.I., Wydick, B., & Lybbert, T.J. (2020). Can Hope Elevate Microfinance? Evidence from Oaxaca, Mexico. Forthcoming in *Oxford Economic Papers*.
-
 ---
 
 class: center, middle
