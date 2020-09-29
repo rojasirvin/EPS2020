@@ -487,7 +487,7 @@ class: inverse, middle, center
   - Log de salarios: `\(y_{it}\)`
   - Habilidad no observable y fija en el tiempo: `\(A_i\)`
   - Regresores variantes en el tiempo: `\(X_{it}\)`
-  - Miembro de un sindicato: `\(T_i\)`
+  - Miembro de un sindicato: `\(T_{it}\)`
 
 - Supongamos que la asignación al tratamiento es aleatoria, por lo que `\(E(y_{0it}|A_i,X_{it},t,T_{it})=(y_{0it}|A_i,X_{it},t)\)`
 
@@ -514,7 +514,7 @@ class: inverse, middle, center
 - Si `\(A_i\)` es no observable, un modelo de efectos fijos se especifica como sigue:
 
 `$$y_{it}=\alpha_i+\lambda_t+X_{it}'\beta+\rho T_{it}+\varepsilon$$`
-donde `\(\alpha_i=\alpha+A_i'\alpha\)`
+donde `\(\alpha_i=\alpha+A_i'\gamma\)`
 
 - Noten que este modelo tiene `\(((N-1)+(T-1)+K+1)\)` parámetros a ser estimados
 
