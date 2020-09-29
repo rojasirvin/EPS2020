@@ -470,6 +470,133 @@ summary(did_bank2)
 
 ---
 
+class: inverse, middle, center
+
+# Efectos fijos
+
+---
+
+# Efectos fijos
+
+- Implícitamente hemos tratado hasta ahora con datos en panel, es decir, con datos donde tenemos datos para cada unidad aparece en varios periodos
+
+- Además, en el caso de las leyes para el acceso a alcohol, hemos usado un estimador en particular para estimar el efecto del tratamiento, el **estimador de efectos fijos**
+
+- Consideremos el siguiente problema:
+
+  - Log de salarios: `\(y_{it}\)`
+  - Habilidad no observable y fija en el tiempo: `\(A_i\)`
+  - Regresores variantes en el tiempo: `\(X_{it}\)`
+  - Miembro de un sindicato: `\(T_i\)`
+
+- Supongamos que la asignación al tratamiento es aleatoria, por lo que `\(E(y_{0it}|A_i,X_{it},t,T_{it})=(y_{0it}|A_i,X_{it},t)\)`
+
+--
+
+- Supongamos la siguiente función lineal de salarios:
+
+`$$E(y_{0it}|A_i,X_{it},t)=\alpha+\lambda_t+A_i'\gamma+X_{it}'\beta$$`
+---
+
+# Efectos fijos
+
+-Supongamos también un efecto de tratamiento constante tal que:
+
+`$$E(y_{1it}|A_i,X_{it},t)=E(y_{0it}|A_i,X_{it},t)+\rho$$`
+
+
+- Entonces, la función de salarios es:
+
+`$$E(y_{it}|A_i,X_{it},t)=\alpha+\lambda_t+A_i'\gamma+X_{it}'\beta+\rho T_{it}$$`
+
+--
+
+- Si `\(A_i\)` es no observable, un modelo de efectos fijos se especifica como sigue:
+
+`$$y_{it}=\alpha_i+\lambda_t+X_{it}'\beta+\rho T_{it}+\varepsilon$$`
+donde `\(\alpha_i=\alpha+A_i'\alpha\)`
+
+- Noten que este modelo tiene `\(((N-1)+(T-1)+K+1)\)` parámetros a ser estimados
+
+- Tendríamos que incluir una regresión con `\(N-1\)` variables dummy por cada individuo y `\(T-1\)` variables dummy para cada periodo, además de los regresores y la dummy de tratamiento
+
+--
+
+- Sin embargo, es posible modificar el modelo original para deshacernos de las `\(\alpha_i\)`
+
+---
+
+# Modelo en diferencias
+
+- Definamos `\(\Delta z_t=z_t-z_{t-1}\)`
+
+- Podemos entonces tomar diferencias al modelo de efectos fijos para obtener:
+
+`$$\Delta y_{it}=\Delta\lambda_t+\rho\Delta T_{it}+\Delta X_{it}'\beta+\Delta\varepsilon_{it}$$`
+
+--
+
+- El modelo puede estimarse sin tener que incluir las `\(N-1\)` variables dummy individuales
+
+---
+
+# Modelo en desviaciones
+
+
+- Si tomamos la media a cada variable del modelo de efectos fijos tenemos:
+
+`$$\bar{y_i}=\alpha_i+\bar{\lambda}+\rho\bar{T_i}+\bar{X}_i'\beta+\bar{\varepsilon}_i$$`
+- Restando `\(\bar{y}_i\)` a `\(y_{it}\)`:
+
+`$$y_{it}-\bar{y}_i=\lambda_t-\bar{\lambda}+\rho(T_{it}-\bar{T}_i)+(X_{it}-\bar{X}_i)'\beta+(\varepsilon_{it}-\bar{\varepsilon}_i)$$`
+--
+
+- Es decir, podemos despreocuparnos por estimar un modelo con muchas variables dummy, sobre todo si lo que nos importa es `\(\rho\)`
+
+---
+
+# Modelo en desviaciones 
+
+- Si `\(T=2\)`, el modelo de diferencias y el de desviaciones es numéricamente equivalente a estimar el modelo de efectos fijos, aunque con `\(T&gt;2\)`, se prefiere el modelo de desviaciones
+
+- En general, con errores homocedásticos e independientes, el modelo en desviaciones es más eficiente
+
+- Al estimador de desviaciones se le conoce comúnmente como estimador *within* o de *análisis de covarianza*
+
+- `\(\hat{\beta}\)` y `\(\hat{\rho}\)` son consistentes cuando `\(N\to\infty\)` y `\(T\)` fijo
+
+- Sin embargo, los efectos fijos estimados no son consistentes, lo que se conoce como el **problema de los parámetros incidentales**
+
+- Para construir errores estándar tenemos que tomar en cuenta que estimamos `\(N\)` medias (lo cual afecta los grados de libertad)
+
+- Con errores homocedásticos e independientes, las funciones como *plm* con la opción *model=within* nos da los resultados deseados
+
+---
+
+# ¿Qué tanto confiamos en DID?
+
+
+- Bertrarnd, Duflo &amp; Mullainathan (2004), How Much Should We Trust Differences-in-Differences Estimates
+
+- Por algún tiempo poco o nada de atención se le dió al hecho de que el uso de DID en muchas áreas (desarrollo, salud, laboral) implicaba análisis con variables con alta correlación serial
+
+- Bertrarnd, Duflo &amp; Mullainathan reconocieron este hecho
+  - 69/92 artículos revisados usan más de dos periodos
+  - 16.5 periodos en promedio
+  - La gran mayoría no hace nada al respecto
+
+--
+
+- Nosotros ya sabemos la implicación de esto, de forma análoga a lo que sucede con datos agrupados: subestimación de los errores estándar
+
+- Conclusiones equivocadas al rechazar `\(H_0\)` que son ciertas.
+
+--
+
+- Usemos errores agrupados
+
+---
+
 # Próxima sesión
 
 - Haremos varias precisiones para la estimación de DID, sobre todo relacionadas a los errores estándar
@@ -477,8 +604,12 @@ summary(did_bank2)
 - Diferencia en diferencias  
   + CT, Capítulo 25, Sección 25.5  
 
-- Efectos fijos individuales  
-  + \* MHE, Capítulo 5, Secciones 1, 2 y 3
+  + Campos, R. M., Esquivel, G., &amp; Santillán, A. S. (2017). El impacto del salario mínimo en los ingresos y el empleo en México. *Revista CEPAL*.  
+
+  + Gutiérrez Vázquez, E. Y., &amp; Parrado, E. A. (2016). Abortion legalization and childbearing in Mexico. *Studies in family planning*, 47(2), 113-128.  
+  + Levasseur, P. (2019). Can social programs break the vicious cycle between poverty and obesity? Evidence from urban Mexico. *World Development*, 113, 143-156.  
+
+
 
 ---
 
