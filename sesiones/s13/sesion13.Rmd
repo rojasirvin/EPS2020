@@ -40,6 +40,8 @@ library(clubSandwich)
 library(modelsummary)
 library(estimatr)
 library(lubridate)
+library(ExPanDaR) #for describing panel data
+library(lfe)
 
 p_load(tidyverse, foreign, reshape2, psych, qwraps2, forcats, readxl, 
        broom, lmtest, margins, plm, rdrobust, multiwayvcov,
@@ -554,6 +556,137 @@ $$y_{it}-\bar{y}_i=\lambda_t-\bar{\lambda}+\rho(T_{it}-\bar{T}_i)+(X_{it}-\bar{X
 
 - Usemos errores agrupados
 
+
+---
+
+class: inverse, middle, center
+
+#Divorcio unilateral
+
+---
+
+# Ejemplo: divorcio unilateral
+
+
+- Wolfers (2006), Did Unilateral Divorce Laws Rase Divorce Rates?
+
+- Estudio sobre si cambios en las leyes estatales que bajan el costo del divorcio incrementa la tasa de divoricios en la población casada
+
+- Esta legislación se engloba en lo que se cooce como leyes *no-fault* en la que no se requiere el consentimiento de ambas partes
+
+- Al mismo tiempo que estas leyes fueron implantándose desde los años 70, las tasas de divorcio en todo EU iban en aumento
+
+- El objetivo es estimar el efecto causal de los cambios en la legislación en las tasas de divorcio
+
+
+
+---
+
+# Punto de partida
+
+.pull-left[
+- Friedberg (1998) muestra que si solo hacemos DID parece no haber efecto alguno de la legislación
+
+- Y que si refinamos la estimación con tendencias específicas por estado, sí hay un efecto positivo en la tasa de divorcios
+
+- En este ejemplo estoy usando la librería *ExPanDaR* para explorar los datos en panel
+
+wolfers.data <-read_csv("./wolfers_divorce.csv",
+                       locale = locale(encoding = "latin1")) %>% 
+  select(div_rate, unilateral, st, year, stpop, divx)
+```
+]
+
+--
+
+.pull-right[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+#Ver variables que tienen NA
+prepare_missing_values_graph(wolfers.data, ts_id = "year")
+```
+]
+
+
+
+---
+
+# Algunas funciones de *ExPanDaR* 
+
+
+- Les recomiendo explorar las funciones para visualizar sus datos en panel usando [ExPanDaR](https://joachim-gassen.github.io/ExPanDaR/)
+
+- Por ejemplo, pueden crear una herramienta interactiva 
+
+```{r echo=T, include=T, eval=F, message=F, warning=F}
+ExPanD(df = wolfers.data, ts_id="year", cs_id="st",
+       title = "Wow, mis datos",
+       abstract = "Datos tomados del artículo de Wolfers (2006).")
+```
+
+---
+
+# Regresando a la econometría
+
+- Nos interesa el efecto sobre la tasa de divorcio
+
+- El tratamiento es tener una ley de divorcio unilateral
+
+- Definimos la dummy $UNILATERAL_{st}$ que toma el valor de 1 en el estado $s$ y en el periodo $t$ cuando está en vigor una ley unilateral
+
+- La especificación más simple de DID es:
+
+$$y_{st}=\alpha+\delta_{DID}UNILATERAL_{st}+\beta_{AK} S_{AK}+\ldots+\beta_{WY}S_{WY}+\gamma_{1967}A_{1967}+\ldots+\gamma_{1989}A_{1989}+\varepsilon_{st}$$
+- Wolfers añade una variable dummy que indica si hubo cambios en la forma de clasifiación (por ahora no nos interesa esta variable)
+
+---
+
+# DID asumiendo tendencias paralelas
+
+- Aquí estoy usando la función *felm* del paquete *lfe* que permite incluir efectos fijos de manera muy sencilla
+
+.tiny[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+#Subconjunto a usar
+wolfers.data<-wolfers.data %>% 
+  filter(year>1967 & year<1989)
+
+modelo1 <- felm(div_rate ~unilateral | st + year+divx,
+                data = wolfers.data,
+                weights = wolfers.data$stpop)
+
+summary(modelo1)$coef
+```
+]
+
+- El primer resultado parecía mostrar que no había efecto alguno de las leyes para facilitar el divorcio unilateral
+
+
+---
+
+# DID con tendecias específicas
+
+.tiny[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+modelo2 <- felm(div_rate ~unilateral | factor(st)+factor(year)+factor(st):year+factor(divx),
+                data = wolfers.data,
+                weights = wolfers.data$stpop)
+
+summary(modelo2)
+```
+]
+---
+
+# DID con tendecias específicas cuadráticas
+
+.tiny[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+modelo3 <- felm(div_rate ~unilateral | factor(st)+factor(year)+factor(st):year+factor(st):year^2+factor(divx),
+                data = wolfers.data,
+                weights = wolfers.data$stpop)
+
+summary(modelo3)
+```
+]
 ---
 
 # Próxima sesión
@@ -565,7 +698,8 @@ $$y_{it}-\bar{y}_i=\lambda_t-\bar{\lambda}+\rho(T_{it}-\bar{T}_i)+(X_{it}-\bar{X
 
   + Campos, R. M., Esquivel, G., & Santillán, A. S. (2017). El impacto del salario mínimo en los ingresos y el empleo en México. *Revista CEPAL*.  
 
-  + Gutiérrez Vázquez, E. Y., & Parrado, E. A. (2016). Abortion legalization and childbearing in Mexico. *Studies in family planning*, 47(2), 113-128.  
+  + Gutiérrez Vázquez, E. Y., & Parrado, E. A. (2016). Abortion legalization and childbearing in Mexico. *Studies in family planning*, 47(2), 113-128.
+  
   + Levasseur, P. (2019). Can social programs break the vicious cycle between poverty and obesity? Evidence from urban Mexico. *World Development*, 113, 143-156.  
 
 

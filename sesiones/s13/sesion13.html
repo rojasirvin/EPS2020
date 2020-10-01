@@ -595,6 +595,195 @@ donde `\(\alpha_i=\alpha+A_i'\gamma\)`
 
 - Usemos errores agrupados
 
+
+---
+
+class: inverse, middle, center
+
+#Divorcio unilateral
+
+---
+
+# Ejemplo: divorcio unilateral
+
+
+- Wolfers (2006), Did Unilateral Divorce Laws Rase Divorce Rates?
+
+- Estudio sobre si cambios en las leyes estatales que bajan el costo del divorcio incrementa la tasa de divoricios en la población casada
+
+- Esta legislación se engloba en lo que se cooce como leyes *no-fault* en la que no se requiere el consentimiento de ambas partes
+
+- Al mismo tiempo que estas leyes fueron implantándose desde los años 70, las tasas de divorcio en todo EU iban en aumento
+
+- El objetivo es estimar el efecto causal de los cambios en la legislación en las tasas de divorcio
+
+
+
+---
+
+# Punto de partida
+
+.pull-left[
+- Friedberg (1998) muestra que si solo hacemos DID parece no haber efecto alguno de la legislación
+
+- Y que si refinamos la estimación con tendencias específicas por estado, sí hay un efecto positivo en la tasa de divorcios
+
+- En este ejemplo estoy usando la librería *ExPanDaR* para explorar los datos en panel
+
+
+```r
+wolfers.data &lt;-read_csv("./wolfers_divorce.csv",
+                       locale = locale(encoding = "latin1")) %&gt;% 
+  select(div_rate, unilateral, st, year, stpop, divx)
+```
+]
+
+--
+
+.pull-right[
+#Ver variables que tienen NA
+prepare_missing_values_graph(wolfers.data, ts_id = "year")
+```
+]
+
+
+
+---
+
+# Algunas funciones de *ExPanDaR* 
+
+
+- Les recomiendo explorar las funciones para visualizar sus datos en panel usando [ExPanDaR](https://joachim-gassen.github.io/ExPanDaR/)
+
+- Por ejemplo, pueden crear una herramienta interactiva 
+
+
+```r
+ExPanD(df = wolfers.data, ts_id="year", cs_id="st",
+       title = "Wow, mis datos",
+       abstract = "Datos tomados del artículo de Wolfers (2006).")
+```
+
+---
+
+# Regresando a la econometría
+
+- Nos interesa el efecto sobre la tasa de divorcio
+
+- El tratamiento es tener una ley de divorcio unilateral
+
+- Definimos la dummy `\(UNILATERAL_{st}\)` que toma el valor de 1 en el estado `\(s\)` y en el periodo `\(t\)` cuando está en vigor una ley unilateral
+
+- La especificación más simple de DID es:
+
+`$$y_{st}=\alpha+\delta_{DID}UNILATERAL_{st}+\beta_{AK} S_{AK}+\ldots+\beta_{WY}S_{WY}+\gamma_{1967}A_{1967}+\ldots+\gamma_{1989}A_{1989}+\varepsilon_{st}$$`
+- Wolfers añade una variable dummy que indica si hubo cambios en la forma de clasifiación (por ahora no nos interesa esta variable)
+
+---
+
+# DID asumiendo tendencias paralelas
+
+- Aquí estoy usando la función *felm* del paquete *lfe* que permite incluir efectos fijos de manera muy sencilla
+
+.tiny[
+
+```r
+#Subconjunto a usar
+wolfers.data&lt;-wolfers.data %&gt;% 
+  filter(year&gt;1967 &amp; year&lt;1989)
+
+modelo1 &lt;- felm(div_rate ~unilateral | st + year+divx,
+                data = wolfers.data,
+                weights = wolfers.data$stpop)
+
+summary(modelo1)$coef
+```
+
+```
+##                 Estimate Std. Error      t value  Pr(&gt;|t|)
+## unilateral -0.0003248002 0.05702559 -0.005695693 0.9954567
+```
+]
+
+- El primer resultado parecía mostrar que no había efecto alguno de las leyes para facilitar el divorcio unilateral
+
+
+---
+
+# DID con tendecias específicas
+
+.tiny[
+
+```r
+modelo2 &lt;- felm(div_rate ~unilateral | factor(st)+factor(year)+factor(st):year+factor(divx),
+                data = wolfers.data,
+                weights = wolfers.data$stpop)
+
+summary(modelo2)
+```
+
+```
+## 
+## Call:
+##    felm(formula = div_rate ~ unilateral | factor(st) + factor(year) +      factor(st):year + factor(divx), data = wolfers.data, weights = wolfers.data$stpop) 
+## 
+## Weighted Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2175.50  -248.84    -6.91   230.07  3038.02 
+## 
+## Coefficients:
+##            Estimate Std. Error t value Pr(&gt;|t|)    
+## unilateral  0.43302    0.05061   8.556   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 531.7 on 904 degrees of freedom
+##   (28 observations deleted due to missingness)
+## Multiple R-squared(full model): 0.9788   Adjusted R-squared: 0.9756 
+## Multiple R-squared(proj model): 0.07492   Adjusted R-squared: -0.0663 
+## F-statistic(full model):302.7 on 138 and 904 DF, p-value: &lt; 2.2e-16 
+## F-statistic(proj model): 73.21 on 1 and 904 DF, p-value: &lt; 2.2e-16 
+## *** Standard errors may be too high due to more than 2 groups and exactDOF=FALSE
+```
+]
+---
+
+# DID con tendecias específicas cuadráticas
+
+.tiny[
+
+```r
+modelo3 &lt;- felm(div_rate ~unilateral | factor(st)+factor(year)+factor(st):year+factor(st):year^2+factor(divx),
+                data = wolfers.data,
+                weights = wolfers.data$stpop)
+
+summary(modelo3)
+```
+
+```
+## 
+## Call:
+##    felm(formula = div_rate ~ unilateral | factor(st) + factor(year) +      factor(st):year + factor(st):year^2 + factor(divx), data = wolfers.data,      weights = wolfers.data$stpop) 
+## 
+## Weighted Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2175.50  -248.84    -6.91   230.07  3038.02 
+## 
+## Coefficients:
+##            Estimate Std. Error t value Pr(&gt;|t|)    
+## unilateral  0.43302    0.05061   8.556   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 531.7 on 904 degrees of freedom
+##   (28 observations deleted due to missingness)
+## Multiple R-squared(full model): 0.9788   Adjusted R-squared: 0.9756 
+## Multiple R-squared(proj model): 0.07492   Adjusted R-squared: -0.0663 
+## F-statistic(full model):302.7 on 138 and 904 DF, p-value: &lt; 2.2e-16 
+## F-statistic(proj model): 73.21 on 1 and 904 DF, p-value: &lt; 2.2e-16 
+## *** Standard errors may be too high due to more than 2 groups and exactDOF=FALSE
+```
+]
 ---
 
 # Próxima sesión
@@ -606,7 +795,8 @@ donde `\(\alpha_i=\alpha+A_i'\gamma\)`
 
   + Campos, R. M., Esquivel, G., &amp; Santillán, A. S. (2017). El impacto del salario mínimo en los ingresos y el empleo en México. *Revista CEPAL*.  
 
-  + Gutiérrez Vázquez, E. Y., &amp; Parrado, E. A. (2016). Abortion legalization and childbearing in Mexico. *Studies in family planning*, 47(2), 113-128.  
+  + Gutiérrez Vázquez, E. Y., &amp; Parrado, E. A. (2016). Abortion legalization and childbearing in Mexico. *Studies in family planning*, 47(2), 113-128.
+  
   + Levasseur, P. (2019). Can social programs break the vicious cycle between poverty and obesity? Evidence from urban Mexico. *World Development*, 113, 143-156.  
 
 
