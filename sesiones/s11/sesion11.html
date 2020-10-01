@@ -214,13 +214,46 @@ donde `\(\bar{\hat{\theta}}=\frac{1}{B}\sum_{b=1}^B\hat{\theta}_b\)`
 
 - Usar una semilla siempre para poder reproducir sus resultados
 
+
+
+---
+
+# Bootstrap salvaje
+
+- En presencia de heterocedasticidad se prefiere usar bootstrap salvaje (*wild bootstrap*) ([MacKinnon, 2012](https://link.springer.com/chapter/10.1007%2F978-1-4614-1653-1_17#enumeration))
+
+- Propuesto originalmente por Liu (1988), cada muestra bootstrap tiene la siguiente forma:
+
+`$$y_i^*=X_i\hat{\beta}+f(\hat{u}_i)v_i^*$$`
+- Noten que mantiene fijos los `\(X_i\)` en cada muestra bootstrap
+
+--
+
+- Una especificación comúnmente usada es hacer es `\(f(\hat{u}_i)=\hat{u}_i\)` y 
+`$$v_i^*=\begin{cases} 1 \quad\text{con probabilidad 0.5} \\ -1 \quad\text{con probabilidad 0.5} \end{cases}$$`
+
+- `\(\hat{\beta}\)` y `\(\hat{u}_i\)` son estimados con la muestra original
+
+---
+
+# Bootstrap salvaje
+
+- En cada una de las `\(B\)` muestras bootstrap, mantenemos a los mismos individuos (no hay remuestreo)
+
+- Tendremos `\(B\)` muestras bootstrap, pero ahora la aleatoriedad viene por `\(f(\hat{u}_i)v_i^*\)`
+
+- Pueden usarse otras funciones más complicadas para `\(f(\hat{u}_i)\)`
+
+- La ventaja de este método es que conserva la relación entre las varianzas residuales y las `\(X_i\)` observadas en los datos originales
+
+- [Davidson &amp; Flachaire (2008)](https://www.sciencedirect.com/science/article/pii/S0304407608000833) utilizan simulaciones para mostrar que con esta forma para `\(f(\hat{u}_i)v_i^*\)` la inferencia es más confiable que con otras especificaciones
+
 ---
 
 # Otras aplicaciones
 
-- Bootstrap salvaje
-
 - Bootstrap jacknife (útil para problemas con errores agrupados y pocos grupos)
+
 
 ---
 
