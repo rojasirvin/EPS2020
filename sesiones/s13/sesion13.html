@@ -263,7 +263,8 @@ summary(did_bank)
 ## post            -49.000      7.581  -6.464 0.000195 ***
 ## treatment:post   20.500     10.721   1.912 0.092224 .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 8.754 on 8 degrees of freedom
 ## Multiple R-squared:  0.8906,	Adjusted R-squared:  0.8496 
@@ -319,7 +320,7 @@ summary(did_bank2)
 
 # Ejemplo: diferencias en la edad legal para beber
 
-- Es de interés saber si las restricciones a la edad mínima para comprar alcohol tienen un impacto en la mortalidad
+- ¿Las restricciones a la edad mínima para comprar alcohol tienen un impacto en la mortalidad?
 
 - Alabama redujo la edad legal a 19 en 1975, mientras que, por ejemplo, Arkansas mantuvo la edad en 21
 
@@ -334,7 +335,7 @@ summary(did_bank2)
 
 - `\(POST_t\)` es igual a cero para el periodo 1970-1975 e igual a 1 para el periodo 1976-1983
 
-- `\(T_s\times POST_t\)` es igual a 1 para las observaciones de Alabama en los años en los que la nueva política es efectiva
+- `\(T_s\times POST_t\)` es igual a 1 para las observaciones de Alabama en los años en los que la nueva política ya está en vigor
 
 
 ---
@@ -757,7 +758,8 @@ summary(modelo2)
 ##            Estimate Std. Error t value Pr(&gt;|t|)    
 ## unilateral  0.43302    0.05061   8.556   &lt;2e-16 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 531.7 on 904 degrees of freedom
 ##   (28 observations deleted due to missingness)
@@ -775,7 +777,12 @@ summary(modelo2)
 .tiny[
 
 ```r
-modelo3 &lt;- felm(div_rate ~unilateral | factor(st)+factor(year)+factor(st):year+factor(st):year^2+factor(divx),
+wolfers.data&lt;-wolfers.data %&gt;%
+  mutate(t=year-1968+1) %&gt;% 
+  mutate(tsq=t*t)
+  
+
+modelo3 &lt;- felm(div_rate ~unilateral | factor(st)+factor(t)+factor(st):t+factor(st):tsq+factor(divx),
                 data = wolfers.data,
                 weights = wolfers.data$stpop)
 
@@ -785,24 +792,25 @@ summary(modelo3)
 ```
 ## 
 ## Call:
-##    felm(formula = div_rate ~ unilateral | factor(st) + factor(year) +      factor(st):year + factor(st):year^2 + factor(divx), data = wolfers.data,      weights = wolfers.data$stpop) 
+##    felm(formula = div_rate ~ unilateral | factor(st) + factor(t) +      factor(st):t + factor(st):tsq + factor(divx), data = wolfers.data,      weights = wolfers.data$stpop) 
 ## 
 ## Weighted Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2175.50  -248.84    -6.91   230.06  3038.03 
+##     Min      1Q  Median      3Q     Max 
+## -1680.8  -188.2     0.0   177.0  2705.5 
 ## 
 ## Coefficients:
 ##            Estimate Std. Error t value Pr(&gt;|t|)    
-## unilateral  0.43302    0.05061   8.556   &lt;2e-16 ***
+## unilateral   0.4338     0.0553   7.844  1.3e-14 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 531.7 on 904 degrees of freedom
+## Residual standard error: 463.1 on 853 degrees of freedom
 ##   (28 observations deleted due to missingness)
-## Multiple R-squared(full model): 0.9788   Adjusted R-squared: 0.9756 
-## Multiple R-squared(proj model): 0.07492   Adjusted R-squared: -0.0663 
-## F-statistic(full model):302.7 on 138 and 904 DF, p-value: &lt; 2.2e-16 
-## F-statistic(proj model): 73.21 on 1 and 904 DF, p-value: &lt; 2.2e-16 
+## Multiple R-squared(full model): 0.9848   Adjusted R-squared: 0.9815 
+## Multiple R-squared(proj model): 0.06728   Adjusted R-squared: -0.1394 
+## F-statistic(full model):293.1 on 189 and 853 DF, p-value: &lt; 2.2e-16 
+## F-statistic(proj model): 61.53 on 1 and 853 DF, p-value: 1.303e-14 
 ## *** Standard errors may be too high due to more than 2 groups and exactDOF=FALSE
 ```
 ]
