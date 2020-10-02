@@ -28,7 +28,7 @@
 
 [Sesión 13](https://rojasirvin.github.io/EPS2020/sesiones/s13/sesion13.html#1). Diferencia en diferencias
 
-[Sesión 14](https://rojasirvin.github.io/EPS2020/sesiones/s14/sesion14.html#1). DAplicaciones de diferencia en diferencias
+[Sesión 14](https://rojasirvin.github.io/EPS2020/sesiones/s14/sesion14.html#1). Aplicaciones de diferencia en diferencias
 
 <!---commented
 
