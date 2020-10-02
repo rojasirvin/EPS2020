@@ -103,7 +103,7 @@ class: inverse, middle, center
 - En este ejemplo podemos usar la especificación canónica de un modelo de DID
 
 ---
-  
+
 class: inverse, middle, center
 
 # Obesidad y transferencias condicionadas
@@ -147,10 +147,7 @@ class: inverse, middle, center
 
 - Gutiérrez Vázquez, E. Y., & Parrado, E. A. (2016). Abortion legalization and childbearing in Mexico. *Studies in family planning*, 47(2), 113-128.
 
-
-
-
---- 
+---
 
 class: center, middle
 
