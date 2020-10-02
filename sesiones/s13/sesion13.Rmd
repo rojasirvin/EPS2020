@@ -591,19 +591,26 @@ class: inverse, middle, center
 
 - En este ejemplo estoy usando la librería *ExPanDaR* para explorar los datos en panel
 
+```{r echo=T, include=T, eval=T, message=F, warning=F}
 wolfers.data <-read_csv("./wolfers_divorce.csv",
                        locale = locale(encoding = "latin1")) %>% 
-  select(div_rate, unilateral, st, year, stpop, divx)
+  select(div_rate, unilateral, st, year, stpop, divx)  %>% 
+  filter(year>1967 & year<1989)
+
+#Esta es una de las funciones de ExPanDaR
+panel_missing <-prepare_missing_values_graph(wolfers.data, ts_id = "year")
+
 ```
 ]
 
 --
 
+.tiny[
 .pull-right[
 ```{r echo=T, include=T, eval=T, message=F, warning=F}
-#Ver variables que tienen NA
-prepare_missing_values_graph(wolfers.data, ts_id = "year")
+panel_missing
 ```
+]
 ]
 
 
@@ -646,15 +653,11 @@ $$y_{st}=\alpha+\delta_{DID}UNILATERAL_{st}+\beta_{AK} S_{AK}+\ldots+\beta_{WY}S
 
 .tiny[
 ```{r echo=T, include=T, eval=T, message=F, warning=F}
-#Subconjunto a usar
-wolfers.data<-wolfers.data %>% 
-  filter(year>1967 & year<1989)
-
 modelo1 <- felm(div_rate ~unilateral | st + year+divx,
                 data = wolfers.data,
                 weights = wolfers.data$stpop)
 
-summary(modelo1)$coef
+summary(modelo1)
 ```
 ]
 
@@ -680,7 +683,9 @@ summary(modelo2)
 
 .tiny[
 ```{r echo=T, include=T, eval=T, message=F, warning=F}
-modelo3 <- felm(div_rate ~unilateral | factor(st)+factor(year)+factor(st):year+factor(st):year^2+factor(divx),
+wolfers.data<-wolfers.data %>% mutate(year2=year^2)
+
+modelo3 <- felm(div_rate ~unilateral | factor(st)+factor(year)+factor(st):year+factor(st):year2+factor(divx),
                 data = wolfers.data,
                 weights = wolfers.data$stpop)
 

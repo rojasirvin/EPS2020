@@ -634,16 +634,25 @@ class: inverse, middle, center
 ```r
 wolfers.data &lt;-read_csv("./wolfers_divorce.csv",
                        locale = locale(encoding = "latin1")) %&gt;% 
-  select(div_rate, unilateral, st, year, stpop, divx)
+  select(div_rate, unilateral, st, year, stpop, divx)  %&gt;% 
+  filter(year&gt;1967 &amp; year&lt;1989)
+
+#Esta es una de las funciones de ExPanDaR
+panel_missing &lt;-prepare_missing_values_graph(wolfers.data, ts_id = "year")
 ```
 ]
 
 --
 
+.tiny[
 .pull-right[
-#Ver variables que tienen NA
-prepare_missing_values_graph(wolfers.data, ts_id = "year")
+
+```r
+panel_missing
 ```
+
+![](figures/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
 ]
 
 
@@ -688,20 +697,33 @@ ExPanD(df = wolfers.data, ts_id="year", cs_id="st",
 .tiny[
 
 ```r
-#Subconjunto a usar
-wolfers.data&lt;-wolfers.data %&gt;% 
-  filter(year&gt;1967 &amp; year&lt;1989)
-
 modelo1 &lt;- felm(div_rate ~unilateral | st + year+divx,
                 data = wolfers.data,
                 weights = wolfers.data$stpop)
 
-summary(modelo1)$coef
+summary(modelo1)
 ```
 
 ```
-##                 Estimate Std. Error      t value  Pr(&gt;|t|)
-## unilateral -0.0003248002 0.05702559 -0.005695693 0.9954567
+## 
+## Call:
+##    felm(formula = div_rate ~ unilateral | st + year + divx, data = wolfers.data,      weights = wolfers.data$stpop) 
+## 
+## Weighted Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3438.2  -328.0   -19.3   316.6  6293.9 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)
+## unilateral -0.0003248  0.0570256  -0.006    0.995
+## 
+## Residual standard error: 792.9 on 955 degrees of freedom
+##   (28 observations deleted due to missingness)
+## Multiple R-squared(full model): 0.9502   Adjusted R-squared: 0.9457 
+## Multiple R-squared(proj model): 3.397e-08   Adjusted R-squared: -0.0911 
+## F-statistic(full model):209.6 on 87 and 955 DF, p-value: &lt; 2.2e-16 
+## F-statistic(proj model): 3.244e-05 on 1 and 955 DF, p-value: 0.9955 
+## *** Standard errors may be too high due to more than 2 groups and exactDOF=FALSE
 ```
 ]
 
@@ -729,7 +751,7 @@ summary(modelo2)
 ## 
 ## Weighted Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2175.50  -248.84    -6.91   230.07  3038.02 
+## -2175.50  -248.84    -6.91   230.06  3038.03 
 ## 
 ## Coefficients:
 ##            Estimate Std. Error t value Pr(&gt;|t|)    
@@ -767,7 +789,7 @@ summary(modelo3)
 ## 
 ## Weighted Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2175.50  -248.84    -6.91   230.07  3038.02 
+## -2175.50  -248.84    -6.91   230.06  3038.03 
 ## 
 ## Coefficients:
 ##            Estimate Std. Error t value Pr(&gt;|t|)    
