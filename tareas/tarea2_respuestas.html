@@ -506,13 +506,11 @@ coef_test(res_mco, vcov = &quot;CR1S&quot;,
 ## 1 (Intercept)   -12718 9447  -1.35          0.1820     
 ## 2      client    11934 5580   2.14          0.0355    *</code></pre></li>
 <li><p>[5 puntos] ¿Cuáles son los supuestos econométricos que permiten la estimación del Local Average Treatment Effect (LATE) en el contexto de este problema? Comente sobre la evidencia que respalda el supuesto de que los instrumentos no son débiles en este problema.</p>
-<p>*Los supuestos necesarios son:</p>
-<ol style="list-style-type: lower-alpha">
-<li>Asignación aleatoria Se requiere que el tratamiento haya sido aleatorizado adecuadamente. En el artículo se muestra evidencia de esto. Además, esperamos que la atrición sea baja y no diferenciada entre grupos de tratados y no tratados.</li>
-<li>Relevancia del instrumento. Se requiere que la asignación aleatoria del tratamiento efectivamente afecte la probabilidad de ser cliente. La evidencia que respalda este requerimiento es el resultado de la primera etapa. El estadístico F de la primera etapa es 10.86, apenas arriba de la regla de dedo de 10 que comúnmente se usa para decir que no hay presencia de instrumentos débiles.</li>
-<li>Exclusión. Se requiere que el instrumento no pertenezca a la ecuación estructural. Esto se garantiza por la asignación aleatoria del tratamiento.</li>
-<li>SUTVA. El efecto del tratamiento asignado a <span class="math inline">\(i\)</span> solo afecta la probabilidad de ser cliente de <span class="math inline">\(i\)</span> y no de cualquier otro individuo <span class="math inline">\(j\)</span>. Del mismo modo, el efecto de ser cliente de <span class="math inline">\(i\)</span> solo afecta el gasto de <span class="math inline">\(i\)</span> y no de otros individuos <span class="math inline">\(j\)</span>.*</li>
-</ol></li>
+<p><em>Los supuestos necesarios son:</em></p>
+<p><em>a. Asignación aleatoria Se requiere que el tratamiento haya sido aleatorizado adecuadamente. En el artículo se muestra evidencia de esto. Además, esperamos que la atrición sea baja y no diferenciada entre grupos de tratados y no tratados.</em></p>
+<p><em>a. Relevancia del instrumento. Se requiere que la asignación aleatoria del tratamiento efectivamente afecte la probabilidad de ser cliente. La evidencia que respalda este requerimiento es el resultado de la primera etapa. El estadístico F de la primera etapa es 10.86, apenas arriba de la regla de dedo de 10 que comúnmente se usa para decir que no hay presencia de instrumentos débiles.</em></p>
+<p><em>a. Exclusión. Se requiere que el instrumento no pertenezca a la ecuación estructural. Esto se garantiza por la asignación aleatoria del tratamiento.</em></p>
+<p><em>a. SUTVA. El efecto del tratamiento asignado a <span class="math inline">\(i\)</span> solo afecta la probabilidad de ser cliente de <span class="math inline">\(i\)</span> y no de cualquier otro individuo <span class="math inline">\(j\)</span>. Del mismo modo, el efecto de ser cliente de <span class="math inline">\(i\)</span> solo afecta el gasto de <span class="math inline">\(i\)</span> y no de otros individuos <span class="math inline">\(j\)</span>.</em></p></li>
 <li><p>[5 puntos] Estime el efecto del cumplimiento sobre el gasto total, usando la asignación aleatoria como instrumento del cumplimiento. Es decir, estime el LATE. Use los mismos controles y tipo de errores que en c. Este resultado se reporta en la columna 3 del panel B en la Tabla 9. ¿Cuál es la interpretación del coeficiente de la variable <strong>client</strong>?</p>
 <p><em>El LATE estimado es de 24263 monetarias adicionales de gasto debido a ser cliente. Esta cifra es considerablemente mayor que las 4057 unidades monetarias estimado en la parte c. Este efecto además es parecido en maginitud al estadístico de Wald de las partes a. y b. Este es un efecto local pues solo considera el cambio en el gasto debido a ser cliente de la microfinanciera, en aquellos individuos que cambiaron su comportamiento debido a la asignación aleatoria del tratamiento. Noten también que en todas las regresiones se incluye errores agrupados a nivel pareja o paire.</em></p>
 <pre class="r"><code>#1g Columna 3, Panel B, Tabla 9. LATE:
@@ -548,9 +546,112 @@ coef_test(res_iv, vcov = &quot;CR1S&quot;,
 <h2>Pregunta 2</h2>
 <p>En la Pregunta 1 obtuvo el estimador de Wald para aproximar el efecto de la adopción en el gasto total. Considere dicho cálculo sin controles.</p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li><p>[5 puntos] Utilice un procedimiento bootstrap <em>a mano</em> para estimar el error estándar del estimador de Wald usando 50 repeticiones. Es decir, debe realizar un remuestreo de los datos originales y para cada muestra obtener el estimador de Wald. Luego, obtenga la desviación estándar de los 50 estadísticos calculados. Utilice una semilla para poder replicar sus resultados.</p></li>
-<li><p>[5 puntos] Reemplace la semilla de la parte a. por una nueva semilla y estime nuevamente el error estándar del estimador de Wald con 50 repeticiones. Comente sobre la diferencia entre este error estándar y el de la parte a.</p></li>
-<li><p>[5 puntos] Regrese el valor de la semilla al usado en a. y estime nuevamente el error estándar del estimador de Wald, esta vez usando 1000 repeticiones. Comente sobre la diferencia entre este error estándar y el de la parte a.</p></li>
+<li><p>[5 puntos] Utilice un procedimiento bootstrap <em>a mano</em> para estimar el error estándar del estimador de Wald usando 50 repeticiones. Es decir, debe realizar un remuestreo de los datos originales y para cada muestra obtener el estimador de Wald. Luego, obtenga la desviación estándar de los 50 estadísticos calculados. Utilice una semilla para poder replicar sus resultados.</p>
+<p><em>Ya sabemos calcular un estadístico de Wald, como en la Pregunta 1a. La idea ahora es repetir dicho proceso B veces, pero en cada repetición con una muestra bootstrap a la mano:</em></p>
+<pre class="r"><code>data.morocco&lt;- read.csv(&quot;crepon_morocco_analysis.csv&quot;)%&gt;%
+  select(treatment,client,expense_total )
+
+obs &lt;- nrow(data.morocco)
+
+#Solo para ejemplificar, la siguiente línea pide el remuestreo, es decir, obtener una muestra de tamaño N de la muestra original, con reemplazo
+data.b &lt;-data.morocco[sample(nrow(data.morroco),obs, replace = TRUE),]
+
+
+#2a
+#Simplemente repetimos el proceso anterior B veces
+set.seed(820)
+B=50
+#Inicializamos el vector donde guardaremos los W estimados
+Wrep50_1 &lt;- data.frame(W=matrix(ncol = 1, nrow = B))
+
+for (i in 1:B)
+{
+  data.b &lt;-data.morocco[sample(nrow(data.morroco),obs, replace = TRUE),]
+
+  #Literalmente pegamos el cálculo de un W, hecho en la Pregunta 1a
+
+  mean_cliente&lt;-data.b %&gt;%
+group_by(treatment) %&gt;% 
+summarize(p_cliente=mean(client, na.rm=F)) %&gt;% 
+ungroup()
+
+  mean_gasto&lt;-data.b %&gt;%
+group_by(treatment) %&gt;% 
+summarize(m_gasto=mean(expense_total, na.rm=F)) %&gt;% 
+ungroup()
+
+  dif_gasto &lt;- mean_gasto[2,2]-mean_gasto[1,2]
+  dif_cliente &lt;- mean_cliente[2,2]-mean_cliente[1,2]
+
+  #Y lo guardamos en la posición adecuada
+
+  Wrep50_1[i,1] &lt;- as.numeric(dif_gasto / dif_cliente)
+}
+
+#El error estimado es simplemente la desviación estándar de los B estadísticos estimados
+sd(Wrep50_1$W)
+## [1] 12921.21</code></pre></li>
+<li><p>[5 puntos] Reemplace la semilla de la parte a. por una nueva semilla y estime nuevamente el error estándar del estimador de Wald con 50 repeticiones. Comente sobre la diferencia entre este error estándar y el de la parte a.</p>
+<p><em>El cambio que observamos en el error estándar estimado por bootstrap entre esta parte y la parte a. es que al cambiar la semilla, los números aleatorios generados son distitnos y, por tanto, cada muestra bootstrap tiene distintos individuos.</em></p>
+<pre class="r"><code>#2b Simplemente cambiamos la semilla
+set.seed(920)
+B=50
+#Inicializamos el vector donde guardaremos los W estimados
+Wrep50_2 &lt;- data.frame(W=matrix(ncol = 1, nrow = B))
+
+for (i in 1:B)
+{
+  data.b &lt;-data.morocco[sample(nrow(data.morroco),obs, replace = TRUE),]
+
+  mean_cliente&lt;-data.b %&gt;%
+group_by(treatment) %&gt;% 
+summarize(p_cliente=mean(client, na.rm=F)) %&gt;% 
+ungroup()
+
+  mean_gasto&lt;-data.b %&gt;%
+group_by(treatment) %&gt;% 
+summarize(m_gasto=mean(expense_total, na.rm=F)) %&gt;% 
+ungroup()
+
+  dif_gasto &lt;- mean_gasto[2,2]-mean_gasto[1,2]
+  dif_cliente &lt;- mean_cliente[2,2]-mean_cliente[1,2]
+
+  Wrep50_2[i,1] &lt;- as.numeric(dif_gasto / dif_cliente)
+}
+
+sd(Wrep50_2$W)
+## [1] 15281.01</code></pre></li>
+<li><p>[5 puntos] Regrese el valor de la semilla al usado en a. y estime nuevamente el error estándar del estimador de Wald, esta vez usando 1000 repeticiones. Comente sobre la diferencia entre este error estándar y el de la parte a.</p>
+<p><em>Ahora las diferencias en el error estimado surgen porque tenemos muchas más repeticiones bootstrap. Lo más importante de estos procedimientos es que pueda implementarlos a otros contextos. Por ejemplo, podemos hacer obtener errores bootstrap para el vector de coeficientes de una estimación de MC2E, para el producto de dos coeficientes, etc.</em></p>
+<pre class="r"><code>#2c regresamos a la primera semilla pero ahora B=1000
+set.seed(820)
+B=1000
+
+Wrep1000 &lt;- data.frame(W=matrix(ncol = 1, nrow = B))
+
+for (i in 1:B)
+{
+  data.b &lt;-data.morocco[sample(nrow(data.morroco),obs, replace = TRUE),]
+
+  mean_cliente&lt;-data.b %&gt;%
+group_by(treatment) %&gt;% 
+summarize(p_cliente=mean(client, na.rm=F)) %&gt;% 
+ungroup()
+
+  mean_gasto&lt;-data.b %&gt;%
+group_by(treatment) %&gt;% 
+summarize(m_gasto=mean(expense_total, na.rm=F)) %&gt;% 
+ungroup()
+
+  dif_gasto &lt;- mean_gasto[2,2]-mean_gasto[1,2]
+  dif_cliente &lt;- mean_cliente[2,2]-mean_cliente[1,2]
+
+  Wrep1000[i,1] &lt;- as.numeric(dif_gasto / dif_cliente)
+}
+
+#El error estimado es simplemente la desviación estándar de los B estadísticos estimados
+sd(Wrep1000$W)
+## [1] 12998.05</code></pre></li>
 </ol>
 </div>
 <div id="pregunta-3" class="section level2">
@@ -559,15 +660,24 @@ coef_test(res_iv, vcov = &quot;CR1S&quot;,
 <li>Se propone evaluar el efecto de usar cubrebocas en la tasa de transmisión del covid-19 en el país A, que está compuesto por cientos de islas y donde cada isla es una ciudad. Al inicio de la epidemia, se prohibieron los viajes entre islas. Se dispone de datos de la tasa de fatalidad en varias ciudades en los momentos <span class="math inline">\(t=0\)</span> y <span class="math inline">\(t=1\)</span>. Entre el periodo <span class="math inline">\(0\)</span> y el <span class="math inline">\(1\)</span> se sabe que en un subconjunto de cinco ciudades se ordenó el uso obligatorio del cubrebocas.</li>
 </ol>
 <ol style="list-style-type: lower-alpha">
-<li><p>[5 puntos] ¿Cómo evaluar los resultados de ordenar el uso del cubrebocas por medio de diferencia en diferencias? ¿Cómo seleccionaria al grupo de ciudades que se usarían para llevar a cabo esta evaluación?</p></li>
-<li><p>[5 puntos] ¿Cuáles son los supuestos sobre los que recae la estrategia de evaluación por diferencia en diferencias? ¿Qué factores podrían amenazar el uso de esta estrategia para evaluar el efecto de la intervención?</p></li>
-<li><p>[5 puntos] Suponga que un archipiélago vecino, el país B, también conformado por 1000 ciudades-isla implementa un programa de entrega de cubrebocas. El país solo puede entregar cubrebocas en 100 de las ciudades, las cuales serán escogidas en una lotería pública con un generador de números aleatorios. Expliqué cómo usaría inferencia por aleatorización (<em>randomization inference</em>) para estimar el impacto de la interevención en la tasa de fatalidad. Describa con detalle el procedimiento seguido y cómo juzgaría la significancia estadística de las diferencias que observe.</p></li>
+<li><p>[5 puntos] ¿Cómo evaluar los resultados de ordenar el uso del cubrebocas por medio de diferencia en diferencias? ¿Cómo seleccionarla al grupo de ciudades que se usarían para llevar a cabo esta evaluación?</p>
+<p><em>Para evaluar el efecto del uso del cubrebocas podemos comparar las tasas de fatalidad en las ciudades en donde impusieron su uso con aquellas donde no. Uno puede hacer muchas formas de comaparaciones de DID. Una podría ser tomar todos los datos disponibles de las ciudades de donde se ordenó el uso del cubrebocas y todas donde no y calcular el promedio de las tasas de mortalidad. llamemos <span class="math inline">\(y_t^k\)</span> a la tasa de mortalidad promedio de las ciudades con <span class="math inline">\(t=\{0,1\}\)</span> y con <span class="math inline">\(k=\{T, C\}\)</span>, donde <span class="math inline">\(T\)</span> indica tratamiento, es decir, donde se ordenó el uso de cubrebocas y <span class="math inline">\(C\)</span> indica control, es decir, donde no se ordenó el cubrebocas. El estimador de DID sería simplemente:</em></p>
+<p><span class="math display">\[\delta_{DID}=(y_1^T-y_0^T)-(y_1^C-y_0^C)\]</span></p>
+<p><em>Otra posible forma de llevar a cabo esta estimación es corriendo una regresión, con todas las ciudades disponibles:</em> <span class="math display">\[y_{it}=\alpha+\beta T_i +\gamma P_t +\delta_{DID} T_i\times P_t +\varepsilon_{it}\]</span> <em>donde <span class="math inline">\(T_i\)</span> toma el valor de 1 para las ciudades donde se ordenó el uso del cubrebocas y <span class="math inline">\(P_i\)</span> toma el valor de 1 para el periodo post intervención.</em></p></li>
+<li><p>[5 puntos] ¿Cuáles son los supuestos sobre los que recae la estrategia de evaluación por diferencia en diferencias? ¿Qué factores podrían amenazar el uso de esta estrategia para evaluar el efecto de la intervención?</p>
+<p><em>El supuesto fundamental para la estimación de DID, en cualquiera de las formas planteadas anteriormente, es el de tendencias paralelas. Es decir, que la trayectoria del grupo no tratado representa un buen contrafactual de lo que hubiera sucedido con el grupo tratado en ausencia de tratamiento. Este supuesto puede probarse empíricamente cuando se tienen suficientes observaciones pre intervención. En el problema actual, el supuesto equivaldría a suponer que las tendencias en la tasa de mortalidad serían paralelas entre islas. Esto no significa que las tasas de mortalidad sean iguales pre intervención. El supuesto puede relajarse asumiendo tendencias específicas para cada unidad.</em></p></li>
+<li><p>[5 puntos] Suponga que un archipiélago vecino, el país B, también conformado por 1000 ciudades-isla implementa un programa de entrega de cubrebocas. El país solo puede entregar cubrebocas en 100 de las ciudades, las cuales serán escogidas en una lotería pública con un generador de números aleatorios. Explique cómo usaría inferencia por aleatorización (<em>randomization inference</em>) para estimar el impacto de la intervención en la tasa de fatalidad. Describa con detalle el procedimiento seguido y cómo juzgaría la significancia estadística de las diferencias que observe.</p>
+<p><em>Recordemos que podemos hacer inferencia por aleatorización al tomar en cuenta la variabilidad que surge por la asignación del tratamiento. En este caso, podemos llevar a cabo el siguiente procedimiento.</em></p>
+<p><em>1. Estimamos por MCO el parámetro de efecto de tratamiento <span class="math inline">\(\beta\)</span>: <span class="math display">\[y_i=\alpha+\beta T_i + \gamma&#39;X_i+\varepsilon_i\]</span> donde <span class="math inline">\(y_i\)</span> es la mortalidad en la ciudad <span class="math inline">\(i\)</span> y <span class="math inline">\(T_i\)</span> indica si la ciudad recibió cubrebocas.</em></p>
+<p><em>2. En cada una de las <span class="math inline">\(S=1000\)</span> repeticiones generamos una muestra donde <span class="math inline">\(T_i\)</span> es reasignado aleatoriamente, usando el mismo generador de números aleatorios usado en la asignación del tratamiento que realmente ocurrió. Con este nuevo vector <span class="math inline">\(T_i^s\)</span>, estimamos la regresión anterior y coleccionamos <span class="math inline">\(\beta^s\)</span>.</em></p>
+<p><em>3. Con los <span class="math inline">\(S=1000\)</span> estadísticos hemos construido la distribución empírica de <span class="math inline">\(\beta\)</span>. Podemos calcular entonces el valor <span class="math inline">\(p\)</span> como sigue: <span class="math display">\[p=\frac{1}{S}\sum I(\beta^s&gt;\beta)\]</span> donde <span class="math inline">\(I\)</span> es una variable indicadora que toma el valor de 1 si la condición <span class="math inline">\(\beta^s&gt;\beta\)</span> es cierta. Es decir, <span class="math inline">\(p\)</span> es la fracción de las veces que el estadístico calculado en las <span class="math inline">\(S\)</span> repeticiones es mayor que <span class="math inline">\(\beta\)</span> estimado con los datos observados. Rechazamos la <span class="math inline">\(H_0\)</span> de que el tratamiento no tiene efecto si <span class="math inline">\(p&lt;\alpha\)</span>, donde <span class="math inline">\(\alpha\)</span> es fijado por el investigador.</em></p>
+<p><em>Esta es una forma de evaluar el tratamiento. También podría haberse utilizado un estimador de DID, por ejemplo, pero como el tratamiento es asignado de forma aleatoria, basta con las diferencias post intervención.</em></p></li>
 </ol>
 </div>
 <div id="pregunta-4" class="section level2">
 <h2>Pregunta 4</h2>
 <p>Considere nuevamente la base <em>STAR_public_use.csv</em> usada en la Tarea 1. del artículo Angrist, Lang y Oreopoulos (2009)<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. En esta pregunta nos concentraremos en los efectos de la intervención en el año 2, mostrados en la columna (4) de la Tabla 6, sobre dos variables, el promedio de calificaciones <strong>gpa_year2</strong> y los créditos completados <strong>credits_earned2</strong>.</p>
-<p>El propósito de esta pregunta es mostrar la función de los <span class="math inline">\(z\)</span>-scores en el análisis de efectos de tratamiento. De nuevo, puede quedarse solo con las obervaciones que tienen <strong>noshow</strong> igual a 0. Antes de comenzar su análisis, sustituya por NA los valores en <strong>credits_earned2</strong> para aquellas observaciones que tienen <span class="math inline">\(NA\)</span> en la variable <strong>prob_year1</strong>.</p>
+<p>El propósito de esta pregunta es mostrar la función de los <span class="math inline">\(z\)</span>-scores en el análisis de efectos de tratamiento. De nuevo, puede quedarse solo con las observaciones que tienen <strong>noshow</strong> igual a 0. Antes de comenzar su análisis, sustituya por NA los valores en <strong>credits_earned2</strong> para aquellas observaciones que tienen <span class="math inline">\(NA\)</span> en la variable <strong>prob_year1</strong>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>[5 puntos] Para tener un punto de comparación, estime la ecuación del efecto de tratamiento para <strong>credits_earned2</strong> usando la misma especificación que en la pregunta 5 de la Tarea 1. Use también errores robustos. Deberá poder replicar los coeficientes y errores estándar del panel D, columna (4). ¿Cómo se interpretan el coeficiente sobre la variable <strong>ssp</strong>?</p>
 <p><em>Usando la misma especificación que usamos en la Tarea 1, obtenemos los coeficientes en el artículo.</em></p>
@@ -652,7 +762,7 @@ coeftest(reg_credits_earned2, vcov = vcovHC(reg_credits_earned2, &quot;HC1&quot;
 ## ssp         -0.09849430  0.1145949 -0.8594998 0.39021357
 ## sfp          0.02661974  0.1076037  0.2473868 0.80464558
 ## sfsp         0.07157034  0.1302458  0.5495021 0.58274953</code></pre></li>
-<li><p>[5 puntos] Ahora realizaremos un índice de mejora en educación, al agregar los resultados de estos dos indicadores en una sola variable, como se describe en Banerjee et al. (2015)<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. Para ello, primero genere <strong>gpa_year2_sd</strong>, que será la versión estandarizada de <strong>gpa_year2</strong>, siguiendo el mismo procedimiento que en la parte b. En seguida, genere una nueva variable llamda <strong>promedio_vars</strong>, que será el promedio de <strong>credits_earned2_sd</strong> y <strong>gpa_year2_sd</strong>. Luego, calcule la media y la desviación estándar de <strong>promedio_vars</strong> en el grupo de control. Finalmente, genere una nueva variable <strong>promedio_vars_sd</strong> restándole a <strong>promedio_vars</strong> la media antes calculada y dividiendo esta diferencia por la desviación estándar antes calculada. Muestre que la variable <strong>promedio_vars_sd</strong> tiene media 0 y desviación estándar 1 en el grupo de control.</p>
+<li><p>[5 puntos] Ahora realizaremos un índice de mejora en educación, al agregar los resultados de estos dos indicadores en una sola variable, como se describe en Banerjee et al. (2015)<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. Para ello, primero genere <strong>gpa_year2_sd</strong>, que será la versión estandarizada de <strong>gpa_year2</strong>, siguiendo el mismo procedimiento que en la parte b. En seguida, genere una nueva variable llamada <strong>promedio_vars</strong>, que será el promedio de <strong>credits_earned2_sd</strong> y <strong>gpa_year2_sd</strong>. Luego, calcule la media y la desviación estándar de <strong>promedio_vars</strong> en el grupo de control. Finalmente, genere una nueva variable <strong>promedio_vars_sd</strong> restándole a <strong>promedio_vars</strong> la media antes calculada y dividiendo esta diferencia por la desviación estándar antes calculada. Muestre que la variable <strong>promedio_vars_sd</strong> tiene media 0 y desviación estándar 1 en el grupo de control.</p>
 <p><em>Siguiendo las instrucciones obtenemos un índice agregado de desempeño escolar. Quizás debimos llamar a promedio_vars_sd con otro nombre, uno más intuitivo, como indice_escolar_sd. Conservaremos por ahora la notación planteada originalmente:</em></p>
 <pre class="r"><code>#4d
 gpa_year2_stats &lt;- data.angrist %&gt;% 
