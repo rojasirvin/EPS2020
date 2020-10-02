@@ -84,7 +84,6 @@ class: inverse, middle, center
 
 # Salarios mínimos
 
-
 - Campos, R. M., Esquivel, G., & Santillán, A. S. (2017). El impacto del salario mínimo en los ingresos y el empleo en México. *Revista CEPAL*.  
 
 - Se explota la homologación en las zonas de salario mínimo en México en el 2013
@@ -93,17 +92,15 @@ class: inverse, middle, center
 
 - Podemos comparar antes y después a la zona B contra el resto de las zonas
 
+---
+
+# Salarios mínimos
+
 - Se encuentran efectos positivos en el salario por hora, pero ningún efecto en el empleo
 
 - Usando datos en panel permite incluir las características individuales
 
 - En este ejemplo podemos usar la especificación canónica de un modelo de DID
-
----
-
-# Salarios mínimos
-
-- En este estudio 
 
 ---
   
@@ -124,7 +121,7 @@ class: inverse, middle, center
   - Las personas más pobres tienen menores oportunidades en el mercado de trabajo
   - Las personas más pobres tienen patrones de consumo menos sano, lo que los hace más proponsos a sufrir obesidad
 
-- Prospera 
+- Prospera otorgaba beneficios monetarios condicionados a la asistencia escolar y a clínicas de salud
 
 ---
 
