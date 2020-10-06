@@ -30,6 +30,9 @@
 
 [Sesión 14](https://rojasirvin.github.io/EPS2020/sesiones/s14/sesion14.html#1). Aplicaciones de diferencia en diferencias
 
+[Sesión 15](https://rojasirvin.github.io/EPS2020/sesiones/s15/sesion15.html#1). Métodos de pareamiento
+
+
 <!---commented
 
 -->
