@@ -147,6 +147,22 @@ class: inverse, middle, center
 
 - Gutiérrez Vázquez, E. Y., & Parrado, E. A. (2016). Abortion legalization and childbearing in Mexico. *Studies in family planning*, 47(2), 113-128.
 
+- Legalización en 2007 del aborto en la Ciudad de México
+
+- Problema de altos índices de embarazos no planeados
+
+- La mortalidad ya venía a la baja
+
+- ¿Cuál es el efecto de la legalización en natalidad?
+
+- Se compara a la Ciudad de México con otras áreas metropolitanas
+
+- La variable dependiente es la probabilidad de haber tenido un hijo el año anterior
+
+- Se encuentra un efecto en las mujeres de 20 a 29 años, pero no en las adolescentes
+
+- Puede haber confusión del efecto de la legislación sobre el aborto o sobre la asesoría en métodos anticonceptivos
+
 ---
 
 class: center, middle
