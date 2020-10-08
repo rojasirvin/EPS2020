@@ -382,7 +382,7 @@ $$
   
 1. Vecino más cercano
  
-1. Caliper y radio
+1. Radio
  
 1. Estratificación
  
@@ -396,17 +396,153 @@ $$
 - Puede hacerse con remplazo o sin remplazo
  
 - Puede emplearse también sobremuestreo (*oversampling*), es decir, asignar más de un individuo del grupo de comparación
+
+  - Por ejemplo NN 5 significa que a cada individuo tratado se le asignan los cinco individuos del grupo no tratado con los PS estimados más cercanos
   
+  
+---
+
+# Vecino más cercano
+
+.pull-left[
+| Tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| a | 0.031 |
+| b | 0.042 |
+| c | 0.07 |
+| d | 0.11 |
+| `\(\vdots\)` | `\(\vdots\)` |
+]
+
+.pull-rights[
+| No tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| A | 0.034 |
+| B | 0.068 |
+| C | 0.21 |
+| D | 0.40 |
+| `\(\vdots\)` | `\(\vdots\)` |
+] 
+
+- Con vecino más cercano, el individuo `\(a\)` tratado estaría emparejado con el `\(A\)` no tratado
+
+- Si el emparejamiento es con reemplazo, `\(A\)` podría ser usado otra vez
+
+  - De hecho, con reemplazo, `\(b\)` también sería emparejado con `\(A\)`
+
+- Pero si el emparejamiento es sin reemplazo, `\(A\)` ya no puede ser usado y a `\(b\)` se le emparejaría con `\(B\)`
+
+--
+
+- Cuando hacemos el pareamiento sin reemplazo, debemos tener una muestra lo suficientemente grande
+
+- Claramente, el pareamiento sin reemplazo depende del orden en que se realice el procedimiento se realice
+
 ---
 
 # Caliper y radio
  
 - El método de vecino más cercano puede generar malos matches si el vecino más cercano está muy lejos en términos del PS
   
-- El método de caliper consite en definir una vecindad aceptable de matching (el caliper) y solo los matches dentro de esta vecindad se emplean para calcular el efecto del tratamiento
+- El método de *caliper* consite en definir una vecindad aceptable de matching (el caliper) y elegir solo el vecino más cercano dentro del caliper
  
-- Una extensión natural de este procedimiento es el método de radio, que consiste en definir un caliper y después hacer el match con más de una unidad de comparación
+- Una extensión natural de este procedimiento es el método de *radio*, que consiste en definir un caliper y después hacer el match con todos los individuos en los límites del *caliper*
   
+---
+
+# Caliper
+
+.pull-left[
+| Tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| a | 0.031 |
+| b | 0.042 |
+| c | 0.07 |
+| d | 0.11 |
+| `\(\vdots\)` | `\(\vdots\)` |
+]
+
+.pull-rights[
+| No tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| A | 0.034 |
+| B | 0.068 |
+| C | 0.21 |
+| D | 0.40 |
+| `\(\vdots\)` | `\(\vdots\)` |
+] 
+
+- El primer paso es fijar el caliper, por ejemplo, de 0.1
+
+- El caliper implica buscar al vecino más cercano dentro de una vecindad de 0.1
+
+- En este ejemplo `\(c\)` podría ser solo emparejado con `\(C\)` si `\(C\)` aún está disponible (porque no ha sido emparejado con nadie o porque aunque haya sido emparejado, el procedimiento se hace con reemplazo
+
+---
+
+# Caliper con sobremuestreo
+
+.pull-left[
+| Tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| d | 0.31 |
+| e | 0.39 |
+| f | 0.44 |
+| g | 0.52 |
+| h | 0.55 |
+| i | 0.62 |
+| `\(\vdots\)` | `\(\vdots\)` |
+]
+
+.pull-rights[
+| No tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| R | 0.27 |
+| S | 0.29 |
+| T | 0.33 |
+| U | 0.49 |
+| V | 0.57 |
+| W | 0.61 |
+| `\(\vdots\)` | `\(\vdots\)` |
+] 
+
+- Si el caliper se realiza con sobremuestreo, con un caliper de 0.10 y 2 vecinos a `\(g\)` se le asignarían `\(U\)` y `\(V\)` (si estuvieran disponibles)
+
+- Es decir, dentro del caliper, los dos individuos con el PS más cercano
+
+---
+
+# Caliper con sobremuestreo
+
+.pull-left[
+| Tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| d | 0.31 |
+| e | 0.39 |
+| f | 0.44 |
+| g | 0.52 |
+| h | 0.55 |
+| i | 0.62 |
+| `\(\vdots\)` | `\(\vdots\)` |
+]
+
+.pull-rights[
+| No tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| R | 0.27 |
+| S | 0.29 |
+| T | 0.33 |
+| U | 0.49 |
+| V | 0.57 |
+| W | 0.61 |
+| `\(\vdots\)` | `\(\vdots\)` |
+] 
+
+- Pero si ahora implementamos radio con un caliper de 0.10, a `\(g\)` se le asignarían `\(U\)`, `\(V\)` y `\(W\)` (si estuvieran disponibles)
+
+- Es decir, todos los individuos dentro del caliper
+
+
 ---
 
 # Estratificación
@@ -442,6 +578,37 @@ $$
   
 ---
 
+# Kernel
+
+.pull-left[
+| Tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| d | 0.31 |
+| e | 0.39 |
+| f | 0.44 |
+| g | 0.52 |
+| h | 0.55 |
+| i | 0.62 |
+]
+
+.pull-rights[
+| No tratados | `\(\hat{p}\)` |
+|:---: |:---:|
+| R | 0.27 |
+| S | 0.29 |
+| T | 0.33 |
+| U | 0.49 |
+| V | 0.57 |
+| W | 0.61 |
+] 
+
+- Supongamos que estos son todos nuestros datos
+
+- Con un emparejamiento por kernel, a `\(a\)` lo compararemos con todos los individuos, desde `\(R\)` hasta `\(W\)`
+
+- La función kernel le dará más peso a `\(R\)`, un poco menos a `\(S\)` y así hasta darle muy poco o casi nada de peso a `\(W\)`
+
+---
 
 # ¿Qué método usar?
  
@@ -531,116 +698,185 @@ donde `\(c(x_i)\)` es la vecindad de las características de `\(x_i\)`
 - Esta fórmula se usa con el comando *teffects* en R
  
 - Estos autores de hecho recomiendan no usar bootstrap
-  
----
-
-class: inverse, middle, center
-  
-# Implementación del PSM en R
-    
----
-
-
-# Datos no experimentales de una muestra de mujeres
- 
-- Usamos los datos en *cattaneo_smoking.dta* (Cattaneo, 2010)
- 
-- Usaremos la variable de tratamiento **mbsmoke** que es un indicador de si la madre fumó durante el embarazo
- 
-- El 19\% de los mujeres reportaron fumar
- 
-- Usaremos un subconjunto de las `\(X\)` disponibles
-  
----
-
-# Uso de *pscore*
- 
-- Una mala caracterización de las variables que determinan el tratamiento conduce a un PS con propiedades no deseadas
- 
-- Recordemos que una característica propiedad deseable del PS es que genere bloques de observaciones con distribuciones iguales de cada una de las `\(X\)` entre los grupos de tratamiento y control
- 
-- Usamos especificación que caracterice mejor la selección 
- 
-- Ver el archivo log *balance\textunderscore ps.log*
-  
----
-
-# PS *a mano*
- 
-- En *la antiguedad* el PS se obtenia a mano, siguiendo el siguiente procedimiento
- 
-
-  1. Estimar el PS usando un probit o logit
- 
-  1. Ordenar las observaciones de acuerdo al PS estimado
- 
-  1. Crear bloques que tengan en promedio el mismo PS entre tratados y no tratados
-    - Comenzar con bloques de cinco, probar diferencias de medias y partir los bloques que tengan diferencias, ...
- 
-  1. Comprobar que cada covariable está balanceado dentro de cada bloque. Si no lo está, partir el bloque
- 
-  1. Si una covariable no se logra balancear en ninguno de los bloques, comenzar de nuevo en 1. con un nuevo conjunto de `\(X\)` e interacciones
 
 ---
 
-# Estimación del `\(TOT\)`
- 
-- Bajo el supuesto de independencia condicional en el PS, podemos estimar el TT
- 
-- Debemos escoger el método de pareamiento
- 
-- Cuatro de los métodos más populares implementados en Stata son:
- 
-  1. Vecino más cercano
-  1. Radio
-  1. Estratificación
-  1. Kernel	
- 
-- En este ejemplo, estimamos el efecto sobre el peso del bebé al nacer
- 
-- Dos comandos populares son *psmatch2* y *teffects*
-  
+class: inverse, middel, center
+
+# ¿Qué tanto podemos confiar en PSM?
+
+
 ---
 
-# Vecino más cercano
+# Ventajas y desventajas del PSM
  
-- El individuo del grupo de comparación es el que tenga el PS más cercano a cada individuo en el grupo tratado
- 
-- *psmatch2* usa el PS estimado con *pscore*
- 
-- Podría usarse para estimar directamente el PS, pero la ventaja de *pscore* es que realiza el diagnóstico de balance
- 
-- Noten que *pscore* no considera que el PS es estimado al calcular los errores estándar
- 
-- *pscore* en cambio provee los errores estándar correctos (Abadie e Imbens, 2006)
- 
-- No se recomienda usar bootstrap en este caso
-  
+- Ventajas
+
+  - Se pone atención al proceso de selección
+  - Al imponer la condición de soporte común las unidades comparadas son muy parecidas
+  - Es un método versátil que puede extenderse para analizar heterogeneidad o múltiples tratamientos
+
+- Desventajas
+
+  - Es necesaria una gran cantidad de datos para asegurar que se comparar unidades similares
+  - Los supuestos que se hacen son muy fuertes pero no pueden verificarse empíricamente
+  		 
 ---
 
-# Comparación entre *psmatch2* y *teffects*
+# Métodos no experimentales
  
-- Para obtener los mismos resultados con estos dos comandos en *psmatch2* debemos especificar *ties*
- 
-- Esto indica que cuando hay un empate de observaciones con el mismo PS en el grupo de comparación, se usen todas las observaciones empatadas
- 
-- *teffects* automáticamente conserva los empates
+- ¿Qué tanto podemos confiar en las conclusiones de los métodos no experimentales?
+
+- Hay una serie de decisiones que hacen los resultados sensibles
+  - Base de datos a emplear
   
+  - Especificación del PS
+  
+  - Elección del método de matching
+	 
+- No sabemos cuál es el efecto *verdadero*
+
+... o quizás sí
+ 
 ---
 
+# Métodos no experimentales
+ 
+ - LaLonde (1986) realizó un estudio para analizar el desempeño de métodos no experimentales
+ 
+ - El Programa Nacional de Empleo (NSW) en Estados Unidos fue un programa que acercaba a fuentes de empleo a individuos desaventajados
+ 
+ - Fue lanzado en 1975 y se asignó de forma aleatoria
+ 
+ - Se recolectó información de individuos tratados y no tratados en una línea base y en encuestas de seguimiento
+ 
+ - El efeto de tratamiento *verdadero* se puede obtener al comparar los ingresos de los individuos tratados y los no tratados
+ 
+ - Pero, si hubiéramos tenido que usar métodos no experimentales, ¿habríamos obtenido lo mismo?
+ 
+---
 
-# Radio y caliper
- 
-- Con *caliper* nos referimos a una distancia máxima en términos del PS para hacer un pareamiento
- 
-- Podríamos imponer un caliper al vecino más cercano para que solo puedan hacerse pareamientos con PS que sean suficientemente parecidos
- 
-- A priori es difícil saber cuál es el *caliper* rasonable
- 
-- Una extensión natural es incluir todas las observaciones dentro del radio que define el *caliper*
- 
-- Se reduce de esta forma el sesgo pero es posible que algunas unidades no puedan ser pareadas
+# Los resultados de LaLonde (1986)
+
+- El efecto estimado usando la variación experimental es $886 USD
+
+  - En su artículo original, LaLonde (1986) muestra que métodos de regresión y de selección de Heckman no sirven para aproximar el resultado experimental
   
+--
+ 
+- Dehejia y Wahba (1999) retoman el estudio de LaLonde para tratar de aproximar el resultado experimental usando PSM
+
+- Los grupos de comparación son muestras de dos encuestas: el PSID y la CPS
+
+- Es importante notar que estas dos encuestas tenían muy individuos muy diferentes a los de la base de NSW en términos de ingreso
+
+---
+
+# Los resultados de LaLonde (1986)
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/DehejiaWahba_balance.png" alt="Fuente: Dehejia &amp;amp; Wahba (1999)" width="65%" /&gt;
+&lt;p class="caption"&gt;Fuente: Dehejia &amp; Wahba (1999)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Resultados de Dehejia y Wahba (1999)
+ 
+- Dehejia y Wahba usan una submuestra de los datos de LaLonde que les permita observar ingresos pre-intervención
+
+- Por tanto, se estudia el efecto del programa sobre los ingresos de 1978
+
+- Es de notar que esto hace ya a la muestra de Deheija y Wahba diferente a la de LaLonde en términos del efecto insesgado, ahora de $1,794 USD
+	 
+	 
+---
+
+# Balance del PS
+
+- Recordemos que el `\(TOT\)` solo se puede calcular si hay suficiente traslape en el PS
+
+- Noten que el traslape no es el ideal
+
+- En esta aplicación la ventaja es que conocemos el estimador insesgado
+
+- El PS se estima incluyendo: edad (y su cuadrado), educación (y su cuadrado), indicador de casado, indicador de estudios superiores, indicador de negro, indicador de hispano, ingreso de 1974 (y su cuadrado) e ingresos de 1975 (y su cuadrado)
+
+	 
+---
+
+# Balance del PS
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/DehejiaWahba_PS.png" alt="Fuente: Dehejia &amp;amp; Wahba (1999)" width="68%" /&gt;
+&lt;p class="caption"&gt;Fuente: Dehejia &amp; Wahba (1999)&lt;/p&gt;
+&lt;/div&gt;
+---
+
+# Resultados principales
+ 
+- La columna (1) resulta de tomar la diferencia entre tratados en la encuesta de NSW y los individuos en las muestras del PSID y la CPS
+
+- Noten que esto llevaría a conclusiones muy diferentes respecto al efecto del programa, comparado con el efecto insesgado de $1,794 USD
+
+- Los resultados de PSM por estratificación están en la columna (4) y por vecino más cercano en la (7)
+
+- Hay resultados muy cercanos a la versión experimental
+ 
+---
+
+# Resultados principales
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/DehejiaWahba_results.png" alt="Fuente: Dehejia &amp;amp; Wahba (1999)" width="80%" /&gt;
+&lt;p class="caption"&gt;Fuente: Dehejia &amp; Wahba (1999)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Sensibilidad
+ 
+- Noten que los resultados cambian de forma sensible al usar algunas muestras
+
+- Por ejemplo, usando PSID-3, el estimador por estratificación es $2,321 USD (19% superior más que el estimador insesgado)
+
+- El efecto estimado usando vecino más cercano y CPS-3 es solo $587 USD (%70 por ciento menor)
+
+- Los resultados de Dehejia y Wahba fueron tomados inicialmente como la validación del método de PSM
+
+- Más aún, al hacer una especificación sin incluir los ingresos de 1974 en `\(X\)` para estimar el PS, los resultados se vuelven incluso negativos
+ 
+
+---
+
+# Sensibilidad
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/DehejiaWahba_sensitivity.png" alt="Fuente: Dehejia &amp;amp; Wahba (1999)" width="55%" /&gt;
+&lt;p class="caption"&gt;Fuente: Dehejia &amp; Wahba (1999)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Conclusión
+
+- Las técnicas de PSM dependen de varios supuestos téoricos fuertes
+
+- La implementación implica que las variables en `\(X\)` son aquellas que permiten hacer los supuestos de inconfundibilidad dado el PS
+
+- En la estimación del PS se toma la decisión sobre la forma funcional
+
+- Los efectos de tratamiento pueden ser distintos entre diferentes algoritmos de emparejamiento y la especificación del PS
+
+--
+
+- Pero muchas veces es todo lo que tenemos a la mano
+
+- Hay que hacer análisis de sensibilidad a las distintas decisiones
+
+- Presentar resultados transparentes
+
 ---
 
 # Próxima sesión
@@ -650,7 +886,7 @@ class: inverse, middle, center
  + Becerril, J., &amp; Abdulai, A. (2010). The impact of improved maize varieties on poverty in Mexico: a propensity score-matching approach. *World development*, 38(7), 1024-1035.
 
   + Espinosa, V., &amp; Rubin, D. B. (2015). Did the military interventions in the Mexican drug war increase violence?. *The American Statistician*, 69(1), 17-27
-  
+
 ---
 
 class: center, middle

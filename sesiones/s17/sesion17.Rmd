@@ -1,0 +1,208 @@
+---
+title: "Métodos de pareamiento"
+author: "Irvin Rojas"
+institute: "CIDE"
+date: "6 de octubre"
+header-includes:
+  - \usepackage{tikz}
+  - \usetikzlibrary{shapes, shadows,arrows}
+output:
+  xaringan::moon_reader:
+    css: [default, "libs/cide.css", metropolis-fonts, "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css", "https://use.fontawesome.com/releases/v5.7.2/css/all.css", "https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css"]
+    seal: false
+    chakra: "https://remarkjs.com/downloads/remark-latest.min.js"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["middle", "center"]
+      ratio: "16:9"
+      beforeInit: ["https://platform.twitter.com/widgets.js", "libs/cols_macro.js"]
+      navigation:
+        scroll: false
+
+
+---
+class: title-slide
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.path = "figures/")
+
+library(tidyverse)
+library(pacman)
+library(janitor)
+library(sandwich)
+#library(nnet)
+#library(mlogit)
+library(readr)
+library(clubSandwich)
+library(modelsummary)
+library(estimatr)
+library(lubridate)
+library(ExPanDaR) #for describing panel data
+library(lfe)
+
+p_load(tidyverse, foreign, reshape2, psych, qwraps2, forcats, readxl, 
+       broom, lmtest, margins, plm, rdrobust, multiwayvcov,
+       wesanderson, sandwich, stargazer,
+       readstata13, pscore, optmatch, kdensity, MatchIt, bootstrap, matlib, dplyr)
+
+xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
+```
+
+```{css, echo = FALSE}
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 60% !important;
+}
+```
+
+.title[
+# Sesión 15. Métodos de pareamiento
+]
+.subtitle[
+## Evaluación de Programas Sociales
+]
+.author[
+### Irvin Rojas <br> [rojasirvin.com](https://www.rojasirvin.com/) <br> [<i class="fab fa-github"></i>](https://github.com/rojasirvin) [<i class="fab fa-twitter"></i>](https://twitter.com/RojasIrvin) [<i class="ai ai-google-scholar"></i>](https://scholar.google.com/citations?user=FUwdSTMAAAAJ&hl=en)
+]
+
+.affiliation[
+### Centro de Investigación y Docencia Económicas <br> División de Economía
+]
+
+---
+
+class: inverse, middle, center
+  
+# Implementación del PSM en R
+    
+---
+
+
+# Datos no experimentales de una muestra de mujeres
+ 
+- Usamos los datos en *cattaneo_smoking.dta* (Cattaneo, 2010)
+ 
+- Usaremos la variable de tratamiento **mbsmoke** que es un indicador de si la madre fumó durante el embarazo
+ 
+- El 19\% de los mujeres reportaron fumar
+ 
+- Usaremos un subconjunto de las $X$ disponibles
+  
+---
+
+# Uso de *pscore*
+ 
+- Una mala caracterización de las variables que determinan el tratamiento conduce a un PS con propiedades no deseadas
+ 
+- Recordemos que una característica propiedad deseable del PS es que genere bloques de observaciones con distribuciones iguales de cada una de las $X$ entre los grupos de tratamiento y control
+ 
+- Usamos especificación que caracterice mejor la selección 
+ 
+- Ver el archivo log *balance\textunderscore ps.log*
+  
+---
+
+# PS *a mano*
+ 
+- En *la antiguedad* el PS se obtenia a mano, siguiendo el siguiente procedimiento
+ 
+
+  1. Estimar el PS usando un probit o logit
+ 
+  1. Ordenar las observaciones de acuerdo al PS estimado
+ 
+  1. Crear bloques que tengan en promedio el mismo PS entre tratados y no tratados
+    - Comenzar con bloques de cinco, probar diferencias de medias y partir los bloques que tengan diferencias, ...
+ 
+  1. Comprobar que cada covariable está balanceado dentro de cada bloque. Si no lo está, partir el bloque
+ 
+  1. Si una covariable no se logra balancear en ninguno de los bloques, comenzar de nuevo en 1. con un nuevo conjunto de $X$ e interacciones
+
+---
+
+# Estimación del $TOT$
+ 
+- Bajo el supuesto de independencia condicional en el PS, podemos estimar el TT
+ 
+- Debemos escoger el método de pareamiento
+ 
+- Cuatro de los métodos más populares implementados en Stata son:
+ 
+  1. Vecino más cercano
+  1. Radio
+  1. Estratificación
+  1. Kernel	
+ 
+- En este ejemplo, estimamos el efecto sobre el peso del bebé al nacer
+ 
+- Dos comandos populares son *psmatch2* y *teffects*
+  
+---
+
+# Vecino más cercano
+ 
+- El individuo del grupo de comparación es el que tenga el PS más cercano a cada individuo en el grupo tratado
+ 
+- *psmatch2* usa el PS estimado con *pscore*
+ 
+- Podría usarse para estimar directamente el PS, pero la ventaja de *pscore* es que realiza el diagnóstico de balance
+ 
+- Noten que *pscore* no considera que el PS es estimado al calcular los errores estándar
+ 
+- *pscore* en cambio provee los errores estándar correctos (Abadie e Imbens, 2006)
+ 
+- No se recomienda usar bootstrap en este caso
+  
+---
+
+# Comparación entre *psmatch2* y *teffects*
+ 
+- Para obtener los mismos resultados con estos dos comandos en *psmatch2* debemos especificar *ties*
+ 
+- Esto indica que cuando hay un empate de observaciones con el mismo PS en el grupo de comparación, se usen todas las observaciones empatadas
+ 
+- *teffects* automáticamente conserva los empates
+  
+---
+
+
+# Radio y caliper
+ 
+- Con *caliper* nos referimos a una distancia máxima en términos del PS para hacer un pareamiento
+ 
+- Podríamos imponer un caliper al vecino más cercano para que solo puedan hacerse pareamientos con PS que sean suficientemente parecidos
+ 
+- A priori es difícil saber cuál es el *caliper* rasonable
+ 
+- Una extensión natural es incluir todas las observaciones dentro del radio que define el *caliper*
+ 
+- Se reduce de esta forma el sesgo pero es posible que algunas unidades no puedan ser pareadas
+  
+---
+
+# Próxima sesión
+
+- Veremos ejemplos típicos de PSM
+
+ + Becerril, J., & Abdulai, A. (2010). The impact of improved maize varieties on poverty in Mexico: a propensity score-matching approach. *World development*, 38(7), 1024-1035.
+
+  + Espinosa, V., & Rubin, D. B. (2015). Did the military interventions in the Mexican drug war increase violence?. *The American Statistician*, 69(1), 17-27
+  
+---
+
+class: center, middle
+
+Presentación creada usando el paquete [**xaringan**](https://github.com/yihui/xaringan) en R.
+
+El *chakra* viene de [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), y [R Markdown](https://rmarkdown.rstudio.com).
+
+Material de clase en versión preliminar.
+
+**No reproducir, no distribuir, no citar.**
+
+
