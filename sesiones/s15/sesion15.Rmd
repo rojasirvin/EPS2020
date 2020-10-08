@@ -510,7 +510,7 @@ $$
 
 - El caliper implica buscar al vecino más cercano dentro de una vecindad de 0.1
 
-- En este ejemplo $c$ podría ser solo emparejado con $C$ si $C$ aún está disponible (porque no ha sido emparejado con nadie o porque aunque haya sido emparejado, el procedimiento se hace con reemplazo
+- En este ejemplo $c$ podría ser solo emparejado con $B$ si $B$ aún está disponible (porque no ha sido emparejado con nadie o porque aunque haya sido emparejado, el procedimiento se hace con reemplazo
 
 ---
 
@@ -546,7 +546,7 @@ $$
 
 ---
 
-# Caliper con sobremuestreo
+# Radio
 
 .pull-left[
 | Tratados | $\hat{p}$ |

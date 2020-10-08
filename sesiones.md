@@ -32,7 +32,7 @@
 
 [Sesión 15](https://rojasirvin.github.io/EPS2020/sesiones/s15/sesion15.html#1). Métodos de pareamiento
 
-[Sesión 16](https://rojasirvin.github.io/ECNII2020/sesiones/s16/sesion16.html#1). Aplicaciones de PSM
+[Sesión 16](https://rojasirvin.github.io/EPS2020/sesiones/s16/sesion16.html#1). Aplicaciones de PSM
 
 <!---commented
 
