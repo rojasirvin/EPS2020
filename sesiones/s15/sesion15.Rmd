@@ -916,6 +916,7 @@ knitr::include_graphics("figures/DehejiaWahba_sensitivity.png")
 
   + Espinosa, V., & Rubin, D. B. (2015). Did the military interventions in the Mexican drug war increase violence?. *The American Statistician*, 69(1), 17-27
 
+  
 ---
 
 class: center, middle
