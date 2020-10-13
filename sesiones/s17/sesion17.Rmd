@@ -139,7 +139,7 @@ descriptiva <- datasummary_balance(~smoke,
 
 # Datos sin procesar
 .tiny[
-```{r echo=T, include=T, eval=T, message=F, warning=F}
+```{r echo=F, include=T, eval=T, message=F, warning=F}
 descriptiva
 ```
 ]
@@ -232,12 +232,13 @@ nn1_2  <- Match(Y=Y, Tr=Tr, X=X, M=1, replace=FALSE, CommonSupport=TRUE)
 ```
 ]
 
+.tiny[
 .pull-right[
 ```{r echo=T, include=T, eval=T, message=F, warning=F}
 summary(nn1_2)
 ```
 ]
-
+]
 ---
 
 # Evaluamos el balance
@@ -324,12 +325,11 @@ m.out <- matchit(formula=prob,
 
 ```
 
----
+- El resumen del procedimiento da bastante información sobre el pareamiento:
 
-# *MatchIt*
-
-```{r echo=T, include=T, eval=T, message=F, warning=F}
+```{r echo=T, include=T, eval=T, message=F, warning=F, results=F}
 summary(m.out)
+
 ```
 
 ---

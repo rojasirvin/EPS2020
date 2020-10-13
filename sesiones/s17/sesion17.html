@@ -104,11 +104,6 @@ descriptiva &lt;- datasummary_balance(~smoke,
 
 # Datos sin procesar
 .tiny[
-
-```r
-descriptiva
-```
-
 &lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
 &lt;caption&gt;Estadística descriptiva&lt;/caption&gt;
  &lt;thead&gt;
@@ -283,10 +278,10 @@ summary(nn1_1)
 
 ```
 ## 
-## Estimate...  -172.73 
-## SE.........  28.403 
-## T-stat.....  -6.0814 
-## p.val......  1.1916e-09 
+## Estimate...  -185.04 
+## SE.........  28.461 
+## T-stat.....  -6.5015 
+## p.val......  7.9526e-11 
 ## 
 ## Original number of observations..............  4612 
 ## Original number of treated obs...............  863 
@@ -340,6 +335,7 @@ nn1_2  &lt;- Match(Y=Y, Tr=Tr, X=X, M=1, replace=FALSE, CommonSupport=TRUE)
 ```
 ]
 
+.tiny[
 .pull-right[
 
 ```r
@@ -348,10 +344,10 @@ summary(nn1_2)
 
 ```
 ## 
-## Estimate...  -191.4 
-## SE.........  29.423 
-## T-stat.....  -6.5052 
-## p.val......  7.7602e-11 
+## Estimate...  -183.5 
+## SE.........  28.659 
+## T-stat.....  -6.4028 
+## p.val......  1.5253e-10 
 ## 
 ## Original number of observations..............  4535 
 ## Original number of treated obs...............  862 
@@ -359,7 +355,7 @@ summary(nn1_2)
 ## Matched number of observations  (unweighted).  862
 ```
 ]
-
+]
 ---
 
 # Evaluamos el balance
@@ -477,64 +473,11 @@ m.out &lt;- matchit(formula=prob,
                data = data.smoking)
 ```
 
----
-
-# *MatchIt*
+- El resumen del procedimiento da bastante información sobre el pareamiento:
 
 
 ```r
 summary(m.out)
-```
-
-```
-## 
-## Call:
-## matchit(formula = prob, data = data.smoking, method = "nearest", 
-##     distance = "logit", discard = "control", replace = FALSE)
-## 
-## Summary of balance for all data:
-##                    Means Treated Means Control SD Control Mean Diff eQQ Med eQQ Mean eQQ Max
-## distance                  0.2575        0.1749     0.1061    0.0826  0.0803   0.0825  0.2269
-## mmarriedmarried           0.4734        0.7448     0.4360   -0.2714  0.0000   0.2708  1.0000
-## mmarriednotmarried        0.5266        0.2552     0.4360    0.2714  0.0000   0.2708  1.0000
-## fbabyYes                  0.3715        0.4509     0.4977   -0.0794  0.0000   0.0799  1.0000
-## medu                     11.6389       12.8645     2.5080   -1.2256  1.0000   1.2188  6.0000
-## nprenatal                 9.8623       10.9392     3.4984   -1.0769  1.0000   1.1076  7.0000
-## foreign                   0.0255        0.0409     0.1981   -0.0154  0.0000   0.0162  1.0000
-## mhisp                     0.0243        0.0300     0.1706   -0.0057  0.0000   0.0058  1.0000
-## fage                     24.7431       27.6644     8.7639   -2.9213  2.0000   3.0150 20.0000
-## 
-## 
-## Summary of balance for matched data:
-##                    Means Treated Means Control SD Control Mean Diff eQQ Med eQQ Mean eQQ Max
-## distance                  0.2575        0.2569     0.1277    0.0006   1e-04   0.0007  0.0273
-## mmarriedmarried           0.4734        0.4711     0.4995    0.0023   0e+00   0.0023  1.0000
-## mmarriednotmarried        0.5266        0.5289     0.4995   -0.0023   0e+00   0.0023  1.0000
-## fbabyYes                  0.3715        0.3877     0.4875   -0.0162   0e+00   0.0162  1.0000
-## medu                     11.6389       11.6991     2.4323   -0.0602   0e+00   0.2315  6.0000
-## nprenatal                 9.8623        9.8090     4.0397    0.0532   0e+00   0.1250  7.0000
-## foreign                   0.0255        0.0139     0.1171    0.0116   0e+00   0.0116  1.0000
-## mhisp                     0.0243        0.0243     0.1541    0.0000   0e+00   0.0000  0.0000
-## fage                     24.7431       24.4410    10.5128    0.3021   1e+00   0.9641 17.0000
-## 
-## Percent Balance Improvement:
-##                    Mean Diff.  eQQ Med eQQ Mean  eQQ Max
-## distance              99.3032  99.9292  99.1325  87.9592
-## mmarriedmarried       99.1472   0.0000  99.1453   0.0000
-## mmarriednotmarried    99.1472   0.0000  99.1453   0.0000
-## fbabyYes              79.5921   0.0000  79.7101   0.0000
-## medu                  95.0894 100.0000  81.0066   0.0000
-## nprenatal             95.0563 100.0000  88.7147   0.0000
-## foreign               24.9959   0.0000  28.5714   0.0000
-## mhisp                100.0000   0.0000 100.0000 100.0000
-## fage                  89.6594  50.0000  68.0230  15.0000
-## 
-## Sample sizes:
-##           Control Treated
-## All          3668     864
-## Matched       864     864
-## Unmatched    2759       0
-## Discarded      45       0
 ```
 
 ---
@@ -585,9 +528,9 @@ head(m.out$match.matrix)
 ## 11 "4025"
 ## 20 "2908"
 ## 25 "855" 
-## 43 "4212"
+## 43 "1783"
 ## 47 "3993"
-## 49 "1981"
+## 49 "4201"
 ```
 
 ---
@@ -618,16 +561,16 @@ summary(z.out)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2976.44  -311.44    41.45   371.25  1880.34 
+## -2977.58  -312.58    45.84   377.34  1880.34 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)  3316.44      20.27 163.649  &lt; 2e-16
-## smoke        -178.78      28.66  -6.238 5.56e-10
+## (Intercept)  3317.58      20.45 162.256  &lt; 2e-16
+## smoke        -179.92      28.92  -6.222 6.14e-10
 ## 
-## Residual standard error: 595.7 on 1726 degrees of freedom
-## Multiple R-squared:  0.02205,	Adjusted R-squared:  0.02148 
-## F-statistic: 38.91 on 1 and 1726 DF,  p-value: 5.557e-10
+## Residual standard error: 601 on 1726 degrees of freedom
+## Multiple R-squared:  0.02194,	Adjusted R-squared:  0.02137 
+## F-statistic: 38.71 on 1 and 1726 DF,  p-value: 6.145e-10
 ## 
 ## Next step: Use 'setx' method
 ```
@@ -669,16 +612,16 @@ summary(z.out)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2993.16  -328.16    40.84   377.34  1880.34 
+## -2999.07  -306.07    39.93   374.93  1880.34 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)  3333.16      20.35 163.809  &lt; 2e-16
-## smoke        -195.50      28.78  -6.794  1.5e-11
+## (Intercept)  3339.07      20.35 164.062  &lt; 2e-16
+## smoke        -201.41      28.78  -6.998 3.71e-12
 ## 
-## Residual standard error: 598.1 on 1726 degrees of freedom
-## Multiple R-squared:  0.02605,	Adjusted R-squared:  0.02548 
-## F-statistic: 46.16 on 1 and 1726 DF,  p-value: 1.498e-11
+## Residual standard error: 598.2 on 1726 degrees of freedom
+## Multiple R-squared:  0.02759,	Adjusted R-squared:  0.02702 
+## F-statistic: 48.97 on 1 and 1726 DF,  p-value: 3.711e-12
 ## 
 ## Next step: Use 'setx' method
 ```
@@ -741,16 +684,16 @@ summary(z.out)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -3026.67  -304.67    36.99   375.66  1879.99 
+## -2904.47  -305.60    43.53   376.99  1879.99 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)  3366.67      14.96 225.059   &lt;2e-16
-## smoke        -228.66      25.34  -9.025   &lt;2e-16
+## (Intercept)  3358.47      14.96 224.451   &lt;2e-16
+## smoke        -220.46      25.32  -8.708   &lt;2e-16
 ## 
-## Residual standard error: 599.7 on 2465 degrees of freedom
-## Multiple R-squared:  0.03199,	Adjusted R-squared:  0.03159 
-## F-statistic: 81.45 on 1 and 2465 DF,  p-value: &lt; 2.2e-16
+## Residual standard error: 598.9 on 2460 degrees of freedom
+## Multiple R-squared:  0.0299,	Adjusted R-squared:  0.02951 
+## F-statistic: 75.83 on 1 and 2460 DF,  p-value: &lt; 2.2e-16
 ## 
 ## Next step: Use 'setx' method
 ```
