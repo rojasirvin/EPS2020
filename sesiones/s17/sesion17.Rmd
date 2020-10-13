@@ -1,8 +1,8 @@
 ---
-title: "Métodos de pareamiento"
+title: "PSM en R"
 author: "Irvin Rojas"
 institute: "CIDE"
-date: "6 de octubre"
+date: "13 de octubre"
 header-includes:
   - \usepackage{tikz}
   - \usetikzlibrary{shapes, shadows,arrows}
@@ -42,6 +42,11 @@ library(estimatr)
 library(lubridate)
 library(ExPanDaR) #for describing panel data
 library(lfe)
+library(modelsummary)
+library(estimatr)
+library(Matching)
+library(MatchIt)
+library(Zelig)
 
 p_load(tidyverse, foreign, reshape2, psych, qwraps2, forcats, readxl, 
        broom, lmtest, margins, plm, rdrobust, multiwayvcov,
@@ -61,7 +66,7 @@ xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 ```
 
 .title[
-# Sesión 15. Métodos de pareamiento
+# Sesión 17. PSM en R
 ]
 .subtitle[
 ## Evaluación de Programas Sociales
@@ -85,113 +90,396 @@ class: inverse, middle, center
 
 # Datos no experimentales de una muestra de mujeres
  
-- Usamos los datos en *cattaneo_smoking.dta* (Cattaneo, 2010)
+- Usamos los datos en *cattaneo_smoking.csv* (Cattaneo, 2010)
  
-- Usaremos la variable de tratamiento **mbsmoke** que es un indicador de si la madre fumó durante el embarazo
+- Crearemos la variable de tratamiento **smoke** que es un indicador de si la madre fumó durante el embarazo
  
-- El 19\% de los mujeres reportaron fumar
+- El 19% de los mujeres reportaron fumar
  
-- Usaremos un subconjunto de las $X$ disponibles
-  
----
+- Usaremos un subconjunto de las $X$ disponibles para modelar el PS
 
-# Uso de *pscore*
- 
-- Una mala caracterización de las variables que determinan el tratamiento conduce a un PS con propiedades no deseadas
- 
-- Recordemos que una característica propiedad deseable del PS es que genere bloques de observaciones con distribuciones iguales de cada una de las $X$ entre los grupos de tratamiento y control
- 
-- Usamos especificación que caracterice mejor la selección 
- 
-- Ver el archivo log *balance\textunderscore ps.log*
-  
----
-
-# PS *a mano*
- 
-- En *la antiguedad* el PS se obtenia a mano, siguiendo el siguiente procedimiento
- 
-
-  1. Estimar el PS usando un probit o logit
- 
-  1. Ordenar las observaciones de acuerdo al PS estimado
- 
-  1. Crear bloques que tengan en promedio el mismo PS entre tratados y no tratados
-    - Comenzar con bloques de cinco, probar diferencias de medias y partir los bloques que tengan diferencias, ...
- 
-  1. Comprobar que cada covariable está balanceado dentro de cada bloque. Si no lo está, partir el bloque
- 
-  1. Si una covariable no se logra balancear en ninguno de los bloques, comenzar de nuevo en 1. con un nuevo conjunto de $X$ e interacciones
 
 ---
 
-# Estimación del $TOT$
- 
-- Bajo el supuesto de independencia condicional en el PS, podemos estimar el TT
- 
-- Debemos escoger el método de pareamiento
- 
-- Cuatro de los métodos más populares implementados en Stata son:
- 
-  1. Vecino más cercano
-  1. Radio
-  1. Estratificación
-  1. Kernel	
- 
-- En este ejemplo, estimamos el efecto sobre el peso del bebé al nacer
- 
-- Dos comandos populares son *psmatch2* y *teffects*
-  
+class: inverse, middle, center
+
+# *Matching*
+
 ---
 
-# Vecino más cercano
- 
-- El individuo del grupo de comparación es el que tenga el PS más cercano a cada individuo en el grupo tratado
- 
-- *psmatch2* usa el PS estimado con *pscore*
- 
-- Podría usarse para estimar directamente el PS, pero la ventaja de *pscore* es que realiza el diagnóstico de balance
- 
-- Noten que *pscore* no considera que el PS es estimado al calcular los errores estándar
- 
-- *pscore* en cambio provee los errores estándar correctos (Abadie e Imbens, 2006)
- 
-- No se recomienda usar bootstrap en este caso
+# *Matching*
+
+- Llamamos los datos y hacemos algunas correcciones a las variables
   
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+data.smoking<-read_csv(
+  "./cattaneo_smoking.csv",
+  locale = locale(encoding = "latin1")) %>% 
+  clean_names() %>% 
+  mutate(smoke=ifelse(mbsmoke=="smoker",1,0)) %>% 
+  mutate(married=ifelse(mmarried=="married",1,0)) %>% 
+  mutate(firstbaby=ifelse(fbaby=="Yes",1,0))
+
+#Descriptiva
+
+X<- c("smoke", "bweight", "married", "mage", "firstbaby",
+      "medu", "nprenatal", "foreign",
+      "mhisp", "fage")
+
+descriptiva <- datasummary_balance(~smoke,
+                    data = data.smoking[X],
+                    dinm_statistic = "p.value",
+                    fmt = "%.2f",
+                    title = "Estadística descriptiva",
+                    notes = "Fuente: Cattaneo (2010)")
+
+```
+
 ---
 
-# Comparación entre *psmatch2* y *teffects*
- 
-- Para obtener los mismos resultados con estos dos comandos en *psmatch2* debemos especificar *ties*
- 
-- Esto indica que cuando hay un empate de observaciones con el mismo PS en el grupo de comparación, se usen todas las observaciones empatadas
- 
-- *teffects* automáticamente conserva los empates
-  
+# Datos sin procesar
+.tiny[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+descriptiva
+```
+]
 ---
 
+# Estimación del PS
 
-# Radio y caliper
- 
-- Con *caliper* nos referimos a una distancia máxima en términos del PS para hacer un pareamiento
- 
-- Podríamos imponer un caliper al vecino más cercano para que solo puedan hacerse pareamientos con PS que sean suficientemente parecidos
- 
-- A priori es difícil saber cuál es el *caliper* rasonable
- 
-- Una extensión natural es incluir todas las observaciones dentro del radio que define el *caliper*
- 
-- Se reduce de esta forma el sesgo pero es posible que algunas unidades no puedan ser pareadas
-  
+.pull-left[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+binaria <- "smoke"
+variables <- c("mage", "medu", "nprenatal")
+f <- as.formula(paste(binaria,
+                       paste(variables,
+                             collapse ="+"),
+                       sep= " ~ "))
+print(f)
+
+
+#Estimamos modelo de probabilidad no lineal
+ps <- glm(formula=f,
+           family=binomial,
+           data=data.smoking)
+```
+]
+
+.tiny[
+.pull-right[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+summary(ps)$coefficients
+```
+]
+]
+
+---
+
+# Crear las parejas
+
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+X  <- ps$fitted
+Y  <- data.smoking$bweight
+Tr  <- data.smoking$smoke
+
+#Evaluación de la muestra pareada, sin reemplazo
+#M=1 es NN1
+nn1_1  <- Match(Y=Y, Tr=Tr, X=X, M=1, replace=FALSE, CommonSupport=TRUE)
+summary(nn1_1)
+```
+
+---
+
+# Comprobar el balance
+
+
+```{r echo=T, include=T, eval=T, message=F, warning=F, results=F}
+balance_nn1_1 <- MatchBalance(f,
+             data = data.smoking,
+             match.out = nn1_1,
+             digits=5,
+             paired=TRUE,
+             print.level=2)
+```
+
+- Podemos fijarnos en el estadístico $t$
+
+- Hay una prueba por cada variable
+
+
+---
+
+# Cambio la espcificación del PS
+
+.pull-left[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+variables <- c("mmarried", "fbaby", "medu", "nprenatal", "foreign", "mhisp", "fage")
+f <- as.formula(paste(binaria,
+                       paste(variables,
+                             collapse ="+"),
+                       sep= " ~ "))
+
+ps <- glm(formula=f,
+           family=binomial,
+           data=data.smoking)
+
+X  <- ps$fitted
+Y  <- data.smoking$bweight
+Tr  <- data.smoking$smoke
+
+
+nn1_2  <- Match(Y=Y, Tr=Tr, X=X, M=1, replace=FALSE, CommonSupport=TRUE)
+```
+]
+
+.pull-right[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+summary(nn1_2)
+```
+]
+
+---
+
+# Evaluamos el balance
+
+```{r echo=T, include=T, eval=T, message=F, warning=F, results=F}
+balance_nn1_2 <- MatchBalance(f, 
+                              data = data.smoking,
+                              match.out = nn1_2,
+                              digits=5,
+                              paired=TRUE,
+                              print.level=2)
+```
+
+- Iteramos este proceso de revisar el balance y modificar la especificación del PS hasta que estemos satisfechos 
+
+---
+
+# Gráficamente
+
+.pull-left[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+data.smoking <- data.smoking %>% 
+  mutate(pshat = predict(ps, type = "response"))
+
+#Así se ven los datos
+tail(data.frame(data.smoking$pshat,data.smoking$smoke))
+
+#Región de soporte común
+gps <- data.smoking %>%
+  ggplot(aes(x = pshat)) +
+  geom_histogram(color = "white") +
+  facet_wrap(~smoke) +
+  xlab("Probabilidad ajustada") +
+  theme_bw()
+```
+]
+
+.pull-right[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+gps
+```
+]
+
+
+---
+
+# Mismo modelo pero con remplazo
+
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+nn1_2_remp  <- Match(Y=Y, Tr=Tr, X=X, M=1, replace=TRUE, CommonSupport=TRUE)
+
+summary(nn1_2_remp)
+```
+
+---
+
+class: inverse, middle, center
+
+# *MatchIt*
+
+---
+
+# *MatchIt*
+
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+#Asegurarse que no hay NA, MatchIt no corre con NA
+data.smoking <- data.smoking[complete.cases(data.smoking), ] 
+
+#Nuestro modelo para el PS
+binaria <- "smoke"
+variables <- c("mmarried", "fbaby", "medu", "nprenatal", "foreign", "mhisp", "fage")
+
+prob <- as.formula(paste(binaria,
+                       paste(variables,
+                             collapse ="+"),
+                       sep= " ~ "))
+
+m.out <- matchit(formula=prob,
+               method = "nearest",
+               discard = "control",
+               distance= "logit",
+               replace = FALSE,
+               data = data.smoking)
+
+```
+
+---
+
+# *MatchIt*
+
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+summary(m.out)
+```
+
+---
+
+# Gráfico de soporte común
+
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+plot(m.out, type = "jitter")
+```
+
+
+---
+
+# Histograma
+
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+plot(m.out, type = "hist")
+```
+
+---
+
+# Muestra pareada
+
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+m.data <- match.data(m.out)
+
+#Esta matriz nos dice quién es el match de quién
+head(m.out$match.matrix)
+```
+
+---
+
+# Efecto de tratamiento
+
+.pull-left[
+```{r echo=T, include=T, eval=T, message=F, warning=F, results=F}
+z.out <- zelig(bweight~smoke,
+               data = match.data(m.out),
+               model = "ls")
+```
+]
+
+.tiny[
+.pull-right[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+summary(z.out)
+```
+]
+]
+
+---
+
+# Comparar *MatchIt* con *Matching*
+
+.pull-left[
+```{r echo=T, include=T, eval=T, message=F, warning=F, results=F}
+m.out <- matchit(formula=prob,
+                 method = "nearest",
+                 discard = "control",
+                 distance= "logit",
+                 replace = "true",
+                 data = data.smoking)
+
+z.out <- zelig(bweight~smoke,
+               data = match.data(m.out),
+               model = "ls")
+```
+]
+
+.tiny[
+.pull-right[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+summary(z.out)
+
+#Es lo más cerca que pude llegar:
+summary(nn1_2_remp)
+```
+]
+]
+---
+
+# Caliper y radio
+
+.pull-left[
+```{r echo=T, include=T, eval=T, message=F, warning=F, results=F}
+m.out <- matchit(formula=prob,
+                 method = "nearest",
+                 discard = "control",
+                 distance= "logit",
+                 replace = FALSE,
+                 ratio = 2,
+                 caliper = .1,
+                 data = data.smoking)
+
+head(m.out$match.matrix)
+
+z.out <- zelig(bweight~smoke,
+               data = match.data(m.out),
+               model = "ls")
+```
+]
+
+.tiny[
+.pull-right[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+summary(z.out)
+```
+]
+]
+
+---
+
+# Estratificación
+
+.pull-left[
+```{r echo=T, include=T, eval=T, message=F, warning=F, results=F}
+m.out <- matchit(formula=prob,
+                 method = "subclass",
+                 discard = "control",
+                 distance= "logit",
+                 data = data.smoking)
+summary(m.out)
+
+
+z.out <- zelig(bweight~smoke,
+               data = match.data(m.out),
+               model = "ls")
+```
+]
+
+.tiny[
+.pull-right[
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+summary(z.out)
+```
+]
+]
 ---
 
 # Próxima sesión
 
-- Veremos ejemplos típicos de PSM
+- Comenzaremos a estudiar regresión discontinua
 
- + Becerril, J., & Abdulai, A. (2010). The impact of improved maize varieties on poverty in Mexico: a propensity score-matching approach. *World development*, 38(7), 1024-1035.
+- Lectura introductoria
+  - CT, Capítulo 25, Sección 6
+  - GMPRV, Capítulo 6
 
-  + Espinosa, V., & Rubin, D. B. (2015). Did the military interventions in the Mexican drug war increase violence?. *The American Statistician*, 69(1), 17-27
+- Discusión más profunda
+
+  - MM, Capítulo 4
   
 ---
 

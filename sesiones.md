@@ -34,6 +34,9 @@
 
 [Sesión 16](https://rojasirvin.github.io/EPS2020/sesiones/s16/sesion16.html#1). Aplicaciones de PSM
 
+[Sesión 17](https://rojasirvin.github.io/EPS2020/sesiones/s17/sesion17.html#1). PSM en R
+
+
 <!---commented
 
 -->

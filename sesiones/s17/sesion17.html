@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>PSM en R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Irvin Rojas" />
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="libs/cide.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide
+
+
+
+&lt;style type="text/css"&gt;
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 60% !important;
+}
+&lt;/style&gt;
+
+.title[
+# Sesión 17. PSM en R
+]
+.subtitle[
+## Evaluación de Programas Sociales
+]
+.author[
+### Irvin Rojas &lt;br&gt; [rojasirvin.com](https://www.rojasirvin.com/) &lt;br&gt; [&lt;i class="fab fa-github"&gt;&lt;/i&gt;](https://github.com/rojasirvin) [&lt;i class="fab fa-twitter"&gt;&lt;/i&gt;](https://twitter.com/RojasIrvin) [&lt;i class="ai ai-google-scholar"&gt;&lt;/i&gt;](https://scholar.google.com/citations?user=FUwdSTMAAAAJ&amp;hl=en)
+]
+
+.affiliation[
+### Centro de Investigación y Docencia Económicas &lt;br&gt; División de Economía
+]
+
+---
+
+class: inverse, middle, center
+  
+# Implementación del PSM en R
+    
+---
+
+
+# Datos no experimentales de una muestra de mujeres
+ 
+- Usamos los datos en *cattaneo_smoking.csv* (Cattaneo, 2010)
+ 
+- Crearemos la variable de tratamiento **smoke** que es un indicador de si la madre fumó durante el embarazo
+ 
+- El 19% de los mujeres reportaron fumar
+ 
+- Usaremos un subconjunto de las `\(X\)` disponibles para modelar el PS
+
+
+---
+
+class: inverse, middle, center
+
+# *Matching*
+
+---
+
+# *Matching*
+
+- Llamamos los datos y hacemos algunas correcciones a las variables
+  
+
+```r
+data.smoking&lt;-read_csv(
+  "./cattaneo_smoking.csv",
+  locale = locale(encoding = "latin1")) %&gt;% 
+  clean_names() %&gt;% 
+  mutate(smoke=ifelse(mbsmoke=="smoker",1,0)) %&gt;% 
+  mutate(married=ifelse(mmarried=="married",1,0)) %&gt;% 
+  mutate(firstbaby=ifelse(fbaby=="Yes",1,0))
+
+#Descriptiva
+
+X&lt;- c("smoke", "bweight", "married", "mage", "firstbaby",
+      "medu", "nprenatal", "foreign",
+      "mhisp", "fage")
+
+descriptiva &lt;- datasummary_balance(~smoke,
+                    data = data.smoking[X],
+                    dinm_statistic = "p.value",
+                    fmt = "%.2f",
+                    title = "Estadística descriptiva",
+                    notes = "Fuente: Cattaneo (2010)")
+```
+
+---
+
+# Datos sin procesar
+.tiny[
+
+```r
+descriptiva
+```
+
+&lt;table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Estadística descriptiva&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;0&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;1&lt;/div&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Std. Dev. &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Mean  &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Std. Dev.  &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Diff. in Means &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; p &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; bweight &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3412.91 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 570.69 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3137.66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 560.89 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -275.25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; married &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.43 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.47 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.50 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -0.28 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; mage &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26.81 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5.65 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25.17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5.30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -1.64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; firstbaby &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.45 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.50 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.37 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.48 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -0.08 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; medu &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12.93 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.53 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11.64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -1.29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; nprenatal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10.96 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.52 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 9.86 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -1.10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; foreign &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.24 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.03 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -0.03 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; mhisp &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.02 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -0.01 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.05 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; fage &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 27.84 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 8.79 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 24.74 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11.15 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -3.10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="padding: 0; border:0;" colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; Fuente: Cattaneo (2010)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+]
+---
+
+# Estimación del PS
+
+.pull-left[
+
+```r
+binaria &lt;- "smoke"
+variables &lt;- c("mage", "medu", "nprenatal")
+f &lt;- as.formula(paste(binaria,
+                       paste(variables,
+                             collapse ="+"),
+                       sep= " ~ "))
+print(f)
+```
+
+```
+## smoke ~ mage + medu + nprenatal
+```
+
+```r
+#Estimamos modelo de probabilidad no lineal
+ps &lt;- glm(formula=f,
+           family=binomial,
+           data=data.smoking)
+```
+]
+
+.tiny[
+.pull-right[
+
+```r
+summary(ps)$coefficients
+```
+
+```
+##                Estimate  Std. Error   z value     Pr(&gt;|z|)
+## (Intercept)  1.53588948 0.228815800  6.712340 1.915276e-11
+## mage        -0.01932491 0.007344826 -2.631092 8.511109e-03
+## medu        -0.16192659 0.016338764 -9.910577 3.744757e-23
+## nprenatal   -0.04898760 0.010493216 -4.668502 3.034033e-06
+```
+]
+]
+
+---
+
+# Crear las parejas
+
+
+```r
+X  &lt;- ps$fitted
+Y  &lt;- data.smoking$bweight
+Tr  &lt;- data.smoking$smoke
+
+#Evaluación de la muestra pareada, sin reemplazo
+#M=1 es NN1
+nn1_1  &lt;- Match(Y=Y, Tr=Tr, X=X, M=1, replace=FALSE, CommonSupport=TRUE)
+summary(nn1_1)
+```
+
+```
+## 
+## Estimate...  -172.73 
+## SE.........  28.403 
+## T-stat.....  -6.0814 
+## p.val......  1.1916e-09 
+## 
+## Original number of observations..............  4612 
+## Original number of treated obs...............  863 
+## Matched number of observations...............  863 
+## Matched number of observations  (unweighted).  863
+```
+
+---
+
+# Comprobar el balance
+
+
+
+```r
+balance_nn1_1 &lt;- MatchBalance(f,
+             data = data.smoking,
+             match.out = nn1_1,
+             digits=5,
+             paired=TRUE,
+             print.level=2)
+```
+
+- Podemos fijarnos en el estadístico `\(t\)`
+
+- Hay una prueba por cada variable
+
+
+---
+
+# Cambio la espcificación del PS
+
+.pull-left[
+
+```r
+variables &lt;- c("mmarried", "fbaby", "medu", "nprenatal", "foreign", "mhisp", "fage")
+f &lt;- as.formula(paste(binaria,
+                       paste(variables,
+                             collapse ="+"),
+                       sep= " ~ "))
+
+ps &lt;- glm(formula=f,
+           family=binomial,
+           data=data.smoking)
+
+X  &lt;- ps$fitted
+Y  &lt;- data.smoking$bweight
+Tr  &lt;- data.smoking$smoke
+
+
+nn1_2  &lt;- Match(Y=Y, Tr=Tr, X=X, M=1, replace=FALSE, CommonSupport=TRUE)
+```
+]
+
+.pull-right[
+
+```r
+summary(nn1_2)
+```
+
+```
+## 
+## Estimate...  -191.4 
+## SE.........  29.423 
+## T-stat.....  -6.5052 
+## p.val......  7.7602e-11 
+## 
+## Original number of observations..............  4535 
+## Original number of treated obs...............  862 
+## Matched number of observations...............  862 
+## Matched number of observations  (unweighted).  862
+```
+]
+
+---
+
+# Evaluamos el balance
+
+
+```r
+balance_nn1_2 &lt;- MatchBalance(f, 
+                              data = data.smoking,
+                              match.out = nn1_2,
+                              digits=5,
+                              paired=TRUE,
+                              print.level=2)
+```
+
+- Iteramos este proceso de revisar el balance y modificar la especificación del PS hasta que estemos satisfechos 
+
+---
+
+# Gráficamente
+
+.pull-left[
+
+```r
+data.smoking &lt;- data.smoking %&gt;% 
+  mutate(pshat = predict(ps, type = "response"))
+
+#Así se ven los datos
+tail(data.frame(data.smoking$pshat,data.smoking$smoke))
+```
+
+```
+##      data.smoking.pshat data.smoking.smoke
+## 4637         0.06475285                  0
+## 4638         0.26294645                  1
+## 4639         0.18397735                  1
+## 4640         0.28008267                  0
+## 4641         0.11333223                  0
+## 4642         0.17238736                  0
+```
+
+```r
+#Región de soporte común
+gps &lt;- data.smoking %&gt;%
+  ggplot(aes(x = pshat)) +
+  geom_histogram(color = "white") +
+  facet_wrap(~smoke) +
+  xlab("Probabilidad ajustada") +
+  theme_bw()
+```
+]
+
+.pull-right[
+
+```r
+gps
+```
+
+![](figures/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+
+
+---
+
+# Mismo modelo pero con remplazo
+
+
+```r
+nn1_2_remp  &lt;- Match(Y=Y, Tr=Tr, X=X, M=1, replace=TRUE, CommonSupport=TRUE)
+
+summary(nn1_2_remp)
+```
+
+```
+## 
+## Estimate...  -197.37 
+## AI SE......  27.346 
+## T-stat.....  -7.2178 
+## p.val......  5.2847e-13 
+## 
+## Original number of observations..............  4535 
+## Original number of treated obs...............  862 
+## Matched number of observations...............  862 
+## Matched number of observations  (unweighted).  7538
+```
+
+---
+
+class: inverse, middle, center
+
+# *MatchIt*
+
+---
+
+# *MatchIt*
+
+
+```r
+#Asegurarse que no hay NA, MatchIt no corre con NA
+data.smoking &lt;- data.smoking[complete.cases(data.smoking), ] 
+
+#Nuestro modelo para el PS
+binaria &lt;- "smoke"
+variables &lt;- c("mmarried", "fbaby", "medu", "nprenatal", "foreign", "mhisp", "fage")
+
+prob &lt;- as.formula(paste(binaria,
+                       paste(variables,
+                             collapse ="+"),
+                       sep= " ~ "))
+
+m.out &lt;- matchit(formula=prob,
+               method = "nearest",
+               discard = "control",
+               distance= "logit",
+               replace = FALSE,
+               data = data.smoking)
+```
+
+---
+
+# *MatchIt*
+
+
+```r
+summary(m.out)
+```
+
+```
+## 
+## Call:
+## matchit(formula = prob, data = data.smoking, method = "nearest", 
+##     distance = "logit", discard = "control", replace = FALSE)
+## 
+## Summary of balance for all data:
+##                    Means Treated Means Control SD Control Mean Diff eQQ Med eQQ Mean eQQ Max
+## distance                  0.2575        0.1749     0.1061    0.0826  0.0803   0.0825  0.2269
+## mmarriedmarried           0.4734        0.7448     0.4360   -0.2714  0.0000   0.2708  1.0000
+## mmarriednotmarried        0.5266        0.2552     0.4360    0.2714  0.0000   0.2708  1.0000
+## fbabyYes                  0.3715        0.4509     0.4977   -0.0794  0.0000   0.0799  1.0000
+## medu                     11.6389       12.8645     2.5080   -1.2256  1.0000   1.2188  6.0000
+## nprenatal                 9.8623       10.9392     3.4984   -1.0769  1.0000   1.1076  7.0000
+## foreign                   0.0255        0.0409     0.1981   -0.0154  0.0000   0.0162  1.0000
+## mhisp                     0.0243        0.0300     0.1706   -0.0057  0.0000   0.0058  1.0000
+## fage                     24.7431       27.6644     8.7639   -2.9213  2.0000   3.0150 20.0000
+## 
+## 
+## Summary of balance for matched data:
+##                    Means Treated Means Control SD Control Mean Diff eQQ Med eQQ Mean eQQ Max
+## distance                  0.2575        0.2569     0.1277    0.0006   1e-04   0.0007  0.0273
+## mmarriedmarried           0.4734        0.4711     0.4995    0.0023   0e+00   0.0023  1.0000
+## mmarriednotmarried        0.5266        0.5289     0.4995   -0.0023   0e+00   0.0023  1.0000
+## fbabyYes                  0.3715        0.3877     0.4875   -0.0162   0e+00   0.0162  1.0000
+## medu                     11.6389       11.6991     2.4323   -0.0602   0e+00   0.2315  6.0000
+## nprenatal                 9.8623        9.8090     4.0397    0.0532   0e+00   0.1250  7.0000
+## foreign                   0.0255        0.0139     0.1171    0.0116   0e+00   0.0116  1.0000
+## mhisp                     0.0243        0.0243     0.1541    0.0000   0e+00   0.0000  0.0000
+## fage                     24.7431       24.4410    10.5128    0.3021   1e+00   0.9641 17.0000
+## 
+## Percent Balance Improvement:
+##                    Mean Diff.  eQQ Med eQQ Mean  eQQ Max
+## distance              99.3032  99.9292  99.1325  87.9592
+## mmarriedmarried       99.1472   0.0000  99.1453   0.0000
+## mmarriednotmarried    99.1472   0.0000  99.1453   0.0000
+## fbabyYes              79.5921   0.0000  79.7101   0.0000
+## medu                  95.0894 100.0000  81.0066   0.0000
+## nprenatal             95.0563 100.0000  88.7147   0.0000
+## foreign               24.9959   0.0000  28.5714   0.0000
+## mhisp                100.0000   0.0000 100.0000 100.0000
+## fage                  89.6594  50.0000  68.0230  15.0000
+## 
+## Sample sizes:
+##           Control Treated
+## All          3668     864
+## Matched       864     864
+## Unmatched    2759       0
+## Discarded      45       0
+```
+
+---
+
+# Gráfico de soporte común
+
+
+```r
+plot(m.out, type = "jitter")
+```
+
+![](figures/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
+```
+## [1] "To identify the units, use first mouse button; to stop, use second."
+```
+
+```
+## integer(0)
+```
+
+
+---
+
+# Histograma
+
+
+```r
+plot(m.out, type = "hist")
+```
+
+![](figures/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+---
+
+# Muestra pareada
+
+
+```r
+m.data &lt;- match.data(m.out)
+
+#Esta matriz nos dice quién es el match de quién
+head(m.out$match.matrix)
+```
+
+```
+##    1     
+## 11 "4025"
+## 20 "2908"
+## 25 "855" 
+## 43 "4212"
+## 47 "3993"
+## 49 "1981"
+```
+
+---
+
+# Efecto de tratamiento
+
+.pull-left[
+
+```r
+z.out &lt;- zelig(bweight~smoke,
+               data = match.data(m.out),
+               model = "ls")
+```
+]
+
+.tiny[
+.pull-right[
+
+```r
+summary(z.out)
+```
+
+```
+## Model: 
+## 
+## Call:
+## z5$zelig(formula = bweight ~ smoke, data = match.data(m.out))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2976.44  -311.44    41.45   371.25  1880.34 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  3316.44      20.27 163.649  &lt; 2e-16
+## smoke        -178.78      28.66  -6.238 5.56e-10
+## 
+## Residual standard error: 595.7 on 1726 degrees of freedom
+## Multiple R-squared:  0.02205,	Adjusted R-squared:  0.02148 
+## F-statistic: 38.91 on 1 and 1726 DF,  p-value: 5.557e-10
+## 
+## Next step: Use 'setx' method
+```
+]
+]
+
+---
+
+# Comparar *MatchIt* con *Matching*
+
+.pull-left[
+
+```r
+m.out &lt;- matchit(formula=prob,
+                 method = "nearest",
+                 discard = "control",
+                 distance= "logit",
+                 replace = "true",
+                 data = data.smoking)
+
+z.out &lt;- zelig(bweight~smoke,
+               data = match.data(m.out),
+               model = "ls")
+```
+]
+
+.tiny[
+.pull-right[
+
+```r
+summary(z.out)
+```
+
+```
+## Model: 
+## 
+## Call:
+## z5$zelig(formula = bweight ~ smoke, data = match.data(m.out))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2993.16  -328.16    40.84   377.34  1880.34 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  3333.16      20.35 163.809  &lt; 2e-16
+## smoke        -195.50      28.78  -6.794  1.5e-11
+## 
+## Residual standard error: 598.1 on 1726 degrees of freedom
+## Multiple R-squared:  0.02605,	Adjusted R-squared:  0.02548 
+## F-statistic: 46.16 on 1 and 1726 DF,  p-value: 1.498e-11
+## 
+## Next step: Use 'setx' method
+```
+
+```r
+#Es lo más cerca que pude llegar:
+summary(nn1_2_remp)
+```
+
+```
+## 
+## Estimate...  -197.37 
+## AI SE......  27.346 
+## T-stat.....  -7.2178 
+## p.val......  5.2847e-13 
+## 
+## Original number of observations..............  4535 
+## Original number of treated obs...............  862 
+## Matched number of observations...............  862 
+## Matched number of observations  (unweighted).  7538
+```
+]
+]
+---
+
+# Caliper y radio
+
+.pull-left[
+
+```r
+m.out &lt;- matchit(formula=prob,
+                 method = "nearest",
+                 discard = "control",
+                 distance= "logit",
+                 replace = FALSE,
+                 ratio = 2,
+                 caliper = .1,
+                 data = data.smoking)
+
+head(m.out$match.matrix)
+
+z.out &lt;- zelig(bweight~smoke,
+               data = match.data(m.out),
+               model = "ls")
+```
+]
+
+.tiny[
+.pull-right[
+
+```r
+summary(z.out)
+```
+
+```
+## Model: 
+## 
+## Call:
+## z5$zelig(formula = bweight ~ smoke, data = match.data(m.out))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -3026.67  -304.67    36.99   375.66  1879.99 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  3366.67      14.96 225.059   &lt;2e-16
+## smoke        -228.66      25.34  -9.025   &lt;2e-16
+## 
+## Residual standard error: 599.7 on 2465 degrees of freedom
+## Multiple R-squared:  0.03199,	Adjusted R-squared:  0.03159 
+## F-statistic: 81.45 on 1 and 2465 DF,  p-value: &lt; 2.2e-16
+## 
+## Next step: Use 'setx' method
+```
+]
+]
+
+---
+
+# Estratificación
+
+.pull-left[
+
+```r
+m.out &lt;- matchit(formula=prob,
+                 method = "subclass",
+                 discard = "control",
+                 distance= "logit",
+                 data = data.smoking)
+summary(m.out)
+
+
+z.out &lt;- zelig(bweight~smoke,
+               data = match.data(m.out),
+               model = "ls")
+```
+]
+
+.tiny[
+.pull-right[
+
+```r
+summary(z.out)
+```
+
+```
+## Model: 
+## 
+## Call:
+## z5$zelig(formula = bweight ~ smoke, data = match.data(m.out))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3071.5  -305.5    28.5   359.5  2088.5 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept) 3411.499      9.466  360.40   &lt;2e-16
+## smoke       -273.840     21.572  -12.69   &lt;2e-16
+## 
+## Residual standard error: 569.8 on 4485 degrees of freedom
+## Multiple R-squared:  0.03468,	Adjusted R-squared:  0.03447 
+## F-statistic: 161.1 on 1 and 4485 DF,  p-value: &lt; 2.2e-16
+## 
+## Next step: Use 'setx' method
+```
+]
+]
+---
+
+# Próxima sesión
+
+- Comenzaremos a estudiar regresión discontinua
+
+- Lectura introductoria
+  - CT, Capítulo 25, Sección 6
+  - GMPRV, Capítulo 6
+
+- Discusión más profunda
+
+  - MM, Capítulo 4
+  
+---
+
+class: center, middle
+
+Presentación creada usando el paquete [**xaringan**](https://github.com/yihui/xaringan) en R.
+
+El *chakra* viene de [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), y [R Markdown](https://rmarkdown.rstudio.com).
+
+Material de clase en versión preliminar.
+
+**No reproducir, no distribuir, no citar.**
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script src="libs/cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
