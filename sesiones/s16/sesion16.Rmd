@@ -113,6 +113,38 @@ class: inverse, middle, center
 
 - Espinosa, V., & Rubin, D. B. (2015). Did the military interventions in the Mexican drug war increase violence?. *The American Statistician*, 69(1), 17-27
 
+- Estudiar la relación causal entre los homicidios e intervenciones militares en México
+
+- Covariables que permitan comparar regiones (municipios y sus vecinos)
+
+- Podemos pensar en el modelo de PSM como un *experimento fallido* pues no hay balance en los covariables
+
+  - En este caso, hay intervenciones militares en regiones con características específicas
+  
+  - Es decir, las intervenciones no son aleatorias
+  
+---
+
+# Covariables
+
+- $X$ incluye: demografía, economía, localización, educación, salud, política
+
+- $W$ es 1 si hubo intervención militar y 0 si no
+
+- Se emplean datos previos a 2006 para hacer el pareamiento
+
+---
+
+# Pareamiento
+
+- Puede haber combinación de pareamiento exacto junto con matching
+
+  - Por ejemplo, para emparejar dos regiones, podemos pedir que las parejas estén en el mismo estado
+  
+- Los autores hacen énfasis en que se deben generar grupos balanceados de regiones tratadas y no tratadas
+
+- Los resultados muestran que la presencia militar sí incrementaron la violencia de forma significativa
+
 ---
 
 # Próxima sesión

@@ -36,7 +36,7 @@
 
 [Sesión 17](https://rojasirvin.github.io/EPS2020/sesiones/s17/sesion17.html#1). PSM en R
 
-
+[Sesión 18](https://rojasirvin.github.io/EPS2020/sesiones/s18/sesion18.html#1). Regresión discontinua
 <!---commented
 
 -->
