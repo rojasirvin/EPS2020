@@ -13,7 +13,7 @@
   | Becerril & Abdulai | PSM | 8 de octubre | José Quintero |
   | Espinosa & Rubin | PSM | 8 de octubre | Daniel Hernández | 
   | Dell | RD Geográfica | 20 de octubre | Federico Daverio |
-  | PENDIENTE   | Regresión discontinua | 20 de octubre | José Miguel Nava |
+  | Davis (2008)   | Regresión discontinua | 22 de octubre | José Miguel Nava |
   | Campos & Esquivel | Control sintético | 3 de noviembre | César Ángeles |
   | Calderón & coautores | Control sintético | 3 de noviembre | Wilmer Ferrer |
   | Keele & coautores | RD + Matching | 5 de noviembre | Eduardo García |
