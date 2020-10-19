@@ -16,8 +16,9 @@
   | Davis (2008)   | Regresión discontinua | 22 de octubre | José Miguel Nava |
   | Campos & Esquivel | Control sintético | 3 de noviembre | César Ángeles |
   | Calderón & coautores | Control sintético | 3 de noviembre | Wilmer Ferrer |
-  | Keele & coautores | RD + Matching | 5 de noviembre | Eduardo García |
+  | Absher & coautores | Control sintético | 3 de noviembre | Héctor Hernández |
+  | Keele & coautores | Métodos combinados | 5 de noviembre | Eduardo García |
+    | Parker & coautores | Métodos combinados  | 5 de noviembre | Isaac Soto |
   | Parker & Vogl | CCT largo plazo | 5 de noviembre | Enrique Ramos | 
-  | PENDIENTE | Métodos combinados o largo plazo  | 5 de noviembre | Isaac Soto |
   | Attanasio & coautores | Estructural | 19 de noviembre | Alonso Pizarro |
   | Arceo & Campos | Machine Learning | 26 de noviembre | Ana Paola Paredes |
