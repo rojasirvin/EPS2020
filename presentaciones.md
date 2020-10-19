@@ -19,6 +19,6 @@
   | Absher & coautores | Control sintético | 3 de noviembre | Héctor Hernández |
   | Keele & coautores | Métodos combinados | 5 de noviembre | Eduardo García |
   | Parker & coautores | Métodos combinados  | 5 de noviembre | Isaac Soto |
-    | Parker & Vogl | CCT largo plazo | 5 de noviembre | Enrique Ramos | 
+  | Parker & Vogl | CCT largo plazo | 5 de noviembre | Enrique Ramos |
   | Attanasio & coautores | Estructural | 19 de noviembre | Alonso Pizarro |
   | Arceo & Campos | Machine Learning | 26 de noviembre | Ana Paola Paredes |
