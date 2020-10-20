@@ -149,7 +149,7 @@ class: inverse, middle, center
 
 .pull-right[
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="figures/GRDnj_ph.png" alt="Fuente: Keele &amp;amp; Titiunik (2016)" width="60%" /&gt;
+&lt;img src="figures/GRDnaivedistance.png" alt="Fuente: Keele &amp;amp; Titiunik (2016)" width="100%" /&gt;
 &lt;p class="caption"&gt;Fuente: Keele &amp; Titiunik (2016)&lt;/p&gt;
 &lt;/div&gt;
 ]
@@ -170,8 +170,14 @@ $$
 $$
 ---
 
-# ¿Cómo usar la distancia?
+# Esperanza condicional
 
+- La función de esperanza condicional de la variable de interés puede ser estimada con una regresión local:
+
+`$$\hat{\beta}=\arg\min_{\beta}\sum_{i=1}^N\left(Y_i -\sum_{j=0}^p\beta_j(X_i-x_o)^j \right)^2w_i$$`
+donde `\(w_i\)` son los pesos de una función Kernel con ancho de banda `\(h\)` tal que `\(w_i=\frac{1}{h}K\left(\frac{X_i-x_0}{h}\right)\)`
+
+- Para un punto en la frontera, es decir, `\(X=x_0\)`, la esperanza de la variable de interés es simplemente `\(\hat{\beta}_0\)`
 
 
 ---
