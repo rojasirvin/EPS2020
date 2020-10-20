@@ -102,7 +102,7 @@ class: inverse, middle, center
 
 - Popularmente usado en comportamiento electoral
 
-- Ejemplo: areas de mercados desginados (DMA) que abarcan condados en más de un estado en EUA
+- Ejemplo: áreas de mercados desginados (DMA) que abarcan condados en más de un estado en EUA
 
 - ¿Cuál es el efecto de recibir propaganda electoral en la participación en la elección?
  
@@ -174,27 +174,50 @@ knitr::include_graphics("figures/GRDcalifornia.png")
 
 # ¿Cómo usar la distancia?
 
+.pull-left[
 - Distancia ingenuna: distancia más corta de cada punto a la frontera
 
 - No es útil pues esto no nos informa la localización geográfica de los puntos
- 
+]
+
+
+
+
+.pull-right[
+```{r, out.width="60%",fig.cap='Fuente: Keele & Titiunik (2016)',fig.align='center'}
+knitr::include_graphics("figures/GRDnaivedistance.png")
+```
+]
 
 ---
 
-# Efectos de tratamiento espaciales
+# ¿Cómo usar la distancia?
 
-- Distancia ingenuna: distancia más corta de cada punto a la frontera
+- **Distancia geográfica**: para cada punto $b$ de la frontera, calculamos la [distancia euclideana](https://es.wikipedia.org/wiki/Distancia_euclidiana) entre cada punto $S_i$ y $b$, $f_b(S_i)$
 
-- No es útil pues esto no nos informa la localización geográfica de los puntos
+- De manera análoga a la RD en una dimensión, definimos la función de regresión de la variable de resultados de interés para tratados y no tratados como
+
+$$
+\begin{aligned}
+\mu(b)^C&=lim_{s^C\to b}E(Y_{i0}|f_b(S_i)=f_b(s^c))\\
+\mu(b)^T&=lim_{s^T\to b}E(Y_{i1}|f_b(S_i)=f_b(s^T))
+\end{aligned}
+$$
+--
+
+- La función de esperanza condicional de la variable de interés puede ser estimada con una regresión local:
+
+$$\hat{\beta}=\arg\min_{\beta}\sum_{i=1}^N\left(Y_i -\sum_{j=0}^p\beta_j(X_i-x_o)^j \right)^2w_i$$
+donde $w_i$ son los pesos de una función Kernel con ancho de banda $h$ tal que $w_i=\frac{1}{h}K\left(\frac{X_i-x_0}{h}\right)$
+
+- Para un punto en la frontera, es decir, $X=x_0$, la esperanza de la variable de interés es simplemente $\hat{\beta}_0$
+
 
 ---
 
 # Efecto GRD
 
 - $\hat{\tau}=\hat{\mu}^t(b)-\hat{\mu}^c(b)=\hat{\alpha}^t_b-\hat{\alpha}^c_b$
-
-
-- Calcular para cada punto en la muestra calcular la distancia a los puntos $b$ de la frontera: $f_b(S_i)$
 
 - Queremos estimar las funciones de esperanza de $Y_{i0}$ y $Y_{i1}$ condicionales a la distancia
 
@@ -209,7 +232,7 @@ $$
 
 con pesos $w_{ib}=\frac{1}{h_b}K\left(\frac{f_b(S_i)}{h_b}\right)$
 
-- Agregamos: $\hat{\tau}=(\sum_{g=1}^{G}\hat{\tau}(b^g)\hat{f}(b^g))/(\sum_{g=1}^{G}\hat{f}(b^g))$
+- Agregamos: $\hat{\tau}(b)=(\sum_{g=1}^{G}\hat{\tau}(b^g)\hat{f}(b^g))/(\sum_{g=1}^{G}\hat{f}(b^g))$
 	 
  
 ---
