@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Regresión discontinua en la geografía</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Irvin Rojas" />
+    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="libs/cide.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide
+
+
+
+&lt;style type="text/css"&gt;
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 60% !important;
+}
+
+&lt;/style&gt;
+
+.title[
+# Sesión 19. Regresión discontinua geográfica
+]
+.subtitle[
+## Evaluación de Programas Sociales
+]
+.author[
+### Irvin Rojas &lt;br&gt; [rojasirvin.com](https://www.rojasirvin.com/) &lt;br&gt; [&lt;i class="fab fa-github"&gt;&lt;/i&gt;](https://github.com/rojasirvin) [&lt;i class="fab fa-twitter"&gt;&lt;/i&gt;](https://twitter.com/RojasIrvin) [&lt;i class="ai ai-google-scholar"&gt;&lt;/i&gt;](https://scholar.google.com/citations?user=FUwdSTMAAAAJ&amp;hl=en)
+]
+
+.affiliation[
+### Centro de Investigación y Docencia Económicas &lt;br&gt; División de Economía
+]
+
+---
+
+
+
+---
+
+class: inverse, middle, center
+
+# Discontinuidades geográficas
+
+---
+ 
+# Introducción a discontinuidades geográficas (GRD)
+
+- Situaciones donde una unidad administrativa es tratada y la adyacente no lo es
+
+- ¿Cómo explotar apropiadamente la distancia a la frontera?
+
+- Quizás el estudio de Card y Krueger (1994) sobre el salario mínimo podría haberse abordado como un GRD
+
+- Popularmente usado en comportamiento electoral
+
+- Ejemplo: areas de mercados desginados (DMA) que abarcan condados en más de un estado en EUA
+
+- ¿Cuál es el efecto de recibir propaganda electoral en la participación en la elección?
+ 
+
+---
+
+# Notación
+ 
+- Areas tratadas y no tratadas: `\(\mathcal{A}^t\)` y `\(\mathcal{A}^c\)`
+
+- `\(T_i=1\)` indica una unidad en el área tratada (DMA de Filadelfia)
+
+- `\(T_i=0\)` indica una unidad en el área no tratada (DMA de Nueva York)
+
+- `\(S_i=(S_{i1},S_{i2})\)` es la localización de una unidad
+
+- `\(b=(S_{1},S_{2})\in \mathcal{B}\)` es un punto en la frontera
+
+
+---
+
+
+
+# Efecto de tratamiento
+
+- `\(\tau(b)\equiv E\{Y_{i1}-Y_{i0}|S_i=b\}\)` para todo `\(b \in \mathcal{B}\)` 
+
+- Hay un efecto de tratamiento para cada uno de los puntos `\(b\)` en la frontera, definiendo una *curva de efectos de tratamiento*
+
+- Un objeto de interés podría ser el promedio de efectos a lo largo de la frontera `\(\tau=E\{Y_{i1}-Y_{i0}|S_i=b\}\)`
+ 
+---
+
+# Tratamientos counfundidos
+
+- Muchas veces los límites administrativos hacen que haya más de un tratamiento cambiando en la discontinuidad
+
+- En este ejemplo, casi siempre los DMA son conglomerados de condados, así que las fronteras coinciden
+
+- Muchos aspectos electorales se deciden a nivel condado, por lo tanto hay tratamientos confundidos
+
+- Debemos asumir que no hay efecto condado o, en su defecto, que estamos estimando el efecto condado y el efecto DMA
+
+- O podemos seguir una estrategia tipo DID, donde podemos ver a las unidades antes y después que la discontinuidad de interés ocurra
+ 
+---
+
+# Frontera El Dorado y Reno
+
+- Otra opción es identificar zonas donde el mismo condado sea partido por una DMA
+
+- Esto pasa en la región de El Dorado y Reno, en California
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDcalifornia.png" alt="Fuente: Keele &amp;amp; Titiunik (2016)" width="45%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele &amp; Titiunik (2016)&lt;/p&gt;
+&lt;/div&gt;
+ 
+---
+
+# Problemas
+
+- No hay suficientes observaciones para hacer creíble la GRD
+
+- Hay diferencias sustanciales en, por ejemplo, precio de las casas
+
+- Reno es considerablemente más rico
+ 
+---
+
+# ¿Cómo usar la distancia?
+
+- Distancia ingenuna: distancia más corta de cada punto a la frontera
+
+- No es útil pues esto no nos informa la localización geográfica de los puntos
+ 
+
+---
+
+# Efectos de tratamiento espaciales
+
+- Distancia ingenuna: distancia más corta de cada punto a la frontera
+
+- No es útil pues esto no nos informa la localización geográfica de los puntos
+
+---
+
+# Efecto GRD
+
+- `\(\hat{\tau}=\hat{\mu}^t(b)-\hat{\mu}^c(b)=\hat{\alpha}^t_b-\hat{\alpha}^c_b\)`
+
+
+- Calcular para cada punto en la muestra calcular la distancia a los puntos `\(b\)` de la frontera: `\(f_b(S_i)\)`
+
+- Queremos estimar las funciones de esperanza de `\(Y_{i0}\)` y `\(Y_{i1}\)` condicionales a la distancia
+
+  
+$$
+`\begin{aligned}
+(\hat{\alpha}^c_b,\hat{\beta}^c_b)=\arg \min_{\alpha^c_b,\beta^c_b}\sum_{i\in\mathcal{A}^c}\left\{Y_i -\alpha_b^c-\beta_b^c f_b(S_i) \right\}^2 w_{ib} \\
+(\hat{\alpha}^t_b,\hat{\beta}^t_b)=\arg \min_{\alpha^t_b,\beta^t_b}\sum_{i\in\mathcal{A}^t}\left\{Y_i -\alpha_b^t-\beta_b^t f_b(S_i) \right\}^2 w_{ib}
+\end{aligned}`
+$$
+  
+
+con pesos `\(w_{ib}=\frac{1}{h_b}K\left(\frac{f_b(S_i)}{h_b}\right)\)`
+
+- Agregamos: `\(\hat{\tau}=(\sum_{g=1}^{G}\hat{\tau}(b^g)\hat{f}(b^g))/(\sum_{g=1}^{G}\hat{f}(b^g))\)`
+	 
+ 
+---
+
+# Pruebas de falsificación
+
+- Usar el método descrito anteriormente para mostrar que variables pre tratamiento no varían en la discontinuidad
+
+- Prueba de balance:
+ 
+  - Calcular distancia de `\(i\)` a todos los no tratados
+  - Encontrar el vecino más cercano
+  - Aplicar una prueba `\(t\)` a la muestra pareada
+  
+
+---
+
+# Efecto de los anuncios en la votación
+
+- Datos del registro electoral y de ventas de casas
+
+- Se pudieron georeferenciar a todos los individuos en el registro
+
+- Se identificó una región donde solo cambia la DMA
+
+
+---
+
+# Efecto de los anuncios en la votación
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDnj_ph.png" alt="Fuente: Keele &amp;amp; Titiunik (2016)" width="60%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele &amp; Titiunik (2016)&lt;/p&gt;
+&lt;/div&gt;
+ 
+---
+
+# Efecto de los anuncios en la votación
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDbalance.png" alt="Fuente: Keele &amp;amp; Titiunik (2016)" width="95%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele &amp; Titiunik (2016)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Efecto de los anuncios en la votación
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDborder.png" alt="Fuente: Keele &amp;amp; Titiunik (2016)" width="60%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele &amp; Titiunik (2016)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Efecto de los anuncios en la votación
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDeffects.png" alt="Fuente: Keele &amp;amp; Titiunik (2016)" width="60%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele &amp; Titiunik (2016)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+class: inverse, middle, center
+
+# Matching y discontinuidades geográficas
+
+---
+
+# Matching con covariables
+
+.pull-left[
+- Mejorar la comparabilidad entre unidades tratadas y no tratadas
+
+- Iniciativa en Milwaukee para otorgar un día libre por enfermedad por cada 30 días trabajados
+
+- Se votó esta inciativa solo en la zona de la ciudad (amarilla)
+
+- Datos del registro de votantes de Milwaukee
+
+- Precio de venta de casas
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDMilwaukee.png" alt="Fuente: Keele, Titiunik &amp;amp; Zubizarreta (2015)" width="70%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele, Titiunik &amp; Zubizarreta (2015)&lt;/p&gt;
+&lt;/div&gt;
+]
+
+
+---
+
+# Diseño 1: condicionar en observables
+
+- Los resultados potenciales `\(Y_{T,j}\)` y `\(Y_{C,j}\)` son independientes del tratamiento condicional en covariables `\(X_j\)`
+
+- `\(X_j\)` no incluye medidas de distancia hacia la frontera entre `\(A_C\)` y `\(A_T\)`
+
+- Problema: hay no observables que pueden determinar dónde elige vivir la gente (ciudad vs suburbios)
+
+---
+
+# Diseño 2: GRD
+
+- Estimación del efecto de tratamiento como en Keele y Titiunik (2015)
+
+---
+ 
+# Diseño 3: GRD + condicionar en observables
+
+.pull-left[
+- Puede haber selección alrededor de la frontera
+
+- Podemos asumir que una vez controlando por covariables, el tratamiento es como si fuera aleatorio cerca de los límites
+
+- Se asume que existe `\(N(b_1,b_2)\)`, una vecindad alrededor de `\((b_1,b_2)\)` en la frontera, donde los resultados potenciales son independientes del tratamiento condicionados en `\(X_j\)`
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDMilwaukee_prices.png" alt="Fuente: Keele, Titiunik &amp;amp; Zubizarreta (2015)" width="100%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele, Titiunik &amp; Zubizarreta (2015)&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+
+# Matching usando programación entera
+
+- Método que puede ser incluso usado con RD típica
+
+- Hay varios tipos de covariables:
+
+  - Covariables discretos clave a los que queremos hacer match exacto (mismo distrito estatal, senado y congreso, sexo, historial de voto 2004 - 2006)
+  - Otros menos importantes a los que basta con balancear las algunos momentos (precios de casas)
+  - Y otros aún menos importantes a los que basta con balancear las medias (edad)
+
+- Se plantea un algoritmo para determinar quién es pareado con quién, minimizando la distancia e imponiendo restricciones en la distribución fina que se desea parear y en igualdad de medias
+	 
+ 
+
+
+---
+
+# Matching usando programación entera
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDMilwaukee_balance.png" alt="Fuente: Keele, Titiunik &amp;amp; Zubizarreta (2015)" width="58%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele, Titiunik &amp; Zubizarreta (2015)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Matching usando programación entera
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDdesign1.png" alt="Fuente: Keele, Titiunik &amp;amp; Zubizarreta (2015)" width="60%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele, Titiunik &amp; Zubizarreta (2015)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Matching usando programación entera
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDdesign2.png" alt="Fuente: Keele, Titiunik &amp;amp; Zubizarreta (2015)" width="55%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele, Titiunik &amp; Zubizarreta (2015)&lt;/p&gt;
+&lt;/div&gt;
+---
+
+# Matching usando programación entera
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDdesign1.png" alt="Fuente: Keele, Titiunik &amp;amp; Zubizarreta (2015)" width="55%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele, Titiunik &amp; Zubizarreta (2015)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Matching usando programación entera
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDdesign3.png" alt="Fuente: Keele, Titiunik &amp;amp; Zubizarreta (2015)" width="55%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele, Titiunik &amp; Zubizarreta (2015)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Estimación de los efectos
+
+- Efecto de la presencia de inciativa en la boleta en la participación
+
+- Se emplea un esquema de inferencia por aleatorización (randomization inference)
+
+- Tenemos `\(I\)` parejas
+
+- `\(\delta_{ij}={-1,0,1}\)` son los posibles valores de la diferencia de resultados (votar o no votar) para cada pareja
+- Contar el número de eventos donde los tratados votan y los no tratados no votan, `\(T\)`
+
+---
+
+# Estimación de los efectos
+
+- Generamos una distribución empírica `\(T_C\)`, que representa el número de votos que hubieran ocurrido sin tratamiento
+- Probar `\(H0: \delta=0\)`
+
+- Dado que hacemos correción por matching, usamos una distribución tal que `\(\frac{1}{1+\Gamma}\leq P(Z_{ij}=1|X_j)\leq \frac{\Gamma}{1+\Gamma}\)`
+
+- `\(\Gamma\)` ajusta el sesgo que debería existir debido a no observables para modificar las conclusiones basadas en independencia condicional
+	 
+---
+
+# Estimación de los efectos
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/GRDvoting_patterns.png" alt="Fuente: Keele, Titiunik &amp;amp; Zubizarreta (2015)" width="60%" /&gt;
+&lt;p class="caption"&gt;Fuente: Keele, Titiunik &amp; Zubizarreta (2015)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Complicaciones
+	 
+- Discontinuidad determina intensidad o probabilidad de tratamiento `\(\rightarrow\)` regresión discontinua difusa
+
+- Si la discontinuidad surge en el espacio, por ejemplo, por una frontera geográfica podemos incorporar la distancia como la variable de selección y hacer un GRD
+
+- Se usan métodos de geolocalización para determinar qué unidades serán comparadas
+
+- Es posible introducir covariables para refinar los grupos de comparación
+
+- El uso de covariables puede usarse en GRD o en simple RD
+
+---
+
+# Próxima sesión
+
+- Veremos un ejemplo aplicado
+
+  - Davis, L. W. (2008). The effect of driving restrictions on air quality in Mexico City. *Journal of Political Economy*, 116(1), 38-81.  
+
+- Veremos aplicaciones de RD en R
+
+---
+
+class: center, middle
+
+Presentación creada usando el paquete [**xaringan**](https://github.com/yihui/xaringan) en R.
+
+El *chakra* viene de [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), y [R Markdown](https://rmarkdown.rstudio.com).
+
+Material de clase en versión preliminar.
+
+**No reproducir, no distribuir, no citar.**
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script src="libs/cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

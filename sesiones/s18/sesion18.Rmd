@@ -658,6 +658,171 @@ knitr::include_graphics("figures/RDfuzzy_maimonides_regression.png")
 
 ---
 
+class: inverse, middle, center
+
+# La ilusión de la élite
+
+---
+
+# La ilusión de la élite
+ 
+- Escuelas de élite, *exam schools*, altamente competitivas en Nueva York y Boston
+ 
+- Bajas tasas de admisión
+ 
+- ¿Cómo diferenciar el valor agregado de la escuela del hecho de que la acta selectividad hace que a estas escuelas asistan solo los alumnos más brillantes?
+ 
+- ¡Ojalá pudiéramos asignar alumnos al azar!
+ 
+- Los estudiantes en estas escuelas de élite comparten clases con estudiantes aventajados
+ 
+ 
+---
+
+# La regla de asignación
+
+.pull-left[
+- Cada escuela tiene un *corte* de puntaje de admisión
+ 
+- En la escuela más competitiva de Boston aquellos estudiantes debajo del corte nunca asisten a dicha escuela
+ 
+- Los que están arriba del corte casi siempre acaban en la BLS
+]
+
+.pull-right[
+```{r, out.width="100%",fig.cap='Fuente: Angrist & Pischke (2014)',fig.align='center'}
+knitr::include_graphics("figures/RDfuzzy_enrollment_BLS.png")
+```
+]
+---
+
+# La regla de asignación 
+
+.pull-left[
+- Sin embargo, aquellos que no alcanzan el puntaje mínimo de la BLS acaban de cualquier forma en una escuela de élite
+]
+
+.pull-right[
+```{r, out.width="100%",fig.cap='Fuente: Angrist & Pischke (2014)',fig.align='center'}
+knitr::include_graphics("figures/RDfuzzy_enrollment_any.png")
+```
+]
+---
+
+# La regla de asignación
+
+.pull-left[
+- Hay una dimensión que genera una discontinuidad: efectos de pares o *peer effects*
+ 
+- Es una de las preocupaciones más importantes de política educativa en casi cualquier país
+ 
+- Tener buenos (malos) compañeros afecta los resultados del individuo $i$
+ 
+- Quienes ingresan a la BLS (séptimo grado) tuvieron compañeros con mejor desempeño en matemáticas cuando iban en cuarto grado
+]
+
+.pull-right[
+```{r, out.width="100%",fig.cap='Fuente: Angrist & Pischke (2014)',fig.align='center'}
+knitr::include_graphics("figures/RDfuzzy_enrollment_peers.png")
+```
+]
+---
+
+# Modelo de efectos de pares}
+ 
+- Un modelo de efectos de pares:
+ 
+ 
+$$Y_i=\theta_0+\theta_1\bar{X}_{(i)}+\theta_2 X_i + u_i$$
+ 
+ 
+- $Y_i$ es el resultado de un examen de matemáticas en el séptimo año del individuo $i$
+ 
+- $X_i$ es el resultado de un examen de matemáticas en el cuarto año del individuo $i$
+ 
+- $\bar{X}_{(i)}$ es el resultado promedio de un examen de matemáticas en el cuarto año de los compañeros de $i$ sin incluir $i$
+ 
+- Otra notación en la literatura escribe esto como $\bar{X}_{(-i)}$
+ 
+- Los resultados están estandarizados por lo que los coeficientes se interpretan en términos de desviaciones estándar: $\hat{\theta}_1=0.25\sigma$
+ 
+ 
+---
+
+# RD difuso + VI
+ 
+- Problemas
+ 
+  - Sabemos que en la discontinuidad, la calidad de los pares cambia drásticamente
+   
+  - Características de los hogares (habilidad de los padres)
+   
+  - Doble causalidad: $i$ afecta a $j$ pero $j$ afecta a $i$ a la vez
+		 
+
+--
+
+- Variables instrumentales:
+ 
+   
+  - Queremos conocer el efecto de la calidad de los pares en el desempeño de matemáticas
+   
+  - Usamos el corte mínimo para ser aceptado en BLS como instrumento de la calidad de los pares
+		 
+ 
+---
+
+# Forma reducida
+
+.pull-left[
+- Si solo usamos el corte para ser aceptado en BLS:
+	 
+ 
+$$Y_i=\alpha_0+\rho D_i + \beta_0 R_i + \epsilon_i$$
+ 
+ 
+- Se obtiene $\hat{\rho}=-0.02$, $s.e.=0.10$
+ 
+- Este es un modelo de forma reducida (variable de interés en función de la posición respecto al corte)
+ 
+- Es el efecto causal de estar antes o después del corte
+]
+
+.pull-right[
+```{r, out.width="100%",fig.cap='Fuente: Angrist & Pischke (2014)',fig.align='center'}
+knitr::include_graphics("figures/RDfuzzy_reducedform.png")
+```
+]
+---
+
+# Modelo de VI
+ 
+- Modelo estructural:
+ 
+ 
+$$Y_i=\alpha_2+\lambda \bar{X}_{(i)} + \beta_2 R_i + \epsilon_{2i}$$
+ 
+ 
+- Con una primera etapa
+ 
+	 
+$$\bar{X}_{(i)}=\alpha_1 + \phi D_i + \beta_1 R_i + \epsilon_{1i}$$
+ 
+ 
+- En la primera etapa $\hat{\phi}=0.80\sigma$, como lo habíamos visto ya en la Figura 4.8
+  
+- En la segunda etapa $\hat{\lambda}=-0.023$, $(s.e.=0.13)$
+ 
+---
+
+# Modelo de VI
+
+```{r, out.width="54%",fig.cap='Fuente: Angrist & Pischke (2014)',fig.align='center'}
+knitr::include_graphics("figures/RDfuzzy_enrollment_peers.png")
+```
+
+---
+
 class: middle, inverse, center
 
 # RD difusa: resumen
@@ -695,6 +860,7 @@ con $T_i=\mathcal{I}(x_i\geq x_0)$
 - Escribiendo las funciones $g_0$ y $g_1$ como polinomios flexibles de $x_i$
 
 $$E(D_i|x_i)=\gamma_{00}+\gamma_{01}x_i+\gamma_{02}x_i+\ldots+\gamma_{0p}x_i^p +\pi T_i + \gamma_{1}^{*}x_i T_i+ \gamma_{2}^{*}x_i^2 T_i+\ldots+ \gamma_{p}^{*}x_i^p T_i$$
+
 ---
 
 # RD difusa: resumen
@@ -711,7 +877,7 @@ $$D_i=\gamma_0+\gamma_1 x_i + \gamma_2 x_i^2 + \ldots + \gamma_p x_i^p + \pi T_i
 - La forma reducida de este modelo es:
 
 $$D_i=\gamma_0+\gamma_1 x_i + \gamma_2 x_i^2 + \ldots + \gamma_p x_i^p + \pi T_i + \xi_{1i}$$
-	 
+
 ---
 
 # Próxima sesión
