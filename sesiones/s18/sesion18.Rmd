@@ -820,6 +820,17 @@ $$\bar{X}_{(i)}=\alpha_1 + \phi D_i + \beta_1 R_i + \epsilon_{1i}$$
 ```{r, out.width="54%",fig.cap='Fuente: Angrist & Pischke (2014)',fig.align='center'}
 knitr::include_graphics("figures/RDfuzzy_enrollment_peers.png")
 ```
+---
+
+# La ilusión
+
+- No hay tal ganancia por compartir clase con alumnos *brillantes*
+
+- La gente sigue percibiendo que sus hijos ganan al ir a escuelas de élite
+
+- Posiblemente los egresados de estas escuelas tengan mayores ingresos
+
+- Las ganancias que se puedan obtener no son vía el efecto de pares o un mejor rendimiento cognitivo
 
 ---
 
@@ -890,7 +901,12 @@ $$D_i=\gamma_0+\gamma_1 x_i + \gamma_2 x_i^2 + \ldots + \gamma_p x_i^p + \pi T_i
 
   - Davis, L. W. (2008). The effect of driving restrictions on air quality in Mexico City. *Journal of Political Economy*, 116(1), 38-81.  
 
-  - Dell, M. (2015). Trafficking networks and the Mexican drug war. *American Economic Review*, 105(6), 1738-79. 
+  - Dell, M. (2015). Trafficking networks and the Mexican drug war. *American Economic Review*, 105(6), 1738-79.
+
+
+- Un muy buen resumen de RD está en
+
+  - Lee, D. S., & Lemieux, T. (2010). Regression discontinuity designs in economics. *Journal of economic literature*, 48(2), 281-355.  
   
 ---
 
