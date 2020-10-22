@@ -40,6 +40,9 @@
 
 [Sesión 19](https://rojasirvin.github.io/EPS2020/sesiones/s19/sesion19.html#1). Regresión discontinua en la geografía
 
+[Sesión 20](https://rojasirvin.github.io/EPS2020/sesiones/s20/sesion20.html#1). Regresión discontinua en R
+
+
 <!---commented
 
 -->
