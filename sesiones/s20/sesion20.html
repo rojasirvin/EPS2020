@@ -4,9 +4,11 @@
     <title>Regresión discontinua en R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Irvin Rojas" />
-    <script src="libs/header-attrs-2.4/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
     <link rel="stylesheet" href="libs/cide.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" type="text/css" />
@@ -54,7 +56,7 @@ class: inverse, middle, center
  
 - En esta aplicación estudiaremos el *efecto seguidor* o *runner-up effect*
 
-- Anagol, S., y Fujiwara, T. (2016). [The runner-up effect](Anagol, S., &amp; Fujiwara, T. (2016). The runner-up effect. Journal of Political Economy, 124(4), 927-991).
+- Anagol, S., y Fujiwara, T. (2016). [The runner-up effect](https://www.journals.uchicago.edu/doi/abs/10.1086/686746). Journal of Political Economy, 124(4), 927-991).
 
 - En este estudio, se estima el efecto de ser etiquetado como el *seguidor*
 	 
@@ -122,7 +124,7 @@ tab1 &lt;- data.brasil %&gt;%
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#hkapgkilqu .gt_table {
+#hfmxqalcut .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -147,7 +149,7 @@ tab1 &lt;- data.brasil %&gt;%
   border-left-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_heading {
+#hfmxqalcut .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -159,7 +161,7 @@ tab1 &lt;- data.brasil %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_title {
+#hfmxqalcut .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -169,7 +171,7 @@ tab1 &lt;- data.brasil %&gt;%
   border-bottom-width: 0;
 }
 
-#hkapgkilqu .gt_subtitle {
+#hfmxqalcut .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -179,13 +181,13 @@ tab1 &lt;- data.brasil %&gt;%
   border-top-width: 0;
 }
 
-#hkapgkilqu .gt_bottom_border {
+#hfmxqalcut .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_col_headings {
+#hfmxqalcut .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -200,7 +202,7 @@ tab1 &lt;- data.brasil %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_col_heading {
+#hfmxqalcut .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -220,7 +222,7 @@ tab1 &lt;- data.brasil %&gt;%
   overflow-x: hidden;
 }
 
-#hkapgkilqu .gt_column_spanner_outer {
+#hfmxqalcut .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -232,15 +234,15 @@ tab1 &lt;- data.brasil %&gt;%
   padding-right: 4px;
 }
 
-#hkapgkilqu .gt_column_spanner_outer:first-child {
+#hfmxqalcut .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hkapgkilqu .gt_column_spanner_outer:last-child {
+#hfmxqalcut .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hkapgkilqu .gt_column_spanner {
+#hfmxqalcut .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -252,7 +254,7 @@ tab1 &lt;- data.brasil %&gt;%
   width: 100%;
 }
 
-#hkapgkilqu .gt_group_heading {
+#hfmxqalcut .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -274,7 +276,7 @@ tab1 &lt;- data.brasil %&gt;%
   vertical-align: middle;
 }
 
-#hkapgkilqu .gt_empty_group_heading {
+#hfmxqalcut .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -289,15 +291,15 @@ tab1 &lt;- data.brasil %&gt;%
   vertical-align: middle;
 }
 
-#hkapgkilqu .gt_from_md > :first-child {
+#hfmxqalcut .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hkapgkilqu .gt_from_md > :last-child {
+#hfmxqalcut .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hkapgkilqu .gt_row {
+#hfmxqalcut .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -316,7 +318,7 @@ tab1 &lt;- data.brasil %&gt;%
   overflow-x: hidden;
 }
 
-#hkapgkilqu .gt_stub {
+#hfmxqalcut .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -328,7 +330,7 @@ tab1 &lt;- data.brasil %&gt;%
   padding-left: 12px;
 }
 
-#hkapgkilqu .gt_summary_row {
+#hfmxqalcut .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -338,7 +340,7 @@ tab1 &lt;- data.brasil %&gt;%
   padding-right: 5px;
 }
 
-#hkapgkilqu .gt_first_summary_row {
+#hfmxqalcut .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -348,7 +350,7 @@ tab1 &lt;- data.brasil %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_grand_summary_row {
+#hfmxqalcut .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -358,7 +360,7 @@ tab1 &lt;- data.brasil %&gt;%
   padding-right: 5px;
 }
 
-#hkapgkilqu .gt_first_grand_summary_row {
+#hfmxqalcut .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -368,11 +370,11 @@ tab1 &lt;- data.brasil %&gt;%
   border-top-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_striped {
+#hfmxqalcut .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hkapgkilqu .gt_table_body {
+#hfmxqalcut .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -381,7 +383,7 @@ tab1 &lt;- data.brasil %&gt;%
   border-bottom-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_footnotes {
+#hfmxqalcut .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -395,13 +397,13 @@ tab1 &lt;- data.brasil %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_footnote {
+#hfmxqalcut .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#hkapgkilqu .gt_sourcenotes {
+#hfmxqalcut .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -415,46 +417,46 @@ tab1 &lt;- data.brasil %&gt;%
   border-right-color: #D3D3D3;
 }
 
-#hkapgkilqu .gt_sourcenote {
+#hfmxqalcut .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#hkapgkilqu .gt_left {
+#hfmxqalcut .gt_left {
   text-align: left;
 }
 
-#hkapgkilqu .gt_center {
+#hfmxqalcut .gt_center {
   text-align: center;
 }
 
-#hkapgkilqu .gt_right {
+#hfmxqalcut .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hkapgkilqu .gt_font_normal {
+#hfmxqalcut .gt_font_normal {
   font-weight: normal;
 }
 
-#hkapgkilqu .gt_font_bold {
+#hfmxqalcut .gt_font_bold {
   font-weight: bold;
 }
 
-#hkapgkilqu .gt_font_italic {
+#hfmxqalcut .gt_font_italic {
   font-style: italic;
 }
 
-#hkapgkilqu .gt_super {
+#hfmxqalcut .gt_super {
   font-size: 65%;
 }
 
-#hkapgkilqu .gt_footnote_marks {
+#hfmxqalcut .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="hkapgkilqu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="hfmxqalcut" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>
@@ -583,6 +585,7 @@ g2 &lt;- data.brasil %&gt;%
 ]
 
 ---
+
 # Gráficos de discontinuidades
 
 .pull-left[
@@ -611,6 +614,35 @@ g3 &lt;- data.brasil %&gt;%
 ![](figures/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 ]
 
+---
+
+# Gráficos de discontinuidades
+
+.pull-left[
+- Personalizamos para generar un gráfico parecido al del artículo
+
+
+```r
+g4 &lt;- data.brasil %&gt;%
+  filter(bin_cand_ran_again&lt;.55 , bin_cand_winner &lt;.55) %&gt;% 
+      ggplot()+
+      geom_point(aes(x=bin_run,y=bin_cand_ran_again),shape=17,fill="black")+
+      geom_point(aes(x=bin_run,y=bin_cand_winner))+
+  geom_line(aes(x=run, y=cand_win_hat_left))+
+  geom_line(aes(x=run, y=cand_win_hat_right))+
+  geom_line(aes(x=run, y=cand_ran_again_hat_left))+
+  geom_line(aes(x=run, y=cand_ran_again_hat_right))+
+  geom_vline(xintercept=0, color = "black", size=1)+
+  xlab("Vote Share Difference Between 2nd and 3rd; t (%)")+
+  ylab("")+
+  scale_x_continuous(breaks = c(-50,0,50))+
+  scale_y_continuous(breaks=seq(0, 0.5, 0.05))
+```
+]
+
+.pull-right[
+![](figures/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+]
 ---
 
 # Análisis paramétrico
@@ -823,7 +855,7 @@ tab1 &lt;- stargazer(rd1, rd2, rd3, rd4,
 .pull-left[
 - Hay toda una literatura para analizar el *trade-off* entre sesgo y varianza en la elección del ancho de ventana
 
-- [Calonic, Cattaneo &amp; Titiunik, (2015)](https://rdpackages.github.io/references/Calonico-Cattaneo-Titiunik_2015_R.pdf) proponen distintas formas de implementar algoritmos para seleccionar el ancho de ventana óptimo, operacionalziado en la libraría *rdrobust*
+- [Calonic, Cattaneo &amp; Titiunik, (2015)](https://rdpackages.github.io/references/Calonico-Cattaneo-Titiunik_2015_R.pdf) proponen distintas formas de implementar algoritmos para estimar la discontinudad de la regresión con procedimientos totalmente dependiente de los datos (*data driven*), *rdrobust*
 
 - Una de las funciones más útiles de *rdrobust* es crear el gráfico de la discontinuidad, usando un polinomio de orden 4 por defecto
 ]
@@ -860,8 +892,21 @@ summary(rdres)
 
 - Pueden personalizar su gráfico para hacerlo mucho mejor que la versión por defecto
 
-![](figures/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](figures/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]
+
+---
+
+# *rdrobust*
+
+- Otra función es *rdselect*, que permite la estimación del ancho de banda óptimo
+
+- Hay un *trade-off* entre sesgo y varianza en la selee
+
+- Entre más grande sea la ventana, tenemos más observaciones y nuestros estimadores serán más precisos
+
+- Pero al mismo tiempo, entre más grande sea la ventana, más grande será el sesgo en la estimación de la pendiente de la línea de regresión al incluir observaciones cada vez más disimiles
+
 
 ---
 
@@ -878,7 +923,7 @@ summary(rdres)
 # *rdrobust*
 
 .pull-left[
-- Usando *rdbwselect* se pueden calcular distintos anchos de ventana, dependiendo del peso que se le de a cada observación
+- Usando *rdbwselect* se pueden calcular distintos anchos de ventana
 
 - Después de las varias actualizaciones al paquete, ya no he podido obtener exactamente el mismo resultado
 ]
@@ -920,7 +965,6 @@ summary(rdres)
 ---
 
 # *rdrobust*
-
 
 .pull-left[
 - Noten que si especificamos el ancho de ventana de 12.57, obtenemos el resultado preferido por los autores en el artículo

@@ -95,7 +95,7 @@ class: inverse, middle, center
  
 - En esta aplicación estudiaremos el *efecto seguidor* o *runner-up effect*
 
-- Anagol, S., y Fujiwara, T. (2016). [The runner-up effect](Anagol, S., & Fujiwara, T. (2016). The runner-up effect. Journal of Political Economy, 124(4), 927-991).
+- Anagol, S., y Fujiwara, T. (2016). [The runner-up effect](https://www.journals.uchicago.edu/doi/abs/10.1086/686746). Journal of Political Economy, 124(4), 927-991).
 
 - En este estudio, se estima el efecto de ser etiquetado como el *seguidor*
 	 
@@ -246,6 +246,7 @@ g2
 ]
 
 ---
+
 # Gráficos de discontinuidades
 
 .pull-left[
@@ -275,6 +276,37 @@ g3
 ```
 ]
 
+---
+
+# Gráficos de discontinuidades
+
+.pull-left[
+- Personalizamos para generar un gráfico parecido al del artículo
+
+```{r echo=T, include=T, eval=T, message=F, warning=F}
+g4 <- data.brasil %>%
+  filter(bin_cand_ran_again<.55 , bin_cand_winner <.55) %>% 
+      ggplot()+
+      geom_point(aes(x=bin_run,y=bin_cand_ran_again),shape=17,fill="black")+
+      geom_point(aes(x=bin_run,y=bin_cand_winner))+
+  geom_line(aes(x=run, y=cand_win_hat_left))+
+  geom_line(aes(x=run, y=cand_win_hat_right))+
+  geom_line(aes(x=run, y=cand_ran_again_hat_left))+
+  geom_line(aes(x=run, y=cand_ran_again_hat_right))+
+  geom_vline(xintercept=0, color = "black", size=1)+
+  xlab("Vote Share Difference Between 2nd and 3rd; t (%)")+
+  ylab("")+
+  scale_x_continuous(breaks = c(-50,0,50))+
+  scale_y_continuous(breaks=seq(0, 0.5, 0.05))
+
+```
+]
+
+.pull-right[
+```{r echo=F, include=T, eval=T, message=F, warning=F}
+g4
+```
+]
 ---
 
 # Análisis paramétrico
@@ -401,7 +433,7 @@ knitr::include_graphics("figures/RDrunnerup_brazil_regression.png")
 .pull-left[
 - Hay toda una literatura para analizar el *trade-off* entre sesgo y varianza en la elección del ancho de ventana
 
-- [Calonic, Cattaneo & Titiunik, (2015)](https://rdpackages.github.io/references/Calonico-Cattaneo-Titiunik_2015_R.pdf) proponen distintas formas de implementar algoritmos para seleccionar el ancho de ventana óptimo, operacionalziado en la libraría *rdrobust*
+- [Calonic, Cattaneo & Titiunik, (2015)](https://rdpackages.github.io/references/Calonico-Cattaneo-Titiunik_2015_R.pdf) proponen distintas formas de implementar algoritmos para estimar la discontinudad de la regresión con procedimientos totalmente dependiente de los datos (*data driven*), *rdrobust*
 
 - Una de las funciones más útiles de *rdrobust* es crear el gráfico de la discontinuidad, usando un polinomio de orden 4 por defecto
 ]
@@ -449,6 +481,19 @@ rdres$rdplot
 
 # *rdrobust*
 
+- Otra función es *rdselect*, que permite la estimación del ancho de banda óptimo
+
+- Hay un *trade-off* entre sesgo y varianza en la selee
+
+- Entre más grande sea la ventana, tenemos más observaciones y nuestros estimadores serán más precisos
+
+- Pero al mismo tiempo, entre más grande sea la ventana, más grande será el sesgo en la estimación de la pendiente de la línea de regresión al incluir observaciones cada vez más disimiles
+
+
+---
+
+# *rdrobust*
+
 - En la *antiguedad*, es decir, cuando revisé y repliqué por primera vez este artículo, la función *rdbwselect* en Stata permitía recuperar el ancho de banda óptimo aquí reportado (12.57)
 
 ```{r, out.width="100%",fig.cap='Fuente: Anagol & Fujiwara (2016)',fig.align='center'}
@@ -459,7 +504,7 @@ knitr::include_graphics("figures/RDrunnerup_brazil_regression.png")
 # *rdrobust*
 
 .pull-left[
-- Usando *rdbwselect* se pueden calcular distintos anchos de ventana, dependiendo del peso que se le de a cada observación
+- Usando *rdbwselect* se pueden calcular distintos anchos de ventana
 
 - Después de las varias actualizaciones al paquete, ya no he podido obtener exactamente el mismo resultado
 ]
@@ -478,7 +523,6 @@ summary(rdbwselect(y = data.brasil$cand_winner,
 ---
 
 # *rdrobust*
-
 
 .pull-left[
 - Noten que si especificamos el ancho de ventana de 12.57, obtenemos el resultado preferido por los autores en el artículo
