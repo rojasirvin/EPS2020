@@ -42,6 +42,8 @@
 
 [Sesión 20](https://rojasirvin.github.io/EPS2020/sesiones/s20/sesion20.html#1). Regresión discontinua en R
 
+[Sesión 21](https://rojasirvin.github.io/EPS2020/sesiones/s21/sesion21.html#1). Control sintético
+
 
 <!---commented
 
