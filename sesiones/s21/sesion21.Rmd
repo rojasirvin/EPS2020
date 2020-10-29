@@ -282,7 +282,7 @@ $$Y_{it}^N=\delta_t+\theta_t Z_i + \lambda_t\mu_i+\varepsilon_{it}$$
  
 - Considere una matriz de pesos $W=\left(w_2,...,w_{J+1}\right)$, con $w_j \geq 0 \quad \forall j\geq 2$
 
-- Los pesos están normalizados, $w_2+\ldots+w_{J+1}=2$
+- Los pesos están normalizados, $w_2+\ldots+w_{J+1}=1$
  
 - Cada valor de $W$ representa un potencial CS, es decir, un promedio ponderado de las unidades no tratadas
  

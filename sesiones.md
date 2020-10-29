@@ -44,6 +44,8 @@
 
 [Sesión 21](https://rojasirvin.github.io/EPS2020/sesiones/s21/sesion21.html#1). Control sintético
 
+[Sesión 22](https://rojasirvin.github.io/EPS2020/sesiones/s22/sesion22.html#1). Control sintético en R
+
 
 <!---commented
 
