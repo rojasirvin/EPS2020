@@ -1,0 +1,58 @@
+---
+title: |
+  | CIDE
+  | Licenciatura y Maestría en Economía
+  | Evaluación de Programas Sociales
+
+subtitle: "Tarea 3"
+author: "Profesor: Irvin Rojas"
+date: "Fecha de entrega: 12 de noviembre a las 8:00."
+output:
+  html_document:
+  toc: true
+---
+  
+## Instrucciones
+  
+La tarea debe entregarse de manera individual, pero se recomienda ampliamente colaborar en grupos de estudio. Las secciones teóricas deben estar desarrolladas en un procesador de textos y enviadas en formato .docx o .pdf. Alternativamente, puede escribir sus respuestas en lápiz y papel, con letra legible y adjuntar un escaneo de sus respuestas. Las secciones prácticas deberán contener archivos de código replicable y archivos de salida en R (o similares, en caso de usar otro software) para considerarse completas. Las tareas deben entregarse antes de la fecha límite a través de Teams. Puede crear una carpeta comprimida que contenga todos sus archivos y subir esta carpeta en Teams. Recuerde que en Teams debe asegurarse de que los archivos se han subido correctamente.
+
+## Pregunta 1
+
+[15 puntos] Esta pregunta se refiere al artículo de Caliendo y Kopeining (2008). La Tabla 1 hace un comparativo en términos de sesgo y varianza de algunas de las decisiones importantes que se deben tomar en el contexto de la estimación del TOT usando *propensity score matching*. Genere una tabla similar agregando una columna después de la de “Sesgo” llamada “Justificación sesgo” y otra después de “Varianza” llamada “Justificación varianza” donde argumente por qué la decisión en cada fila tiene costos y beneficios en términos de sesgo y varianza.
+
+
+El siguiente ejercicio se refiere a los datos *programa_regularizacion.csv*. Esta base contiene una muestra de 4 mil estudiantes. La variable de resultados es la calificación de una prueba estandarizada de matemáticas. La variable **asesoria** indica si el estudiante recibió asesorías en el verano anterior como parte de un programa de regularización académica. Otras variables incluidas en la base de datos son: la distancia (estandarizada) a la escuela, la educación (estandarizada) de la madre, el valor monetarios de los activos del hogar y un índice (estandarizado) de pobreza.
+
+a. [5 puntos] Estime el *propensity score* usando el modelo de probabilidad no lineal de su elección para la variable de tratamiento **asesoria**. Justifique la elección de la especificación del modelo de probabilidad no lineal.
+
+a. [5 puntos] Genere una gráfica que represente la región de soporte común que resulta de la especificación elegida.
+
+a. [10 puntos] Estime el TOT por el método de vecino más cercano usando la especificación para el propensity score elegida anteriormente.
+
+a. [5 puntos] Estime el TOT por el método de radio usando la especificación para el propensity score elegida anteriormente. Justifique la elección del número de vecinos y el tamaño del caliper.
+
+
+## Pregunta 3
+
+Suponga que se convierte en asesor de la instancia gubernamental encargada de la seguridad alimentaria. Al gobierno le interesa que la seguridad alimentaria de las familias productoras de maíz para autoconsumo no se vea afectada negativamente por la presencia de cierta plaga y dará una transferencia per cápita a todos los pequeños productores de maíz cuyos cultivos se considere están afectados por dicha plaga. Para determinar qué hogares reciben la transferencia se decide usar un índice de prevalencia de la plaga y se selecciona un umbral por arriba del cual está demostrado que los rendimientos del cultivo del maíz se ven seriamente afectados. Esta inspección se llevará a cabo por autoridades federales y el umbral es conocido solo por estas autoridades. Cuando se determine que la prevalencia está por encima del umbral, el monto del programa será transferido de manera inmediata, electrónicamente.
+
+a. [5 puntos] ¿Qué aspectos del programa permitirían emplear un diseño de regresión discontinua para evaluar la efectividad de este sobre la seguridad alimentaria y cómo mostraría su validez empíricamente?
+
+a. [5 puntos] ¿Cómo emplearía el diseño de este programa para evaluar su efectividad con un modelo de regresión discontinua nítida? Elabore una gráfica donde explique una situación en la que el programa muestra ser efectivo. Describa cómo usaría una regresión para hacer inferencia respecto a la efectividad del programa.
+
+a. [5 puntos] ¿Qué factores podrían invalidar el uso de este método para evaluar el programa?
+
+a. Suponga que otro de los asesores juzga como *demasiado paternalista* la transferencia y propone que, en su lugar, se otorgue un cupón válido para canjearse por bultos de un plaguicida. Asumiendo que en una encuesta posterior usted podría conocer la cantidad precisa de plaguicida aplicado, ¿cómo emplearía un diseño de regresión discontinua difusa para evaluar el efecto del uso del plaguicida sobre la seguridad alimentaria? En particular, describa:
+    i. [5 puntos] ¿Cómo estimaría la forma reducida? ¿Cuál es el coeficiente relevante y cuál es su interpretación?
+    i. [5 puntos] ¿Cómo estimaría la primera y la segunda etapa? ¿Cuáles son los coeficientes relevantes y cuál es su interpretación? 
+    i. [5 puntos] ¿Cuáles son los supuestos necesarios para estimar este modelo usando mínimos cuadrados en dos etapas?
+
+## Pregunta 4
+
+El siguiente problema se basa en una publicación reciente de Calonico, Cattaneo, Farrel y Titiunik (2019) . La base de datos *headstar.csv* contiene información de 2,810 condados de los Estados Unidos. La variable **mort_age59_related_postHS** indica la mortalidad infantil en cada uno de los condados. El programa Head Star otorgó fondos de su componente de salud a todos los condados con un índice de pobreza superior a 59.1984. La variable **povrate60** es el índice de pobreza para cada condado. Se desea estimar el efecto del programa en la mortalidad infantil empleando un diseño de regresión discontinua.
+
+[10 puntos] Genere una gráfica donde muestre evidencia de una discontinuidad en la tasa de mortalidad para aquellos condados que recibieron fondos del programa.
+
+[10 puntos] Estime la versión más básica de un modelo de regresión discontinua. Reporte el coeficiente estimado del efecto del tratamiento y su significancia estadística. Interprete su resultado.
+
+[10 puntos] En el artículo de Calonico et al. (2019) se reportan los resultados al emplear un modelo flexible de regresión discontinua con controles. Los controles están incluidos en la misma base de datos, sin embargo, los autores no reportan la forma precisa en que realizan esta estimación. Proponga un modelo con controles y con un ancho de ventana. Use la función *rdbwselect* para explorar algunas posibilidades de ancho de ventana elegidos de manera óptima y compare sus resultados con los reportados en el artículo.
