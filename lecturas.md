@@ -79,7 +79,8 @@ Las lecturas obligatorias (marcadas con “*”) permiten una discusión informa
 *Semana 5*
 * Errores estándar no estándar  
   + \* MHE, Capítulo 8  
-Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robust inference. *Journal of Human Resources*, 50(2), 317-372.  
+Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robust inference. *Journal of Human Resources*, 50(2), 317-372.
+  + Stock, J. H. (2010). The other transformation in econometric practice: Robust tools for inference. *Journal of Economic Perspectives*, 24(2), 83-94.
 
 * ANCOVA  
   + \* McKenzie, D. (2012). Beyond baseline and follow-up: The case for more T in experiments. *Journal of development Economics*, 99(2), 210-221.  
@@ -189,7 +190,7 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
   + \+ Baird, S., Hicks, J. H., Kremer, M., Miguel, E., & Walker, M. (2020). The Twenty Year Economic Impacts of Deworming in Kenya. NBER Working Paper 27611.
 
 *Semana 13*
-+ \* Replicabilidad, credibilidad, cientificidad y ética
++ Replicabilidad, credibilidad, cientificidad y ética
   + Amrhein, V., Greenland, S., & McShane, B. (2019). Scientists rise up against statistical significance. *Nature*. 567, 305-307.  
   + \* Angrist, J. D., & Pischke, J. S. (2010). The credibility revolution in empirical economics: How better research design is taking the con out of econometrics. *Journal of economic perspectives*, 24(2), 3-30.  
   + \* Christensen, G., & Miguel, E. (2018). Transparency, reproducibility, and the credibility of economics research. *Journal of Economic Literature*, 56(3), 920-80.  
@@ -197,10 +198,9 @@ Cameron, A. C., y Miller, D. L. (2015). A practitioner’s guide to cluster-robu
   + \* Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., & Altman, D. G. (2016).   Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. *European journal of epidemiology*, 31(4), 337-350.  
   + Humphreys, M. (2015). Reflections on the ethics of social experimentation. *Journal of Globalization and Development*, 6(1), 87-112.  
   + Leamer, E. E. (2010). Tantalus on the Road to Asymptopia. *Journal of Economic Perspectives*, 24(2), 31-46.  
-  + Lewis, J. (2020). Experimental Design: Ethics, Integrity, and the Scientific Method. *Handbook of Research Ethics and Scientific Integrity*, 459-474.  
+  + \* Lewis, J. (2020). Experimental Design: Ethics, Integrity, and the Scientific Method. *Handbook of Research Ethics and Scientific Integrity*, 459-474.  
   + \* Nuzzo, R. (2014). Scientific method: statistical errors. *Nature News*, 506(7487), 150.  
-  + \* Rayzberg, M. S. (2019). Fairness in the field: The ethics of resource allocation in randomized controlled field experiments. *Science, Technology, & Human Values*, 44(3), 371-398.  
-S  + tock, J. H. (2010). The other transformation in econometric practice: Robust tools for inference. *Journal of Economic Perspectives*, 24(2), 83-94.  
+  + \* Rayzberg, M. S. (2019). Fairness in the field: The ethics of resource allocation in randomized controlled field experiments. *Science, Technology, & Human Values*, 44(3), 371-398.
   + \* Wasserstein, R. L., & Lazar, N. A. (2016). The ASA statement on p-values: context, process, and purpose. *The American Statistician*, 70(2), 129-133.
 
 * Modelos estructurales en evaluación
