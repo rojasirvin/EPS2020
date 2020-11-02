@@ -440,6 +440,9 @@ Evaluación de Programas Sociales</div></h1>
 <div id="pregunta-1" class="section level2">
 <h2>Pregunta 1</h2>
 <p>[15 puntos] Esta pregunta se refiere al artículo de Caliendo y Kopeining (2008). La Tabla 1 hace un comparativo en términos de sesgo y varianza de algunas de las decisiones importantes que se deben tomar en el contexto de la estimación del TOT usando <em>propensity score matching</em>. Genere una tabla similar agregando una columna después de la de “Sesgo” llamada “Justificación sesgo” y otra después de “Varianza” llamada “Justificación varianza” donde argumente por qué la decisión en cada fila tiene costos y beneficios en términos de sesgo y varianza.</p>
+</div>
+<div id="pregunta-2" class="section level2">
+<h2>Pregunta 2</h2>
 <p>El siguiente ejercicio se refiere a los datos <em>programa_regularizacion.csv</em>. Esta base contiene una muestra de 4 mil estudiantes. La variable de resultados es la calificación de una prueba estandarizada de matemáticas. La variable <strong>asesoria</strong> indica si el estudiante recibió asesorías en el verano anterior como parte de un programa de regularización académica. Otras variables incluidas en la base de datos son: la distancia (estandarizada) a la escuela, la educación (estandarizada) de la madre, el valor monetarios de los activos del hogar y un índice (estandarizado) de pobreza.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>[5 puntos] Estime el <em>propensity score</em> usando el modelo de probabilidad no lineal de su elección para la variable de tratamiento <strong>asesoria</strong>. Justifique la elección de la especificación del modelo de probabilidad no lineal.</p></li>
@@ -465,10 +468,16 @@ Evaluación de Programas Sociales</div></h1>
 </div>
 <div id="pregunta-4" class="section level2">
 <h2>Pregunta 4</h2>
-<p>El siguiente problema se basa en una publicación reciente de Calonico, Cattaneo, Farrel y Titiunik (2019) . La base de datos <em>headstar.csv</em> contiene información de 2,810 condados de los Estados Unidos. La variable <strong>mort_age59_related_postHS</strong> indica la mortalidad infantil en cada uno de los condados. El programa Head Star otorgó fondos de su componente de salud a todos los condados con un índice de pobreza superior a 59.1984. La variable <strong>povrate60</strong> es el índice de pobreza para cada condado. Se desea estimar el efecto del programa en la mortalidad infantil empleando un diseño de regresión discontinua.</p>
+<p>El siguiente problema se basa en una publicación reciente de <a href="https://www.mitpressjournals.org/doi/abs/10.1162/rest_a_00760?casa_token=Wv2N-8gNbuMAAAAA:zHeO_SF71MLac4gXXD6R7doFoV3esEvX_ppfXSGxBelHJClX1sJ0Y-wfEUdehni84shl6-YnOCteN7U">Calonico, Cattaneo, Farrell y Titiunik (2019)</a><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. La base de datos <em>headstar.csv</em> contiene información de 2,810 condados de los Estados Unidos. La variable <strong>mort_age59_related_postHS</strong> indica la mortalidad infantil en cada uno de los condados. El programa Head Star otorgó fondos de su componente de salud a todos los condados con un índice de pobreza superior a 59.1984. La variable <strong>povrate60</strong> es el índice de pobreza para cada condado. Se desea estimar el efecto del programa en la mortalidad infantil empleando un diseño de regresión discontinua.</p>
 <p>[10 puntos] Genere una gráfica donde muestre evidencia de una discontinuidad en la tasa de mortalidad para aquellos condados que recibieron fondos del programa.</p>
 <p>[10 puntos] Estime la versión más básica de un modelo de regresión discontinua. Reporte el coeficiente estimado del efecto del tratamiento y su significancia estadística. Interprete su resultado.</p>
 <p>[10 puntos] En el artículo de Calonico et al. (2019) se reportan los resultados al emplear un modelo flexible de regresión discontinua con controles. Los controles están incluidos en la misma base de datos, sin embargo, los autores no reportan la forma precisa en que realizan esta estimación. Proponga un modelo con controles y con un ancho de ventana. Use la función <em>rdbwselect</em> para explorar algunas posibilidades de ancho de ventana elegidos de manera óptima y compare sus resultados con los reportados en el artículo.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Calonico, S., Cattaneo, M. D., Farrell, M. H., &amp; Titiunik, R. (2019). Regression discontinuity designs using covariates. <em>Review of Economics and Statistics</em>, 101(3), 442-451.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 

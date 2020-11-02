@@ -20,6 +20,7 @@ La tarea debe entregarse de manera individual, pero se recomienda ampliamente co
 
 [15 puntos] Esta pregunta se refiere al artículo de Caliendo y Kopeining (2008). La Tabla 1 hace un comparativo en términos de sesgo y varianza de algunas de las decisiones importantes que se deben tomar en el contexto de la estimación del TOT usando *propensity score matching*. Genere una tabla similar agregando una columna después de la de “Sesgo” llamada “Justificación sesgo” y otra después de “Varianza” llamada “Justificación varianza” donde argumente por qué la decisión en cada fila tiene costos y beneficios en términos de sesgo y varianza.
 
+## Pregunta 2
 
 El siguiente ejercicio se refiere a los datos *programa_regularizacion.csv*. Esta base contiene una muestra de 4 mil estudiantes. La variable de resultados es la calificación de una prueba estandarizada de matemáticas. La variable **asesoria** indica si el estudiante recibió asesorías en el verano anterior como parte de un programa de regularización académica. Otras variables incluidas en la base de datos son: la distancia (estandarizada) a la escuela, la educación (estandarizada) de la madre, el valor monetarios de los activos del hogar y un índice (estandarizado) de pobreza.
 
@@ -30,7 +31,6 @@ a. [5 puntos] Genere una gráfica que represente la región de soporte común qu
 a. [10 puntos] Estime el TOT por el método de vecino más cercano usando la especificación para el propensity score elegida anteriormente.
 
 a. [5 puntos] Estime el TOT por el método de radio usando la especificación para el propensity score elegida anteriormente. Justifique la elección del número de vecinos y el tamaño del caliper.
-
 
 ## Pregunta 3
 
@@ -49,7 +49,9 @@ a. Suponga que otro de los asesores juzga como *demasiado paternalista* la trans
 
 ## Pregunta 4
 
-El siguiente problema se basa en una publicación reciente de Calonico, Cattaneo, Farrel y Titiunik (2019) . La base de datos *headstar.csv* contiene información de 2,810 condados de los Estados Unidos. La variable **mort_age59_related_postHS** indica la mortalidad infantil en cada uno de los condados. El programa Head Star otorgó fondos de su componente de salud a todos los condados con un índice de pobreza superior a 59.1984. La variable **povrate60** es el índice de pobreza para cada condado. Se desea estimar el efecto del programa en la mortalidad infantil empleando un diseño de regresión discontinua.
+El siguiente problema se basa en una publicación reciente de [Calonico, Cattaneo, Farrell y Titiunik (2019)](https://www.mitpressjournals.org/doi/abs/10.1162/rest_a_00760?casa_token=Wv2N-8gNbuMAAAAA:zHeO_SF71MLac4gXXD6R7doFoV3esEvX_ppfXSGxBelHJClX1sJ0Y-wfEUdehni84shl6-YnOCteN7U)[^1]. La base de datos *headstar.csv* contiene información de 2,810 condados de los Estados Unidos. La variable **mort_age59_related_postHS** indica la mortalidad infantil en cada uno de los condados. El programa Head Star otorgó fondos de su componente de salud a todos los condados con un índice de pobreza superior a 59.1984. La variable **povrate60** es el índice de pobreza para cada condado. Se desea estimar el efecto del programa en la mortalidad infantil empleando un diseño de regresión discontinua.
+
+[^1]: Calonico, S., Cattaneo, M. D., Farrell, M. H., & Titiunik, R. (2019). Regression discontinuity designs using covariates. *Review of Economics and Statistics*, 101(3), 442-451.
 
 [10 puntos] Genere una gráfica donde muestre evidencia de una discontinuidad en la tasa de mortalidad para aquellos condados que recibieron fondos del programa.
 
