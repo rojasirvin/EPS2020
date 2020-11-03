@@ -1,0 +1,152 @@
+---
+title: "Aplicaciones de control sintético"
+author: "Irvin Rojas"
+institute: "CIDE"
+date: "3 de noviembre"
+header-includes:
+  - \usepackage{tikz}
+  - \usepackage{mathbbm}
+  - \usetikzlibrary{shapes, shadows,arrows}
+output:
+  xaringan::moon_reader:
+    css: [default, "libs/cide.css", metropolis-fonts, "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css", "https://use.fontawesome.com/releases/v5.7.2/css/all.css", "https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css"]
+    seal: false
+    chakra: "https://remarkjs.com/downloads/remark-latest.min.js"
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["middle", "center"]
+      ratio: "16:9"
+      beforeInit: ["https://platform.twitter.com/widgets.js", "libs/cols_macro.js"]
+      navigation:
+        scroll: false
+
+
+---
+class: title-slide
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.path = "figures/")
+
+library(tidyverse)
+library(pacman)
+library(janitor)
+library(sandwich)
+#library(nnet)
+#library(mlogit)
+library(readr)
+library(clubSandwich)
+library(modelsummary)
+library(estimatr)
+library(lubridate)
+library(ExPanDaR) #for describing panel data
+library(lfe)
+library(modelsummary)
+library(estimatr)
+#library(Matching)
+#library(MatchIt)
+#library(Zelig)
+library(gtsummary)
+library(miceadds)
+library(stargazer)
+library(Synth)
+library(reshape2)
+
+p_load(tidyverse, foreign, reshape2, psych, qwraps2, forcats, readxl, 
+       broom, lmtest, margins, plm, rdrobust, multiwayvcov,
+       wesanderson, sandwich, stargazer,
+       readstata13, pscore, optmatch, kdensity, MatchIt, bootstrap, matlib, dplyr)
+
+xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
+```
+
+```{css, echo = FALSE}
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 60% !important;
+}
+```
+
+.title[
+# Sesión 23. Aplicaciones de control sintético
+]
+.subtitle[
+## Evaluación de Programas Sociales
+]
+.author[
+### Irvin Rojas <br> [rojasirvin.com](https://www.rojasirvin.com/) <br> [<i class="fab fa-github"></i>](https://github.com/rojasirvin) [<i class="fab fa-twitter"></i>](https://twitter.com/RojasIrvin) [<i class="ai ai-google-scholar"></i>](https://scholar.google.com/citations?user=FUwdSTMAAAAJ&hl=en)
+]
+
+.affiliation[
+### Centro de Investigación y Docencia Económicas <br> División de Economía
+]
+
+---
+
+class: inverse, middle, center
+
+# Salario mínimo
+
+---
+
+# Salario mínimo
+
+- Campos-Vazquez, R. M., & Esquivel, G. (2020). The effect of doubling the minimum wage and decreasing taxes on inflation in Mexico. Economics Letters, 109051.  
+
+---
+
+class: inverse, middle, center
+
+# Regimen político
+
+---
+
+# Regimen político
+
+- Absher, S., Grier, K., & Grier, R. (2020). The economic consequences of durable left-populist regimes in Latin America. *Journal of Economic Behavior & Organization*, 177, 787-817.
+
+---
+
+class: inverse, middle, center
+
+# Crimen organizado
+
+---
+  
+# Crimen organizado
+
+Calderón, G., Robles, G., Díaz-Cayeros, A., & Magaloni, B. (2015). The beheading of criminal organizations and the dynamics of violence in Mexico. *Journal of Conflict Resolution*, 59(8), 1455-1485.
+
+---
+
+# Próxima sesión
+
+- Hay un área que es muy interesant, pero tiene la dificultad de tener no muy buenos datos
+
+  + Parker, S. W., & Vogl, T. (2018). Do conditional cash transfers improve economic outcomes in the next generation? Evidence from Mexico (No. w24303). National Bureau of Economic Research. 
+
+- Veremos dos ejemplos de combinación de metodologías
+
+  + Keele, L., Titiunik, R., & Zubizarreta, J. R. (2015). Enhancing a geographic regression discontinuity design through matching to estimate the effect of ballot initiatives on voter turnout. *Journal of the Royal Statistical Society*. Series A (Statistics in Society), 223-239.
+
+  + Parker, S. W., Saenz, J., & Wong, R. (2018). Health insurance and the aging: Evidence from the Seguro Popular program in Mexico. *Demography*, 55(1), 361-386.  
+
+
+
+---
+
+class: center, middle
+
+Presentación creada usando el paquete [**xaringan**](https://github.com/yihui/xaringan) en R.
+
+El *chakra* viene de [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), y [R Markdown](https://rmarkdown.rstudio.com).
+
+Material de clase en versión preliminar.
+
+**No reproducir, no distribuir, no citar.**
+
+
