@@ -97,6 +97,30 @@ class: inverse, middle, center
 
 - Campos-Vazquez, R. M., & Esquivel, G. (2020). The effect of doubling the minimum wage and decreasing taxes on inflation in Mexico. Economics Letters, 109051.  
 
+- En 2019 se incrementó el salario mínimo al doble en los municipios de la frontera norte
+
+- Al mismo tiempo tenemos una reducción del ISR y el IVA
+
+- Se busca estimar el efecto en la inflación
+
+- En un modelo estándar de oferta y demanda, un salario mínimo tiene efectos persversos en precios y empleo
+
+- México tenía uno de los salarios mínimos más bajos entre los países de América Latina y la OCDE
+
+---
+
+# Salario mínimo
+
+- La unidad tratada es el promedio de seis ciudades fronterizas
+
+- Se emplean 41 ciudades que no son fronterizas para construir el grupo donador
+
+- Hay una reducción en la inflación en todas las ciudades a partir de 2019
+
+- Pero en la unidad tratada, el efecto es aún mayor, lo cual se atribuye al incremento del salario mínimo
+
+- Se realiza inferencia por medio de placebos, repitiendo la estrategia de estimación del CS para las 41 unidades no tratadas
+
 ---
 
 class: inverse, middle, center
@@ -109,6 +133,22 @@ class: inverse, middle, center
 
 - Absher, S., Grier, K., & Grier, R. (2020). The economic consequences of durable left-populist regimes in Latin America. *Journal of Economic Behavior & Organization*, 177, 787-817.
 
+- Se busca evaluar el desempeño de gobiernos considerados *populistas de izquierda*
+
+- Medir los efectos en variables económicas asociadas a la redistribución
+
+- Se elige el promedio de Nicaragua, Bolivia, Ecuador y Veneuzuela como la unidad tratada
+
+---
+
+# Regimen político
+
+- Se encuentra una brecha negativa en PIB per cápita con respecto al control sintético (construido usando un grupo donador de 26 países)
+
+- Hay una pequeña brecha negativa en la mortalidad infantil (mayor en la unidad tratada)
+
+- El análisis por país muestra efectos negativos en Venezuela y Nicaragua, con efectos cero en los otros dos
+
 ---
 
 class: inverse, middle, center
@@ -116,7 +156,7 @@ class: inverse, middle, center
 # Crimen organizado
 
 ---
-  
+
 # Crimen organizado
 
 Calderón, G., Robles, G., Díaz-Cayeros, A., & Magaloni, B. (2015). The beheading of criminal organizations and the dynamics of violence in Mexico. *Journal of Conflict Resolution*, 59(8), 1455-1485.
@@ -135,7 +175,7 @@ Calderón, G., Robles, G., Díaz-Cayeros, A., & Magaloni, B. (2015). The beheadi
 
   + Parker, S. W., Saenz, J., & Wong, R. (2018). Health insurance and the aging: Evidence from the Seguro Popular program in Mexico. *Demography*, 55(1), 361-386.  
 
-
+- Propuesta de fecha del examen final:  **9 de diciembre**
 
 ---
 

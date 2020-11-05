@@ -48,6 +48,8 @@
 
 [Sesión 23](https://rojasirvin.github.io/EPS2020/sesiones/s23/sesion23.html#1). Aplicaciones de control sintético
 
+[Sesión 24](https://rojasirvin.github.io/EPS2020/sesiones/s24/sesion24.html#1). Combinación de métodos no experimentales
+
 <!---commented
 
 -->
