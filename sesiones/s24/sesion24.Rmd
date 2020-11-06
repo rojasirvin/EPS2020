@@ -103,6 +103,22 @@ class: inverse, middle, center
 
 - Se explota el porcentaje de la población que estuvo expuesta al programa en la primera expansión del programa
 
+- Con datos del censo de 2010, podemos saber qué exposición al programa tuvieron las personas que estaban en edad escolar cuando funcionaba el programa
+
+---
+
+# Efectos de largo plazo
+
+- Se estima un modelo de diferencia en diferencias
+
+- Se comparan individuos con distintos niveles de intensidad de cobertura del programa en los municipios donde vivían cuando estaban en la escuela
+
+- Se observa un efecto significativo en educación básica y media
+
+- Hay efectos en migración: los individuos tienen más probabilidad de vivir en zonas urbanas
+
+- Efectos más grandes en las mujeres
+
 ---
 
 class: inverse, middle, center
@@ -113,7 +129,25 @@ class: inverse, middle, center
 
 # RD geográfica + PSM
 
-+ Keele, L., Titiunik, R., & Zubizarreta, J. R. (2015). Enhancing a geographic regression discontinuity design through matching to estimate the effect of ballot initiatives on voter turnout. *Journal of the Royal Statistical Society*. Series A (Statistics in Society), 223-239.
+- Keele, L., Titiunik, R., & Zubizarreta, J. R. (2015). Enhancing a geographic regression discontinuity design through matching to estimate the effect of ballot initiatives on voter turnout. *Journal of the Royal Statistical Society*. Series A (Statistics in Society), 223-239.
+
+- Efecto de tener una consulta o iniciativa en la participación en elecciones
+
+- Podemos hacer PSM al emparejar individuos que viven en el lugar donde hubo consulta con individuos que viven en donde no hubo consulta
+
+  - El problema es que puede haber características no observables que determinan la elección de dónde vivir
+
+- Podemos hacer RD geográfica al comparar individuos de un lado y del otro de los límites
+
+  - El problema es que la gente seguramente se autoselecciona para vivir, por ejemplo, en donde las casas sean más baratas
+  
+---
+
+# RD geográfica + PSM
+
+- La combinación de los dos métodos permite comparar unidades a ambos lados de la frontera y que tengan características observables iguales
+
+- La inferencia se realiza por inferencia por aleatorización
 
 ---
 

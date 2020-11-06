@@ -1,0 +1,74 @@
+---
+title: |
+  | CIDE
+  | Licenciatura y Maestría en Economía
+  | Evaluación de Programas Sociales
+
+subtitle: "Tarea 4"
+author: "Profesor: Irvin Rojas"
+date: "Fecha de entrega: 27 de noviembre a las 20:00."
+output:
+  html_document:
+  toc: true
+---
+  
+## Instrucciones
+  
+La tarea debe entregarse de manera individual, pero se recomienda ampliamente colaborar en grupos de estudio. Las secciones teóricas deben estar desarrolladas en un procesador de textos y enviadas en formato .docx o .pdf. Alternativamente, puede escribir sus respuestas en lápiz y papel, con letra legible y adjuntar un escaneo de sus respuestas. Las secciones prácticas deberán contener archivos de código replicable y archivos de salida en R (o similares, en caso de usar otro software) para considerarse completas. Las tareas deben entregarse antes de la fecha límite a través de Teams. Puede crear una carpeta comprimida que contenga todos sus archivos y subir esta carpeta en Teams. Recuerde que en Teams debe asegurarse de que los archivos se han subido correctamente.
+
+## Pregunta 1
+
+Basado en Abadie, Diamond, & Hainmueller (2010).[^1]
+
+En la [Sesión 22](https://rojasirvin.github.io/EPS2020/sesiones/s22/sesion22.html#1) estimamos el control sintético para los datos de California y la Proposición 99. La función *synth*, que realiza la optimización para estimar $V$ y $W$, usa por defecto el optimizador de Nelder-Mead. Este método es un optimizador que no requiere especificar derivadas y que es útil para problemas altamente no lineales. A costa de estos beneficios, el optimizador de Nelder-Mead puede ser computacionalmente intensivo. La opción *optimxmethod* de la función *synth* permite implementar el control sintético con otros métodos de optimización. Una alternativa es el método *nlm*, un método basado en métodos newtonianos por medio de aproximaciones usando derivadas. Este segundo método es mucho más rápido, pero menos exacto.
+
+a. [5 puntos] Modifique la estimación del control sintético de la [Sesión 22](https://rojasirvin.github.io/EPS2020/sesiones/s22/sesion22.html#5), usando ahora el método de optimización *nlm*.
+a. [5 puntos] ¿Cómo se modifican los resultados en términos de la matriz $V$ estimada?
+a. [5 puntos] ¿Cómo se modifican los resultados en términos de la matriz $W$ estimada?
+a. [5 puntos] ¿Cómo se modifica la conclusión sobre el efecto que tuvo la Proposición 99 en el consumo de cigarros?
+
+[^1]: Abadie, A., Diamond, A., & Hainmueller, J. (2010). Synthetic control methods for comparative case studies: Estimating the effect of California’s tobacco control program. *Journal of the American statistical Association*, 105(490), 493-505.  
+
+# Pregunta 2
+
+Basado en Low, H., y Meghir, C. (2017).[^2]
+
+a. [5 puntos] ¿Cuáles son las diferencias entre un modelo econométrico estructural y uno de forma reducida?
+a. [5 puntos] ¿Qué se entiende por un modelo completamente especificado?
+a. [5 puntos] ¿Cómo se puede combinar la información proveniente de una intervención experimental con un modelo estructural? Mencione un ejemplo de una combinación exitosa de esta naturaleza.
+a. [5 puntos] ¿En qué consiste el método de momentos para la estimación de modelos estructurales?
+
+[^2]: Low, H., & Meghir, C. (2017). The use of structural models in econometrics. *Journal of Economic Perspectives*, 31(2), 33-58.
+
+# Pregunta 3
+
+Basado en Taylor et al. (2016).[^3]
+
+a. [5 puntos] ¿Cuáles son las diferencias entre un modelo LEWIE y uno de forma reducida?
+a. [5 puntos] ¿Cómo se modelan las decisiones de producción y consumo de los agentes relevantes?
+a. [5 puntos] ¿Cómo se define y estima el modelo en equilibrio? 
+a. [5 puntos] ¿Cómo se realiza inferencia para determinar la significancia estadística de los efectos estimados?
+
+[^3]: Taylor, J. E., Filipski, M. J., Alloush, M., Gupta, A., Rojas Valdes, R.I., & Gonzalez-Estrada, E. (2016). Economic impact of refugees. *Proceedings of the National Academy of Sciences*, 201604566.
+
+# Pregunta 4
+
+Basado en Athey e Imbens (2019).[^4]
+
+a. [5 puntos] ¿Cuál es la diferencia entre machine learning y los modelos econométricos estándar?
+a. [5 puntos] ¿Para qué sirven y en qué consisten las técnicas LASSO y de regresión ridge?
+a. [5 puntos] ¿En qué consisten los árboles de regresión y los bosques aleatorios?
+a. [5 puntos] ¿Cómo puede emplearse machine learning para la estimación de efectos de tratamiento?
+
+[^4]: Athey, S., & Imbens, G. W. (2019). Machine learning methods that economists should know about. *Annual Review of Economics*, 11.
+
+# Pregunta 5
+
+Basado en Varían (2014).[^5]
+
+a. [5 puntos] ¿Qué es la predicción fuera de la muestra?
+a. [5 puntos] ¿A qué se refiere el problema de sobreajuste en la predicción?
+a. [5 puntos] ¿Cómo se puede evaluar el efecto de una campaña de publicidad en internet empleando las técnicas descritas en el texto?
+a. [5 puntos] ¿Cuál es la principal fuente de incertidumbre en el modelo en el contexto de big data? 
+
+[^5]: Varian, H. R. (2014). Big data: New tricks for econometrics. *Journal of Economic Perspectives*, 28(2), 3-28

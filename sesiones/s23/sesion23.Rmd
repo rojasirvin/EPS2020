@@ -159,7 +159,27 @@ class: inverse, middle, center
 
 # Crimen organizado
 
-Calderón, G., Robles, G., Díaz-Cayeros, A., & Magaloni, B. (2015). The beheading of criminal organizations and the dynamics of violence in Mexico. *Journal of Conflict Resolution*, 59(8), 1455-1485.
+- Calderón, G., Robles, G., Díaz-Cayeros, A., & Magaloni, B. (2015). The beheading of criminal organizations and the dynamics of violence in Mexico. *Journal of Conflict Resolution*, 59(8), 1455-1485.
+
+- Estrategia de combate al narcotráfico basada en *descabezar* cárteles
+
+- Se estima el efecto de detener o asesinar líderes de cárteles
+
+- Se tienen datos de homicidios relacionados al narcotráfico por municipio
+
+- Se tienen datos de asesinatos de capturas y asesinatos de *cabezas* (18 líderes y 116 lugartenientes entre 2006 y 2010)
+
+---
+
+# Crimen organizado
+
+- Los municipios *tratados* son en donde se *descabezó* un cartel
+
+- Se comparan con municipios con altos niveles de violencia, pero sin *descabezamientos*
+
+- Los efectos estimados por DID muestran un incremento de la violencia a los seis meses del descabezamiento de un líder
+
+- El efecto es más importante en los municipios considerados *estratégicos*
 
 ---
 
