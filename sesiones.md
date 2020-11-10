@@ -50,6 +50,9 @@
 
 [Sesión 24](https://rojasirvin.github.io/EPS2020/sesiones/s24/sesion24.html#1). Combinación de métodos no experimentales
 
+[Sesión 25](https://rojasirvin.github.io/EPS2020/sesiones/s25/sesion25.html#1). Cientificidad y ética
+
+
 <!---commented
 
 -->

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cientificidad y ética</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Irvin Rojas" />
+    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+    <link rel="stylesheet" href="libs/cide.css" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap-grid.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide
+
+
+
+&lt;style type="text/css"&gt;
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 60% !important;
+}
+&lt;/style&gt;
+
+.title[
+# Sesión 25. Cientificidad y ética
+]
+.subtitle[
+## Evaluación de Programas Sociales
+]
+.author[
+### Irvin Rojas &lt;br&gt; [rojasirvin.com](https://www.rojasirvin.com/) &lt;br&gt; [&lt;i class="fab fa-github"&gt;&lt;/i&gt;](https://github.com/rojasirvin) [&lt;i class="fab fa-twitter"&gt;&lt;/i&gt;](https://twitter.com/RojasIrvin) [&lt;i class="ai ai-google-scholar"&gt;&lt;/i&gt;](https://scholar.google.com/citations?user=FUwdSTMAAAAJ&amp;hl=en)
+]
+
+.affiliation[
+### Centro de Investigación y Docencia Económicas &lt;br&gt; División de Economía
+]
+
+---
+
+class: inverse, middle, center
+
+# Transparencia, reproductibilidad y credibilidad
+
+---
+
+# ¿Qué tan creíbles son los resultados que vemos en los artículos?
+
+- Ioannidis (2005) define el *valor predictivo positivo* (PPV) como la probabilidad de que una relación encontrada sea cierta
+
+- Sea `\(R_i\)` la razón de hipótesis verdaderas a hipótesis no verdaderas en una rama de la ciencia
+
+`$$PPV_i=\frac{(1-\beta)R_i}{(1-\beta)R_i+\alpha}$$`
+ 
+--
+ 
+- Cuando hacemos investigación tomamos muchas decisiones
+ 
+- Nivel de significancia `\(\alpha\)`: probabilidad de cometer error del tipo I (rechazar la H0 cuando esta es verdadera)
+ 
+- Poder `\(1-\beta\)`: probabilidad de rechazar la H0 cuando la Ha es verdadera
+
+---
+
+# ¿Qué tan creíbles son los resultados que vemos en los artículos?
+
+`$$PPV_i=\frac{(1-\beta)R_i+u_i\beta R_i}{(1-\beta)R_i+\alpha+u_i \beta R_i+u_i(1-\alpha)}$$`
+ 
+- Sesgo personal `\(u_i\)`: probabilidad de reportar un resultado nulo como significativo
+ 
+---
+
+# ¿Qué tan creíbles son los resultados que vemos en los artículos?
+
+- Con algunos valores
+  - `\(\alpha=0.05\)`
+  - `\(\beta=0.80\)`
+  - Con la mitad de las hipótesis ciertas
+  
+entonces `\(PPV_i=0.94\)`
+
+- Con sesgo del autor bajo (10%), `\(PPV=0.79\)`
+---
+
+# ¿Qué tan creíbles son los resultados que vemos en los artículos?
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/PPV_comparisons.png" alt="Fuente: Christensen &amp;amp; Miguel (2018)" width="70%" /&gt;
+&lt;p class="caption"&gt;Fuente: Christensen &amp; Miguel (2018)&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Sesgo de publicación
+
+.pull-left[
+- Ciertos tipos de resultados tienen mayor probabilidad de ser publicados que otros
+
+- No rechazar la `\(H_0\)` también es investigación
+
+- *Problema del archivero*
+
+- Brodeur et al. (2016) distribución de estadísticos `\(t\)` con *bonches* alrededor de 0.05
+
+- En economía, por ejemplo
+
+  - Salario mínimo
+  
+  - Valor de una vida estadística (VSL)
+
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/publication_bias.png" alt="Fuente: Christensen &amp;amp; Miguel (2018)" width="100%" /&gt;
+&lt;p class="caption"&gt;Fuente: Christensen &amp; Miguel (2018)&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+
+# Búsqueda de la especificación *preferida*
+
+- Papel del poder de cómputo
+
+- Lemer (1983) muestra cómo un resultado puede tener cualquier signo
+
+- Leamer es crítico de la libertad que los econometristas tienen para analizar los datos
+
+- Crítica al uso de valores `\(p\)`
+
+- Análisis de subgrupos
+
+
+---
+
+# Replicabilidad
+
+- Accesibilidad a los datos problemática
+
+- Revistas comienzan a implementar políticas de proveer datos
+
+- *Psycology Science* usa sellos para certificar datos abiertos e hipotesis pre-registradas
+
+- Privacidad y propiedad de los datos
+
+- *Parásitos de datos*
+
+- *American Journal of Political Science* comisiona replicación a un tercero
+
+- Ejemplos de éxito y fracaso *replicando* estudios
+
+
+---
+
+# Replicabilidad
+
+- Taxonomía
+
+  1. Verificación o replicación pura
+  
+  1. Reproducción o replicación estadística
+  
+  1. Reanálisis
+  
+  1. Extensión
+  
+---
+
+# Nuevos métodos y herramientas
+
+.pull-left[
+- Diseño
+
+- Incertidumbre en los modelos
+
+  - Recomiendo este reciente trabajo
+
+  - Meager, R. (2019). Understanding the average impact of microcredit expansions: A Bayesian hierarchical analysis of seven randomized experiments. American Economic Journal: Applied Economics, 11(1), 57-91.
+
+  - Una reseña [acá](https://voxdev.org/topic/methods-measurement/understanding-average-effect-microcredit)
+
+- Curvas de especificación
+]
+
+.pull-right[
+&lt;img aria-describedby="caption-attachment-142209" loading="lazy" class="wp-image-142209 size-full" src="https://www.psychologicalscience.org/redesign/wp-content/uploads/2018/02/annotated_fig-Rohrer.jpg" alt="" width="600" height="450" srcset="https://www.psychologicalscience.org/redesign/wp-content/uploads/2018/02/annotated_fig-Rohrer.jpg 800w, https://www.psychologicalscience.org/redesign/wp-content/uploads/2018/02/annotated_fig-Rohrer-300x237.jpg 300w, https://www.psychologicalscience.org/redesign/wp-content/uploads/2018/02/annotated_fig-Rohrer-768x607.jpg 768w" sizes="(max-width: 800px) 100vw, 800px"&gt;
+
+.center[Fuente: [Rohrer (2018)](https://www.psychologicalscience.org/observer/run-all-the-models-dealing-with-data-analytic-flexibility)]
+]
+
+
+---
+
+# Nuevos métodos y herramientas
+
+.pull-left[
+- Pruebas de sesgo de publicación
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/funnel_unions_minwage.png" alt="Fuente: Christensen &amp;amp; Miguel (2018)" width="70%" /&gt;
+&lt;p class="caption"&gt;Fuente: Christensen &amp; Miguel (2018)&lt;/p&gt;
+&lt;/div&gt;
+]
+
+---
+
+
+# Nuevos métodos y herramientas
+
+.pull-left[
+- Registro de estudios
+
+- Planes pre-análisis
+
+  - Acá [un ejemplo](https://www.socialscienceregistry.org/trials/721/history/4332)
+  
+- Datos abiertos
+
+- Aspectos computacionales
+]
+
+.pull-right[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figures/study_registration.png" alt="Fuente: Christensen &amp;amp; Miguel (2018)" width="70%" /&gt;
+&lt;p class="caption"&gt;Fuente: Christensen &amp; Miguel (2018)&lt;/p&gt;
+&lt;/div&gt;
+]
+
+
+---
+
+class: inverse, middle, center
+
+# Ética e integridad
+
+---
+
+# Dimensión ética de la aleatorización
+
+- Papel del *engaño* (*deceptio*)
+
+  - ¿Qué es?
+  - Ejemplos
+  - Consecuencias
+  
+- ¿El engaño viola el respeto por la autonomía?
+
+- ¿Qué pasaría sin este engaño?
+
+
+&gt; *"Un participante no habría elegido participar si se le hubiera informado apropiadamente sobre la naturaleza del experimento y las prácticas engañosas que involucra."*
+&gt;
+&gt; --- Lewies (2020)
+
+---
+
+# Dimensión ética de la aleatorización
+
+
+- ¿Cómo justificamos el negar potenciales beneficios a individuos elegibles?
+
+- Aleatorización como forma de justicia
+
+- ¿La aleatorización es éticamente neutral?
+
+- Diferencias entre experimentos en laboratorio en ciencias naturales y la experimentación en ciencias sociales
+
+
+
+---
+
+# Dimensión ética de la aleatorización
+
+- [**Equilibrio clínico**](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3172958/#:~:text=Clinical%20equipoise%20is%20the%20assumption,two%20or%20more%20care%20options.) (*clinical equipoise*) es el supuesto de que no hay *mejor* intervención disponible durante el diseño de un RCT
+
+- Existe equilibrio clínico cuando no hay bases para elegir entre opciones
+
+- También se conoce como *hipótesis nula honesta*
+
+- **Equilibrio personal** sucede quien provee el tratamiento no tiene preferencias y realmente desconoce los beneficios o daños que representa el tratamiento
+
+
+---
+
+# Caminos causales
+
+- Teoría de la causalidad *intervencionista*
+  - No inteferencia
+  - Grupos tratadas y no tratados idénticos
+  
+- ¿La aleatorización garantiza que se cumpla la teoría?
+
+- Ensayos repetidos
+
+- ¿La búsqueda de un diseño integro justifica la aleatorización?
+
+---
+
+# Confiabilidad y validez del diseño
+
+- Validez interna y validez externa
+
+- Diferencias entre los experimentos en laboratorio y los experimentos en ciencias sociales
+
+- ¿Los RCT tiene validez externa porque se realizan en el *mundo real*?
+
+- Tensión entre la validez interna y externa
+
+- ¿Qué busca una *política basada en evidencia*?
+
+- ¿La aleatorización garantiza la validez externa?
+
+- ¿Cómo contribuyen otras formas de investigación a la validez externa?
+
+
+---
+
+# Próxima sesión
+
+- Hablaremos sobre modelos estructurales
+
+- Low, H., &amp; Meghir, C. (2017). The use of structural models in econometrics. *Journal of Economic Perspectives*, 31(2), 33-58.
+
+- Attanasio, O. P., Meghir, C., &amp; Santiago, A. (2011). Education choices in Mexico: using a structural model and a randomized experiment to evaluate Progresa. *The Review of Economic Studies*, 79(1), 37-66.
+
+
+---
+
+class: center, middle
+
+Presentación creada usando el paquete [**xaringan**](https://github.com/yihui/xaringan) en R.
+
+El *chakra* viene de [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), y [R Markdown](https://rmarkdown.rstudio.com).
+
+Material de clase en versión preliminar.
+
+**No reproducir, no distribuir, no citar.**
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script src="libs/cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
