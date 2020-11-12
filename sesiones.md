@@ -52,6 +52,7 @@
 
 [Sesión 25](https://rojasirvin.github.io/EPS2020/sesiones/s25/sesion25.html#1). Cientificidad y ética
 
+[Sesión 26](https://rojasirvin.github.io/EPS2020/sesiones/s26/sesion26.html#1). Modelos estructurales
 
 <!---commented
 

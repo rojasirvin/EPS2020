@@ -159,7 +159,11 @@ class: inverse, middle, center
 
 # PSM + DID
 
-+ Parker, S. W., Saenz, J., & Wong, R. (2018). Health insurance and the aging: Evidence from the Seguro Popular program in Mexico. *Demography*, 55(1), 361-386.  
++ Parker, S. W., Saenz, J., & Wong, R. (2018). Health insurance and the aging: Evidence from the Seguro Popular program in Mexico. *Demography*, 55(1), 361-386.
+
+- Estudian la introducción del Seguro Popular, sobre todo en la población mayor de 50 años
+
+- Se comparan los beneficiarios del SP con los que no tienen seguro alguno y con los que tienen otro tipo de seguro
 
 ---
 
