@@ -54,7 +54,9 @@
 
 [Sesión 26](https://rojasirvin.github.io/EPS2020/sesiones/s26/sesion26.html#1). Modelos estructurales
 
-[Sesión 27](https://rojasirvin.github.io/EPS2020/sesiones/s27/sesion27.html#1). Modelos de impactos en economías locales
+[Sesión 27](https://rojasirvin.github.io/EPS2020/sesiones/s27/sesion27.html#1). Aplicaciones de modelos estructurales
+
+[Sesión 28](https://rojasirvin.github.io/EPS2020/sesiones/s28/sesion28.html#1). Modelos de impactos en economías locales
 
 <!---commented
 

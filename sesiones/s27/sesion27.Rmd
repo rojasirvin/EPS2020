@@ -1,5 +1,5 @@
 ---
-title: "Modelos de impactos en economías locales"
+title: "Aplicaciones de modelos estructurales"
 author: "Irvin Rojas"
 institute: "CIDE"
 date: "17 de noviembre"
@@ -72,7 +72,7 @@ xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 ```
 
 .title[
-# Sesión 27. Modelos de impactos en economías locales
+# Sesión 27. Aplicaciones de modelos estructurales
 ]
 .subtitle[
 ## Evaluación de Programas Sociales
@@ -87,483 +87,243 @@ xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
 
 ---
 
-class: inverse, middle, center
-
-# Evaluaciones de impacto estándar
-
----
-
-# ¿Qué tan informativas son las evaluaciones?
- 
-- El *gold standard* de los métodos de evaluación
-
-> *En circunstancias ideales, las evaluaciones aleatorias son útiles para obtener un estimador convincente del efecto promedio del tratamiento. El precio del éxito es que el enfoque es demasiado estrecho como para decirnos qué funciona para el desarrollo, para diseñar políticas o para hacer avanzar el conocimiento científico sobre el proceso de desarrollo.*
->
-> --- Deaton (2008)
-
---
- 
-- La utilidad de los modelos de evaluación depende de en qué estamos interesados en conocer
- 
-- A veces se requiere algo más para convencer a gobiernos, donantes, población
- 
-- Los modelos de evaluación estándar y los LEWIE son complementos
- 
----
-
-# El modelo ideal
- 
-- Supongamos que una programa tiene un efecto $\rho=Y_{1i}-Y_{0i}$
-   
-- Bajo aleatorización, basta comparar la variable de resultados post-tratamiento
- 
-- Un supuesto fundamental para la estimación del $ATE$ o del $TOT$ es que el grupo de control no se ¨*contamina* por el tratamiento
- 
-- El otro supuesto es que el tratamiento debe ser exógeno
- 
----
-
-# La contaminación
- 
-- Para evitar la contaminación podemos hacer que los grupos de tratamiento y de control estén separados geográficamente 
- 
-- Por ejemplo, en el artículo de Crepon, Devoto, Duflo y Pariente (2011), el estudio se vería comprometido si los individuos viajaran a las localidades tratadas para tener acceso a microfinanzas
- 
-- Sin embargo, el tener localidades muy distantes puede que haga que estas sean muy diferentes
- 
-- Esto hace menos probable que los grupos de tratamiento y control sean estadísticamente *idénticos*
-
----
-
-# Efectos de equilibrio
- 
-- Supongamos que podemos generar grupos de tratamiento y control sin contaminación
- 
-- ¿Es $\rho$ el efecto completo del programa?
-   
-- Es muy probable que el programa genere efectos de derramamiento (*spillovers*) en la localidad tratada
- 
-- Hay por tanto tres tipos de hogares no tratados:
-  - Los elegibles en las localidades de control
-  - Los no elegibles en las localidades de control
-  - Los no elegibles en las localidades de tratamiento 
- 
-- Existirán efectos de equilibrio, vía precios, cuando los individuos interactúen en su localidad
- 
-
----
-
-# Efectos de equilibrio
-
-```{r, out.width="70%",fig.cap='Fuente: Taylor & Filipski (2014)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_price_shift.png")
-```
-
----
-
-# Respuesta de la economía local
- 
-- Supongamos una transferencia de efectivo
- 
-- El hogar tratado comprará comida, pagará servicios, contratará trabajo...
-
---
- 
-- Posibles efectos:
-   
-- Supongamos que la oferta de alimentos es completamente altamente elástica, el efecto en precios es muy pequeño
- 
-- Por el contrario, si la oferta es muy inelástica, la demanda creciente solo generará inflación
- 
- 
-- El efecto de tratamiento $\rho$ nos da una imágen parcial de los beneficios o perjuicios del programa
- 
- 
-
----
-
-
-# Efectos multiplicadores
- 
-- En la localidad tratada, puede que no todos los individuos elegibles reciban el tratamiento
- 
-- Si los individuos tratados incrementan su ingreso en $\rho$ debido al tratamiento y compran comida de un individuo no tratado, el multiplicador local se define como:
-  
-$$m=\rho(1+\alpha_{T,NT})$$ 
- 
-donde $\alpha_{T,NT}$ es el impacto del incremento en una unidad momentaria del ingreso de los tratados sobre el ingreso de los no tratados
- 
-- $\rho \alpha_{T,NT}$ es el derramamiento del programa
- 
-- Los individuos no tratados se *contaminan*
- 
-- Potencialmente también hay *contaminación* en otros tratados $\alpha{T,T}$ y efectos de retroalimentación de los no tratados a los tratados $\alpha_{NT,T}$
- 
- 
-
----
-
-# Efectos multiplicadores
-
-
-```{r, out.width="65%",fig.cap='Fuente: Taylor & Filipski (2014)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_multiplier.png")
-```
-
----
-
-# Efecto total
- 
-- La cadena de efectos converge a un equilibrio general, siendo el efecto total:
-  
-$$m=\rho+m_{NT}$$
- 
- 
-- El efecto total es más grande que el efecto que en el ingreso en los tratados $\rho$ cuando hay efectos de retroalimentación positiva en los no tratados
- 
-- Pero el efecto total puede ser negativo en el caso contrario
- 
----
-
-# Complicaciones en evaluaciones por aleatorización
- 
-- Muchos programas operan al mismo tiempo que otros en una misma región geográfica
- 
-- Las formas reducidas, sin un diseño explícito, no permiten interpretar mecanismos económicos
- 
-- No es lo mismo la evaluación de un piloto o un programa con una cobertura limitada y con bienes y servicios definidos a la evaluación de proyectos de gran escala
- 
-- No es posible comparar el efecto de políticas alternativas
- 
- 
----
-
-# Características de un modelo LEWIE
- 
-- Capturan efectos directos e indirectos
- 
-- Consideran los vínculos de mercado que transmiten los efectos en las economías locales
- 
-- No es necesario crear grupos de tratamiento y control
- 
-- Pueden usarse para realizar simulaciones
- 
-- Identifican el efecto neto de intervenciones simultáneas
- 
-- Son un buen complemento de estudios experimentales
- 
-
-
----
-
 class: middle, center, inverse
 
-# Construcción de un LEWIE
+# Aplicación: los incentivos funcionan
 
 ---
 
-# Pasos para la construcción de un modelo LEWIE
+# Que los maestros vayan a la escuela
  
-- Modelar los hogares y empresas (de diversos tipos)
+- Duflo, Hanna y Ryan (2012) usan una combinación de modelos estructurales y asignación aleatoria de tratamiento 
 
-- Combinar los modelos en un modelos de economías locales
+- Alto nivel de ausentismo de maestros en la región de Udaipur en India
 
-- Usar el modelo para simular impactos
+- Experimento en 120 escuelas (60 tratadas y 60 control)
 
----
- 
-# Modelos de hogares y empresas
- 
-- Especificamos problemas microeconómicos de optimización para obtener funciones de gasto y de producción
- 
-- Para esto usamos microdatos que caractericen los patrones de gasto, insumos, productos y lugares de compra y venta
+- Contratos por mínimo 20 días de trabajo
 
----
+- Tratamiento
 
-# Modelos de hogares y empresas
- 
-```{r, out.width="50%",fig.cap='Fuente: Taylor & Filipski (2014)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_step1.png")
-```
+  - Una cámara para tomar foto del maestro al inicio y al final del día
 
+- Sistema de incentivos
+  
+  - Pago fijo de Rs. 1000 en el grupo de control
+  - Pago fijo de Rs. 1000 en el grupo de tratamiento más
+    - \+ Rs. 50 por cada día adicional asistido en el grupo de tratamiento
+    - \- Rs. 50  por cada falta en los 20 días en el grupo de tratamiento
+    
 ---
 
-# Modelos de economía local
- 
-- Modelamos cómo interactúan los hogares y las empresas
- 
-- Las matrices de contabilidad social (SAM) nos ayudan a entender estos vínculos
- 
----
+# Efectos en la asistencia
 
-# Modelos de economía local
- 
-```{r, out.width="50%",fig.cap='Fuente: Taylor & Filipski (2014)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_step2.png")
+
+- Efectivamente, los maestros asistieron más en el grupo de tratamiento (alrededor de 20 pp)
+
+```{r, out.width="55%",fig.cap='Fuente: Duflo, Hanna y Ryan (2012)',fig.align='center'}
+knitr::include_graphics("figures/Teachers_attendance.png")
 ```
 
 
+
 ---
 
-# Simulaciones
- 
-- Al caracterizar las relaciones en la economía local podemos simular los efectos de políticas
- 
- 
-```{r, out.width="50%",fig.cap='Fuente: Taylor & Filipski (2014)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_step3.png")
-```
+# Incentivos
+
+- Hay dos formas de afectar la asistencia
+
+  - Monitoreo
+  
+  - Incentivos financieros
+  
+--
+
+- Experimentos
+
+  - Tratamiento con *dos brazos*
+
+- Explotar la estructura no lineal de los pagos
+
+---
+
+# Modelo estructural
+
+- Modelo de oferta laboral
+
+- Diariamente el maestro maximiza
+
+$$U_{tm}=U(C_{tm},L_{tm})=\beta C_{tm}(\pi_m)+(\mu_{tm}-P)L_{tm}$$
+
+- El valor del ocio es estocástico
+
+$$\mu_{tm}=\mu+\epsilon_{tm}$$
+
+- $P$ es el costo no pecuniario de no ir a trabajar
+
+---
+
+# Modelo de los incentivos
+
+- $p_m(t,d)$ es la probabilidad de ser despedido, que depende de los día trabajados $d$ en el momento $t$ de cada mes $m$
+
+- $F$ es el pago si los despiden
+
+- Funciones de pago
+
+$$\pi_m=500+50\max\{0,d_{m-1}-10\}$$
+
+donde $d_{m-1}$ son los días trabajados en un mes
+
+- Para los tratados el pago es siempre de Rs 1,000
+
+---
+
+# Ecuación de Bellman
+
+- Podemos partir un problema dinámico como la suma del pago contemporáneo más el valor del problema en los periodos restantes
+
+- Para el grupo de control, la **ecuación de Bellman** tiene la siguiente forma
+
+$$
+\begin{aligned}
+V_m(t,d;\epsilon_{tm})&=p_m(t,d)F+ \\
+&(1-p_m(t,d))\times \max\{\mu-P+\epsilon_{tm}+EV_m(t+1,d;\epsilon_{t,m+1}), EV_m(t+1,d+1;\epsilon_{t,m+1})\}
+\end{aligned}
+$$
+
+--
+
+- ¿Cómo leemos esta función?
+
+  - Si en el día $t$, cuando llevas acumulados $d$ días, te despiden, te llevas $F$ y eso ocurre con probabilidad $p_m(t,d)$
+  
+  - Si no te despiden, con probabilidad $(1-p_m(t,d))$, los maestros deciden lo que les de más utilidad de entre
+  - No ir a trabajar: $\mu-P+\epsilon_{tm}+EV_m(t+1,d;\epsilon_{t,m+1})$
+  - Ir a trabajar: $EV_m(t+1,d+1;\epsilon_{t,m+1})$
+
+
+---
+
+# Ecuación de Bellman
+
+- El problema de los maestros en el grupo de tratamiento es algo más complejo
+
+$$
+\begin{aligned}
+V_m(t,d;\epsilon_{tm})&=p_m(t,d)F+ \\
+&(1-p_m(t,d))\times \max\{\mu-\bar{P}+\epsilon_{tm}+EV_m(t+1,d;\epsilon_{t,m+1}), EV_m(t+1,d+1;\epsilon_{t,m+1})\}
+\end{aligned}
+$$
+- En el periodo final
+
+
+$$
+\begin{aligned}
+V_m(T_m,d;&\epsilon_{T_m m})=p_m(T_m,d)F+ \\
+&(1-p_m(T_m,d))\times\max\{\mu-\bar{P}+\epsilon_{T_m m}+\beta\pi(d)+EV_m(1,0;\epsilon_{t,m+1}),
+\beta\pi(d+1)+EV_m(1,0;\epsilon_{t,m+1})\}
+\end{aligned}
+$$
+- En el periodo final importa cuántos días se han acumulado pues esto se traduce en consumo
+
+- Este tipo de problemas se resuelve por *inducción hacia atrás*
+
+  - Empezar en $T_m$ y partir el problema de horizonte infinito en una serie repetida de problemas de horizonte finito
 
 ---
 
 # Estimación
 
-- La estimación del LEWIE se basa en un sistema de ecuaciones
- 
-- Para los hogares se definen tres tipos de ecuaciones:
+- El propósito es estimar los parámetros del modelo
   
-  - Precios
-  - Producción
-  - Consumo e ingreso
- 
- 
-- Se definen también ecuaciones de equilibrio de mercado:
-   
-  - Mercado de bienes
-  - Mercado de factores
- 
-- La estimación consiste en usar los datos para encontrar los parámetros de las funciones de producción y de gasto
- 
-- Se soluciona el modelo usando las condiciones de equilibrio y se obtienen los precios
- 
-- Se emplean simulaciones Monte Carlo, por ejemplo, modificando el ingreso
+  - Cómo el consumo se transforma en utilidad $\beta$
+  - El coeficiente sobre el ocio $\mu$
+
+
+- Se pueden asumir distintos tipos de modelo
+
+  - Donde $\mu$ es común a todos y los errores son iid
+  - Donde la asistencia tiene correlación serial en las decisiones y en el error
+  - Heterogeneidad en la calidad de maestros
+  
+  
 
 ---
 
-class: inverse, middle, center
-
-# Aplicación: ayuda a refugiados en Rwanda
-
----
-
-# Contexto
+# Coeficientes estimados
 
 .pull-left[
-- Rwanda sufrió los efectos de un genocidio y el subsecuente desplazamiento de personas en 1994
- 
-- En la actualidad es un país pacificado
- 
-- En Rwanda viven alrededor de 150 mil refugiados
- 
-- La mayoría provenientes del Congo (DRC) y Burundi
+- En los datos, el promedio de días trabajados es 17.16
+
+- Noten que los modelos predicen bien este momento
+
+- $BONUS=1$ simula lo que deberíamos esperar en el grupo de control
+
+- El modelo V predice mejor la asistencia en el grupo de control
 ]
 
 .pull-right[
-```{r, out.width="70%",fig.align='center'}
-knitr::include_graphics("figures/LEWIE_HotelRwanda.png")
+```{r, out.width="80%",fig.cap='Fuente: Duflo, Hanna y Ryan (2012)',fig.align='center'}
+knitr::include_graphics("figures/Teachers_parameter_estimates.png")
+```
+]
+---
+
+# Ajuste del modelo
+
+
+.pull-left[
+- El modelo V tiene un buen ajuste con respecto a lo observado en los datos
+]
+.pull-right[
+```{r, out.width="100%",fig.cap='Fuente: Duflo, Hanna y Ryan (2012)',fig.align='center'}
+knitr::include_graphics("figures/Teachers_model_fit_a.png")
+```
+]
+
+---
+
+# Simulaciones
+
+.pull-left[
+- Una de las ventajas de los modelos estructurales es que nos sirven como un *laboratorio* para simular escenarios contrafactuales
+
+- Cambio: pago mínimo subió a Rs. 700 por trabajar los primeros 12 días
+
+- En los datos la asistencia promedio pasó de 17.16 a 17.39
+
+]
+
+.pull-right[
+```{r, out.width="100%",fig.cap='Fuente: Duflo, Hanna y Ryan (2012)',fig.align='center'}
+knitr::include_graphics("figures/Teachers_simulation.png")
 ```
 ]
 
 
 ---
 
-# Preguntas de investigación
- 
-- ¿Cómo se benefician o afectan las economías locales por la presencia de refugiados?
-   
-- ¿Qué régimen de ayuda es más efectivo? El WFP provee os formas de ayuda:
-   
- 
-- Ayuda en especie. Las familias reciben una caja de alimentos con el 100\% de los requerimientos calóricos mínimos (maíz, legumbres, aceite y sal)
-  
-- Efectivo. Las familias reciben el equivalente de la cansta en efectivo vía su teléfono celular (con el que pueden comprar o retirar los fondos)
- 
-- Caracterizar la actividad económica en campos de refugiados, inspirados por el trabajo de Radford (1945)
- 
+# Conclusión
 
----
+- Los modelos estructurales son una forma de combinar la teoría y los datos
 
-# Sitios de estudio
- 
-- El estudio se realizó en tres zonas:
-   
-  - Nyabiheke. Había cambiado de en especie a efectivo dos meses antes del estudio
-   
-  - Kigeme. Entregaba ayuda en especie al momento del estudio
-   
-  - Gihembe. Había cambiado de en especie a efectivo 18 meses antes del estudio
- 
- 
-- Los campos tienen la particularidad de ser semipermeables: los refugiados pueden salir y hacer intercambio con la economía local pero los ciudadanos ruandeses no tienen permitido entrar a los campos de refugiados
- 
-- Se estudian no solo los campos sino la economía local definina como el círculo de 10 kilómetros alrededor de cada campo
- 
----
+- Cuando tenemos variación aleatoria, podemos añadir valor al análisis empírico
 
-# Sitios de estudio
+- Hay un costo de entrada en términos de las técnicas para resolver y estimar los modelos estructurales
 
-```{r, out.width="50%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_sites.png")
-```
+- Hay un trade-off entre complejidad y transparencia
 
 
----
-
-# Datos
- 
-- Encuestas en hogares en los tres campos y en hogares de la economía local
- 
-- Encuestas en negocios de refugiados y negocios en sitios de intercambio más importante de la economía local
- 
-- El muestreo de hogares refugiados se basó en un listado provisto por el WFP
- 
-- El muestreo en hogares de la economía local se basó en el registro de hogares provisto por las autoridades locales
- 
-- Se requieren datos detallados sobre:
-   
-- Productos, precios y cantidades consumidas
- 
-- Insumos y cantidades producidas
- 
-- Trabajo remunerado y contratado
- 
-- Para todo lo anterior, se requiere conocer el origen y el destino (campo, economía local o ROW)
- 
----
-
-# Características de los hogares
- 
-- Los hogares en la economía local participan en la agricultura y la ganadería con distintas intensidades entre campos
- 
-- Tanto refugiados como locales participan en los meracados de trabajo locales
- 
-- Tanto locales pero también refugiados participan en el comercio y otros negocios no agrícolas
- 
-- Los refugiados reciben y envía remesas
- 
-- Los refugiados en el campo de en especie venden los bienes que reciben para comprar otros (aunque a un precio por debajo del de mercado)
- 
----
-
-# Características de los hogares
-
-
-```{r, out.width="50%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_localeconomy_table.png")
-```
-
----
-
-
-# Características de los hogares
-
-
-```{r, out.width="100%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_income_table.png")
-```
-
----
-
-
-# Características de los hogares
-
-
-```{r, out.width="100%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_business_table.png")
-```
-
----
-
-# Características de los hogares
-
-
-```{r, out.width="100%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_refugee_businesses.png")
-```
-
----
-
-# Características de los hogares
-
-
-```{r, out.width="100%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_remittances_table.png")
-```
-
----
-
-# Características de los hogares
-
-
-```{r, out.width="90%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_refugee_sales.png")
-```
-
----
-
-# Estimación de funciones de producción y de gasto
- 
-- Empleando los datos recolectados podemos estimar
- 
-- Las funciones de producción
- 
-- Las funciones de gasto
- 
-- Las demandas de factores
- 
-- Ver las tablas S8 y S9 del [apéndice en línea](http://www.pnas.org/content/pnas/suppl/2016/06/16/1604566113.DCSupplemental/pnas.1604566113.sapp.pdf)
-
-
----
-
-# Efecto de un refugiado adicional
- 
-- Podemos simular el efecto de un refugiado adicional
- 
-- La llegada de un refugiado trae consigo una cantidad de dinero por la ayuda del WFP y otras ayudas
- 
-- Al interactuar con la economía local generan efectos multiplicadores
- 
-- El efecto total es superior al monto que ingresa por cada refugiado adicional
- 
-- Los efectos son considerablemente mayores en los campos con ayuda en efectivo
-
----
-
-# Efecto de un refugiado adicional
- 
-```{r, out.width="50%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_simulation.png")
-```
-
----
-
-
-# Efecto de un refugiado adicional
- 
-```{r, out.width="50%",fig.cap='Fuente: Taylor et al. (2016)',fig.align='center'}
-knitr::include_graphics("figures/LEWIE_simulation_table.png")
-``` 
----
-
-# Conclusiones
- 
-- La ayuda a refugiados en Rwanda genera más ingreso que la ayuda recibida del WFP
- 
-- Los derramamientos son de una magnitud menor en el campo con ayuda en especie
- 
-- Los benecifios para la economía local dependen de la posibilidad que tengan los refugiados de interactuar con la economía local
- 
- 
 ---
 
 # Próxima sesión
 
-- Hablaremos sobre cómo podemos incorporar técnias de aprendiza automático para estudiar problemas de inferencia
+- Hablaremos sobre modelos de economías locales
 
-  - Athey, S., & Imbens, G. W. (2019). Machine learning methods that economists should know about. *Annual Review of Economics*, 11.
-
-  - Varian, H. R. (2014). Big data: New tricks for econometrics. *Journal of Economic Perspectives*, 28(2), 3-28
+  - Taylor, J. E., Filipski, M. J., Alloush, M., Gupta, A., Rojas Valdes, R.I., & Gonzalez-Estrada, E. (2016). Economic impact of refugees. *Proceedings of the National Academy of Sciences*, 201604566.
+  
+  - Revisen también los [apéndices en línea](https://www.pnas.org/content/113/27/7449/tab-figures-data)
   
 ---
 
