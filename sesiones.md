@@ -58,6 +58,9 @@
 
 [Sesión 28](https://rojasirvin.github.io/EPS2020/sesiones/s28/sesion28.html#1). Modelos de impactos en economías locales
 
+[Sesión 29](https://rojasirvin.github.io/EPS2020/sesiones/s29/sesion29.html#1). Aprendizaje automático
+
+
 <!---commented
 
 -->
