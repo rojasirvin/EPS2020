@@ -76,6 +76,19 @@ class: inverse, middle, center
  
 - ML tiene muchos menos resultados teóricos generales
 
+---
+
+# ML en economía
+
+- Usamos datos para resolver problemas
+
+- Deberíamos incorporar más herramientas
+
+- En estadística cada vez es más aceptado el uso de ML
+
+- Tenemos una fortaleza adiciónal: tenemos teoría económica
+
+- Podemos adaptar los métodos de la micro aplicada a la disponibilidad de BD y el uso de ML
 
 ---
 
@@ -86,16 +99,18 @@ class: inverse, middle, center
 `$$Y_i|X_i \sim \mathcal{N}(\alpha+X_i'\beta,\sigma^2)$$`
 
 - Tradicionalmente usamos MCO
-		 
+
+--
+
 - ¿Qué si nos interesa `\(Y_{N+1}?\)`
 
 - Definimos
 
-`$$\hat{Y}_{N+1}=\hat{\alpha}+X_{T+1}'\hat{\beta}$$`
+`$$\hat{Y}_{N+1}=\hat{\alpha}+X_{N+1}'\hat{\beta}$$`
 - Planteamos otra función de pérdida
 
 `$$(Y_{N+1}-\hat{Y}_{N+1})^2$$`
-- Lo cual no produce el estimador de MCO
+- ¿Cómo obtener `\((\hat{\alpha},\hat{\beta})\)` con *buenas* propiedades asociadas a esta función de pérdida?
                                              
 ---
 
@@ -121,11 +136,12 @@ class: inverse, middle, center
                                              
 - Validación: qué tan bien el modelo predice fuera de la muestra
 
-- Escacez: aunque hay muchas características, pocas `\(X_i\)` tienen poder predictivo
+- Escasez: aunque hay muchas características, pocas `\(X_i\)` tienen poder predictivo
 
 - Promedio de modelos: obtener diversos modelos y hacer un promedio ponderado donde los pesos se basan en el poder predictivo fuera de la muestra
 
 - Regulariación: penalizar modelos complejos para prefereir modelos parsimoniosos (que tienen mejor preodicción fuera de la muestra)
+
   
   
 ---
@@ -165,14 +181,14 @@ con `\(||\beta||_q=\sum_{k=1}^{K}|\beta_k|^q\)`
 
 - Errores antes de partir la muestra:
 
-`$$Q \sum_{i=1}^{N}(Y_i-\bar{Y})^2$$`
+`$$Q= \sum_{i=1}^{N}(Y_i-\bar{Y})^2$$`
 
 - Después de partir la muestra:
   
 `$$Q(k,c)=\sum_{i:X_{ik}\leq c}(Y_i-\bar{Y}_{k,c,l})^2+\sum_{i:X_{ik}&gt;c}(Y_i-\bar{Y}_{k,c,l})^2$$`
 
  
-- Optimizar para todos los posibles `\(k\)` y `\(c\)` de tal modo que se minimice `\(Q(k,c)\)`
+- Optimizar para todos los posibles `\(k\)` y `\(c\)` de tal modo que se minimice el error cuadrado promedio `\(Q(k,c)\)`
 
 - Repetir esto para las *hojas* resultantes
 
@@ -199,6 +215,19 @@ con `\(||\beta||_q=\sum_{k=1}^{K}|\beta_k|^q\)`
 
 ---
 
+# Mejores predicciones
+
+- Añadir aleatoriedad puede ayudar a mejorar predicciones
+
+- *Bootstrap*: escoger con remplazo una muestra de tamaño `\(n\)` para estimar la distribución de un estadístico
+
+- *Bagging*: promediar entre modelos estimados con distintas muestras bootstrap
+
+- *Boosting*: estimar modelos repetidamente dándole cada vez más peso a las observaciones incorrectamente clasificadas y usar una regla para elegir la clasificación final (voyo o promedio entre estimaciones)
+
+
+---
+
 # Bosques aleatorios
  
 - Estimar el mismo árbol de regresión con:
@@ -207,7 +236,7 @@ con `\(||\beta||_q=\sum_{k=1}^{K}|\beta_k|^q\)`
   
   - Optimizando con una submuetra aleatoria de características
    
-- En vez de predecir `\(Y_i\)` usando un árbol, predecimos usando el promedio obtenido por el bosque (*bagging*)
+- En vez de predecir `\(Y_i\)` usando un árbol, predecimos usando *bagging* en el bosque
  
  
 ---
