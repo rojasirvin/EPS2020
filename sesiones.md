@@ -60,6 +60,8 @@
 
 [Sesión 29](https://rojasirvin.github.io/EPS2020/sesiones/s29/sesion29.html#1). Aprendizaje automático
 
+[Sesión 30](https://rojasirvin.github.io/EPS2020/sesiones/s30/sesion30.html#1). Conclusión
+
 
 <!---commented
 
