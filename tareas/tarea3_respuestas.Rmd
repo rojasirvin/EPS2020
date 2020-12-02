@@ -1,0 +1,269 @@
+---
+title: |
+  | CIDE
+  | Licenciatura y Maestría en Economía
+  | Evaluación de Programas Sociales
+
+subtitle: "Tarea 3"
+author: "Profesor: Irvin Rojas"
+date: "Fecha de entrega: 12 de noviembre a las 8:00."
+output:
+  html_document:
+  toc: true
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+#library(reticulate)
+library(pacman)
+library(janitor)
+library(sandwich)
+#library(nnet)
+#library(mlogit)
+library(readr)
+library(sandwich)
+library(clubSandwich)
+library(modelsummary)
+library(estimatr)
+library(MatchIt)
+library(cobalt)
+library(rdrobust)
+library(Zelig)
+
+xfun::pkg_load2(c('base64enc', 'htmltools', 'mime'))
+```
+
+
+## Instrucciones
+  
+La tarea debe entregarse de manera individual, pero se recomienda ampliamente colaborar en grupos de estudio. Las secciones teóricas deben estar desarrolladas en un procesador de textos y enviadas en formato .docx o .pdf. Alternativamente, puede escribir sus respuestas en lápiz y papel, con letra legible y adjuntar un escaneo de sus respuestas. Las secciones prácticas deberán contener archivos de código replicable y archivos de salida en R (o similares, en caso de usar otro software) para considerarse completas. Las tareas deben entregarse antes de la fecha límite a través de Teams. Puede crear una carpeta comprimida que contenga todos sus archivos y subir esta carpeta en Teams. Recuerde que en Teams debe asegurarse de que los archivos se han subido correctamente.
+
+## Pregunta 1
+
+[15 puntos] Esta pregunta se refiere al artículo de [Caliendo y Kopeining (2008)](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1467-6419.2007.00527.x?casa_token=V-T01h-0YQ0AAAAA%3ABHpKuhYnNaRoHAgDlgqSZHSbiPo8u1lPi-3igIo4pdrPKoPa-seJlP1zBzCd5n1Se0kXxhZvSJ35pIY)[^1]. La Tabla 1 hace un comparativo en términos de sesgo y varianza de algunas de las decisiones importantes que se deben tomar en el contexto de la estimación del TOT usando *propensity score matching*. Genere una tabla similar agregando una columna después de la de “Sesgo” llamada “Justificación sesgo” y otra después de “Varianza” llamada “Justificación varianza” donde argumente por qué la decisión en cada fila tiene costos y beneficios en términos de sesgo y varianza.
+
+
+| Decisión| 	Sesgo |	Justificación sesgo	| Varianza	| Justificación varianza| 
+|:---|:---:|:---|:---:|:---|
+|Matching por vecino más cercano:	| | | | |			
+|Múltiples vecinos / un solo vecino	| (+)/(-) |	Los vecinos cada vez más lejanos tienen un PS cada vez más diferente, dando lugar a un match de mala calidad. El vecino más cercano en cambio por definición es el más parecido en términos del PS. |	(-)/(+)	| Al usar más de un vecino se usa más información, incrementando la precisión del contractual estimado. | 
+| Con caliper / sin caliper	| (-)/(+)	| Al limitar la distancia máxima dentro de la cual se pueden escoger el o los vecinos más cercanos el contrafactual, reduciendo el sesgo.	| (+)/(-)	| Al usar un caliper se limita la cantidad de matches que pueden ser logrados por lo que se incrementa la varianza. |
+|Uso de los individuos no tratados:	|	 | | | |			
+|Con reemplazo / sin reemplazo	|(-)/(+)	|Con reemplazo hay un grupo potencial más grande de no tratados para hacer el match por lo que el sesgo se reduce al ser más probable el match con individuos más parecidos.|	(+)/(-)	|Al hacer el match con reemplazo el número de individuos diferentes que se emplearán para hacer el match es menor (pues algunos estarán repetidos), reduciendo la cantidad de información y por tanto aumentando la varianza.|
+|Elección del método:		 | | | |		
+|Vecino más cercano / radio	|(-)/(+)|	El sesgo se reduce con el vecino más cercano pues por definición es el más parecido en términos del PS. El match promedio es más pobre al incluir no tratados cada vez más diferentes.	|(+)/(-)|	La precisión del estimador se incrementa al usar más información de individuos no tratados.|
+|Kernel o método lineal local / vecino más cercano	|(+)/(-)	|Al usar kernel o el método lineal local se emplean todas las observaciones de los no tratados, incrementando el sesgo.|	(-)/(+)|	Con kernel o el método lineal local se usa la mayor cantidad de información posible, incrementando la precisión.|
+|Elección de ancho de banda con kernel:	 | | | |					
+|Chico / grande	|(-)/(+)	|El ancho de banda limita las observaciones que serán usadas para estimar el contrafactual. Su función es similar al caliper en vecino más cercano. Un ancho de banda más grande significa que más observaciones usadas como potenciales match hacen que estas sean más diferentes en términos del PS, aumentando el sesgo.	|(+)/(-)	|De forma similar al caliper en vecino más cercano, incrementar el ancho de banda incrementa la información usada para estimar el efecto del tratamiento, incrementando la precisión.|
+|Orden del polinomio con matching con polinomio local: | | | |				
+|Chico / grande	|(+)/(-)	|El matching por el método lineal local es un caso especial del matching de polinomio local cuando el polinomio local es de orden 1. En general, entre más grande sea el orden del polinomio mejor es el ajuste de una regresión local y por tanto el sesgo se reduce.|	(-)/(+)	|La única aplicación que usa el método se encuentra en Ham et al. (2004) y su trabajo no muestra conclusivamente por qué la varianza aumenta cuando se usa un polinomio de orden menor. En general, esto depende de la naturaleza específica del proceso modelado.|
+
+[^1]: Caliendo, M., & Kopeinig, S. (2008). Some practical guidance for the implementation of propensity score matching. *Journal of economic surveys*, 22(1), 31-72.
+
+## Pregunta 2
+
+El siguiente ejercicio se refiere a los datos *programa_regularizacion.csv*. Esta base contiene una muestra de 4 mil estudiantes. La variable de resultados es la calificación de una prueba estandarizada de matemáticas. La variable **asesoria** indica si el estudiante recibió asesorías en el verano anterior como parte de un programa de regularización académica. Otras variables incluidas en la base de datos son: la distancia (estandarizada) a la escuela, la educación (estandarizada) de la madre, el valor monetarios de los activos del hogar y un índice (estandarizado) de pobreza.
+
+a. [5 puntos] Estime el *propensity score* usando el modelo de probabilidad no lineal de su elección para la variable de tratamiento **asesoria**. Justifique la elección de la especificación del modelo de probabilidad no lineal.
+
+   *En este caso no hay una respuesta correcta o incorrecta. Los datos usados en esta pregunta en realidad fueron datos simulados. Las respuestas a las partes a.–d. emplean el propensity score usando las variables que dieron origen al proceso verdadero. Se otorgará crédito completo a todas las especificaciones del propensity score que estén apropiadamente argumentadas.*
+    
+    *El efecto simulado verdadero es de exactamente 0.2. El proceso simulado es como sigue:*
+    
+    *i. Se generaron las siguientes variables aleatorias:* $$ x_1,x_2,x_5,x_6, u, v \sim \mathcal{N}(0,1) \\ x_3=abs(x_3^*)^3,\quad x_3^*\sim U[-10,1] \\x_4=(x_4^*)^2,\quad x_4^* \sim \mathcal{N}(2,1) $$
+    
+    *ii. Se generó una regla para recibir el tratamiento dada por:* $$t^*=2+3x_1+2x_2-0.5x_2^2-2x_6+v \\ t=\begin{cases} 1,\quad t^*> p_{75}(t^*) \\0,\quad t \leq p_{75}(t^*) \\ \end{cases} $$ *donde $p_{75}$ es el percentil 75 de $t^*$. Este proceso aproxima la regla de asignación de un programa para individuos que cumplan con un límite mínimo de cierto índice. Para evitar que la asignación quede exactamente determinada se sustituyen algunos valores 0 por 1 y algunos valores 1 por 0 de forma aleatoria.*
+    
+    *iii. Se genera el proceso de la variable de resultados como sigue:* $$y_0=50-0.5x_1+u$$
+    
+    *iv. Se simula el efecto de tratamiento constante $\tau=0.2$*: $$y=y_0+0.2t$$
+    
+    *v. Simplemente se renombran las variables con nombres intuitivos:*
+    
+    | | nombre en programa_regularizacion.csv |
+    |:---:|:---:|
+    | $y$ | calificacion|
+    | $t$ | asesoria |
+    | $x_1$ | escuela_dist |
+    | $x_2$ | educacion_madre |
+    | $x_3$ | activos |
+    | $x_4$ | consumo_calorico |
+    | $x_6$ | pobreza_ind |
+    
+    *Por lo anterior, el modelo verdadero debería incluir en el probit a escuela_dist, educacion_madre, educacion_madre^2 y $pobreza_ind$.*
+    
+    *Usted puede experimentar con diversas especificaciones y notará que, incluso empleando el modelo verdadero para el probit, en esta aplicación, no todos los algoritmos de matching garantizan obtener exactamente 0.2 como efecto de tratamiento. Algunos métodos se aproximan más que otros al efecto verdadero. En esta aplicación, usando tres vecinos más cercanos, se obtiene un efecto estimado de 0.2091 (e.e. 0.0395).*
+
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+    
+data.reg<-read_csv(
+  "./programa_regularizacion.csv",
+  locale = locale(encoding = "latin1"))
+
+m.out <- matchit(formula=asesoria ~ escuela_dist+educacion_madre+I(educacion_madre^2)+pobreza_ind,
+                 method = "nearest",
+                 ratio=3,
+                 data = data.reg)
+summary(m.out)
+
+
+z.out <- zelig(calificacion~asesoria+escuela_dist+educacion_madre+I(educacion_madre^2)+pobreza_ind,
+               data = match.data(m.out),
+               model = "ls")
+summary(z.out)
+``` 
+
+a. [5 puntos] Genere una gráfica que represente la región de soporte común que resulta de la especificación elegida.
+
+    *Aquí usé la paquetería cobalt. Un gráfico de la distribución:*
+
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+bal.plot(m.out, var.name = "distance")
+```
+
+    *Podemos hacer este tipo de histograma bastante usado en revistas científicas:*
+
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+bal.plot(m.out, var.name = "distance", mirror = TRUE, type = "histogram")
+``` 
+
+a. [10 puntos] Estime el TOT por el método de vecino más cercano usando la especificación para el propensity score elegida anteriormente.
+
+    *Estimamos usando un vecino más cercano:*
+
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+m.out <- matchit(formula=asesoria ~ escuela_dist+educacion_madre+I(educacion_madre^2)+pobreza_ind,
+                 method = "nearest",
+                 ratio=1,
+                 data = data.reg)
+
+z.out <- zelig(calificacion~asesoria+escuela_dist+educacion_madre+I(educacion_madre^2)+pobreza_ind,
+               data = match.data(m.out),
+               model = "ls")
+summary(z.out)
+``` 
+
+a. [5 puntos] Estime el TOT por el método de radio usando la especificación para el propensity score elegida anteriormente. Justifique la elección del número de vecinos y el tamaño del caliper.
+
+    *Ahora usamos tres vecinos con un caliper de 0.05:*
+
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+m.out <- matchit(formula=asesoria ~ escuela_dist+educacion_madre+I(educacion_madre^2)+pobreza_ind,
+                 method = "nearest",
+                 ratio=3,
+                 caliper=0.05,
+                 data = data.reg)
+
+z.out <- zelig(calificacion~asesoria+escuela_dist+educacion_madre+I(educacion_madre^2)+pobreza_ind,
+               data = match.data(m.out),
+               model = "ls")
+summary(z.out)
+``` 
+
+## Pregunta 3
+
+Suponga que se convierte en asesor de la instancia gubernamental encargada de la seguridad alimentaria. Al gobierno le interesa que la seguridad alimentaria de las familias productoras de maíz para autoconsumo no se vea afectada negativamente por la presencia de cierta plaga y dará una transferencia per cápita a todos los pequeños productores de maíz cuyos cultivos se considere están afectados por dicha plaga. Para determinar qué hogares reciben la transferencia se decide usar un índice de prevalencia de la plaga y se selecciona un umbral por arriba del cual está demostrado que los rendimientos del cultivo del maíz se ven seriamente afectados. Esta inspección se llevará a cabo por autoridades federales y el umbral es conocido solo por estas autoridades. Cuando se determine que la prevalencia está por encima del umbral, el monto del programa será transferido de manera inmediata, electrónicamente.
+
+a. [5 puntos] ¿Qué aspectos del programa permitirían emplear un diseño de regresión discontinua para evaluar la efectividad de este sobre la seguridad alimentaria y cómo mostraría su validez empíricamente?
+
+    *En este caso podemos usar el método de regresión discontinua por las siguientes razones:*
+    
+    *i.	La variable de selección es continua.*
+    
+    *ii.	Es estatus de tratamiento es una función determinística de la posición de la variable de selección respecto al umbral.*
+    
+    *iii.	La probabilidad de recibir el tratamiento es discontinua en el umbral.*
+    
+    *iv.	Los productores no pueden manipular la prevalencia de la plaga para posicionarse estratégicamente por encima del umbral.*
+
+a. [5 puntos] ¿Cómo emplearía el diseño de este programa para evaluar su efectividad con un modelo de regresión discontinua nítida? Elabore una gráfica donde explique una situación en la que el programa muestra ser efectivo. Describa cómo usaría una regresión para hacer inferencia respecto a la efectividad del programa.
+
+    *La forma gráfica de inspeccionar la presencia de una regresión consiste en graficar la variable de resultados en función de la variable de asignación.En este caso, esperaríamos que las familias que están por encima del umbral tengan una diferencia notable en términos de seguridad alimentaria si la transferencia empleada se usa para comprar alimentos.*
+    
+    *Paramétricamente, la forma más sencilla de identificar el efecto de la discontinuidad es especificando una regresión como sigue:* $$y_i=\alpha+\tau D_i+ \beta x_i+\varepsilon_i$$ *donde $x_i$ es la variable de selección y $D_i$ es una variable indicadora que toma el valor de uno cuando el índice de prevalencia de la plaga rebasa el umbral. Controlar por $x_i$ captura la relación que tiene la prevalencia de la plaga en la seguridad alimentaria, por ejemplo, vía los rendimientos. Se recomiendan al menos dos tipos de procedimientos más completos para comprobar la robustez de los efectos encontrados.*
+    
+    *El primero es incluir un polinomio lo suficientemente flexible de $x_i$:* $$y_i=\alpha+\tau D_i+ Bf(x_i)+\varepsilon_i$$
+
+    *El segundo consiste en permitir que la pendiente sea diferente antes y después de la discontinuidad:* $$y_i=\alpha+\tau D_i+ +\beta_0(x_i-x_0)+\beta_1(x_i-x_0)D_i+\varepsilon_i$$
+    
+    *Más aún, es posible combinar estas dos posibilidades para dar lugar a modelos más flexibles. Se espera que las conclusiones sean robustas al uso de modelos extremadamente complejos.*
+
+a. [5 puntos] ¿Qué factores podrían invalidar el uso de este método para evaluar el programa?
+
+    *La principal preocupación es la posibilidad de manipulación de la prevalencia de la plaga para que la medición lo clasifique como receptor del programa. Podemos pensar en situaciones donde esto pudiera suceder con un individuo altamente sofisticado que pudiera manipular la presencia de la plaga de forma estratégica. Pensando que esto es costoso, el individuo estratégicamente debería seleccionar un punto justo por encima del umbral. Aunque difícil de suceder esta posibilidad podría investigarse empíricamente, por ejemplo, verificando que no haya “amontonamientos” justo por encima de la discontinuidad.*
+    
+    *Si existiera corrupción y muchos no elegibles recibieran la transferencia o si las familias no gastaran la transferencia en alimentos que mejoren su seguridad alimentaria el diseño también estaría comprometido.*
+
+a. Suponga que otro de los asesores juzga como *demasiado paternalista* la transferencia y propone que, en su lugar, se otorgue un cupón válido para canjearse por bultos de un plaguicida. Asumiendo que en una encuesta posterior usted podría conocer la cantidad precisa de plaguicida aplicado, ¿cómo emplearía un diseño de regresión discontinua difusa para evaluar el efecto del uso del plaguicida sobre la seguridad alimentaria? En particular, describa:
+    i. [5 puntos] ¿Cómo estimaría la forma reducida? ¿Cuál es el coeficiente relevante y cuál es su interpretación?
+    
+        *El problema puede ser visto entonces como un diseño de regresión discontinua difusa. La discontinuidad define la intensidad del tratamiento, en este caso dada por la cantidad de plaguicida efectivamente aplicado. La forma reducida se estima con una regresión de la variable de resultados sobre el instrumento. Al igual que cuando se estudió la interpretación del LATE, este coeficiente da la correlación entre la seguridad alimentaria y el estado del tratamiento, pero no toma en cuenta que la seguridad alimentaria también depende de la cantidad de plaguicida usado, una decisión endógena.*
+    
+    i. [5 puntos] ¿Cómo estimaría la primera y la segunda etapa? ¿Cuáles son los coeficientes relevantes y cuál es su interpretación? 
+        *La primera etapa consiste en estimar la relación entre la variable endógena y el instrumento. En este caso, el instrumento es una variable indicadora que toma valor de 1 si la prevalencia de la plaga rebasa el umbral. La decisión endógena es la cantidad de plaguicida empleado. Se estima por una regresión de la variable endógena en función del instrumento.*
+        
+        *La segunda etapa consiste en estimar el efecto sobre la seguridad alimentaria de la cantidad plaguicida que predice el instrumento. Conceptualmente es como si se corriera una regresión de la variable de seguridad alimentaria en función de los valores ajustados en la primera etapa de la cantidad de plaguicida empleado. En la práctica, nunca se estiman dos regresiones separadas, sino que se usa la definición del estimador de mínimos cuadrados en dos etapas. El coeficiente es el efecto del uso de plaguicida en la seguridad alimentaria.*
+
+    i. [5 puntos] ¿Cuáles son los supuestos necesarios para estimar este modelo usando mínimos cuadrados en dos etapas?
+    
+        *Los supuestos econométricos para la estimación del modelo de regresión discontinua difusa son los mismos que para cualquier otro problema de variables instrumentales: 1) Exclusión: el instrumento no pertenece a la ecuación estructural; y 2) Relevancia de la primera etapa: el instrumento está correlacionado con la variable endógena.*
+
+
+## Pregunta 4
+
+El siguiente problema se basa en una publicación reciente de [Calonico, Cattaneo, Farrell y Titiunik (2019)](https://www.mitpressjournals.org/doi/abs/10.1162/rest_a_00760?casa_token=Wv2N-8gNbuMAAAAA:zHeO_SF71MLac4gXXD6R7doFoV3esEvX_ppfXSGxBelHJClX1sJ0Y-wfEUdehni84shl6-YnOCteN7U)[^2]. La base de datos *headstar.csv* contiene información de 2,810 condados de los Estados Unidos. La variable **mort_age59_related_postHS** indica la mortalidad infantil en cada uno de los condados. El programa Head Star otorgó fondos de su componente de salud a todos los condados con un índice de pobreza superior a 59.1984. La variable **povrate60** es el índice de pobreza para cada condado. Se desea estimar el efecto del programa en la mortalidad infantil empleando un diseño de regresión discontinua.
+
+[^2]: Calonico, S., Cattaneo, M. D., Farrell, M. H., & Titiunik, R. (2019). Regression discontinuity designs using covariates. *Review of Economics and Statistics*, 101(3), 442-451.
+
+a. [10 puntos] Genere una gráfica donde muestre evidencia de una discontinuidad en la tasa de mortalidad para aquellos condados que recibieron fondos del programa.
+
+    *Podemos usar rdplot de la librería rdrobust. Aquí, c indica la posición del corte y p el orden del polinomio que queremos ajustar. Hay evidencia de una discontinuidad en la mortalidad infantil para en los condados donde no se otorgó el programa.*
+
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+data.hs<-read_csv(
+  "./headstar.csv",
+  locale = locale(encoding = "latin1"))
+
+
+(rdplot(y = data.hs$mort_age59_related_postHS,
+        x = data.hs$povrate60,
+       c=59.1984,
+       p=2))
+``` 
+
+a. [10 puntos] Estime la versión más básica de un modelo de regresión discontinua. Reporte el coeficiente estimado del efecto del tratamiento y su significancia estadística. Interprete su resultado.
+
+    *Podemos estimar el salto en la discontinuidad como:*
+    
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+data.hs <- data.hs %>% 
+  mutate(aboveline=ifelse(belowline==1,0,1))
+    
+summary(lm(mort_age59_related_postHS ~ povrate60 + aboveline,
+           data=data.hs))
+```
+
+    *Restringiendo la ventana al valor de h descrito en la Tabla 1 del artículo (6.81). Obtenemos un efecto de -1.8355 (e.e. 1.0560):*
+    
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+summary(lm(mort_age59_related_postHS ~ povrate60 + aboveline,
+           data=filter(data.hs, povrate60>=59.1984-6.81 & povrate60<=59.1984+6.81)))
+```
+
+
+a. [10 puntos] En el artículo de Calonico et al. (2019) se reportan los resultados al emplear un modelo flexible de regresión discontinua con controles. Los controles están incluidos en la misma base de datos, sin embargo, los autores no reportan la forma precisa en que realizan esta estimación. Proponga un modelo con controles y con un ancho de ventana. Use la función *rdbwselect* para explorar algunas posibilidades de ancho de ventana elegidos de manera óptima y compare sus resultados con los reportados en el artículo.
+
+    *Aquí se las puse muy fácil porque el artículo cita el repositorio donde están los datos y códigos de replicación. Esto está perfecto. Mi idea era que lo interpretaran, reprodujeran y, quizás más importante, que tuvieran más recursos para eventualmente aplicarlos en sus investigaciones.*
+    
+    *Usando rdrobust, podemos seleccionar el ancho de banda óptimo. El panel superior de la primer columna se obtiene de forma directa con:*
+    
+    ```{r tidy=TRUE, include=T,echo=T,collapse=TRUE,warning=FALSE, message=FALSE}
+summary(rdrobust(y=data.hs$mort_age59_related_postHS,
+         x=data.hs$povrate60,
+         c=59.1984))
+```
+
+    *El efecto estimado es de -2.409. El ancho de banda óptimo es 6.810*
+
+    *Pueden consultar el resto de los resultados en el script que les envié por correo.*
